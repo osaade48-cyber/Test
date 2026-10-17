@@ -14,7 +14,8 @@ const base = (over: Partial<Listing>): Listing & { effectivePrice: number } => {
 
 describe("buyerFee", () => {
   it("is 5% + $1.50", () => expect(buyerFee(20)).toBe(2.5));
-  it("caps at $15", () => expect(buyerFee(1220)).toBe(15));
+  it("caps at $30", () => expect(buyerFee(1220)).toBe(30));
+  it("is uncapped just under the cap", () => expect(buyerFee(500)).toBe(26.5));
   it("is zero for an empty order", () => expect(buyerFee(0)).toBe(0));
 });
 
@@ -37,7 +38,7 @@ describe("priceOrder", () => {
   it("pickup has no postage", () => {
     const p = priceOrder([base({ price: 650, category: "prams", isLargeItem: true, delivery: { pickup: true, meetup: true } })], "pickup", { sellerSuburb: "Dural" });
     expect(p.postage).toBe(0);
-    expect(p.total).toBe(665);
+    expect(p.total).toBe(680);
     expect(p.postageLabel).toBe("Pickup in Dural · no postage");
   });
 
