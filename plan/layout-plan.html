@@ -268,6 +268,28 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
 .next div { font-size: 11.5px; color: var(--muted); }
 .next b { display: block; color: var(--fg); font-family: var(--display); font-size: 12.5px; }
 
+/* site map */
+.pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 32px; }
+.pg { border: 1px solid var(--line); border-radius: 14px; background: var(--char-2); overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-width: 0; }
+.pg .url { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--char-3); border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.pg .url i { width: 7px; height: 7px; border-radius: 50%; background: #4a4f55; }
+.pg .url b { margin-left: 6px; color: var(--fg); font-weight: 500; }
+.pg .top { padding: 14px 14px 0; }
+.pg h4 { font-size: 17px; font-weight: 700; }
+.pg .job { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.pg ol { list-style: none; margin: 0; padding: 12px 14px 14px; display: grid; gap: 4px; align-content: start; }
+.pg li { display: grid; grid-template-columns: 30px 1fr; gap: 8px; align-items: center; font-size: 12.5px; color: #D6D4D1; }
+.pg li .bar { height: 12px; border-radius: 3px; }
+.pg.home { border-color: var(--orange); }
+.pg .nx { padding: 10px 14px; border-top: 1px dashed var(--line); font-family: var(--mono); font-size: 11px; color: var(--orange-ink); }
+.small-pages { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; }
+.small-pages span { font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 8px; border: 1px dashed var(--line); color: var(--muted); }
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; padding: 16px 18px; border-radius: 14px; background: var(--orange-soft); border: 1px solid rgba(242,106,27,.4); }
+.path .st { font-family: var(--display); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 999px; background: var(--char); border: 1px solid var(--line); }
+.path .st.end { background: var(--orange); border-color: var(--orange); color: #fff; }
+.path .arr { color: var(--orange-ink); font-weight: 700; }
+.lives { flex-basis: 100%; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+
 /* placeholders + tech */
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
 .card { border: 1px solid var(--line); border-radius: 14px; padding: 22px; background: var(--char-2); min-width: 0; }
@@ -314,7 +336,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
     <p class="lede">This is the blueprint for tradebooked.com.au. Every section of the site is shown as a mini mockup in your colours and fonts, with draft copy and notes on how it moves. The animated call, the calculator, the "two endings" switch and the FAQ already work here, so you can get a feel for them.</p>
     <div class="meta">
       <span class="mono">Draft v1 · 23 Oct 2026</span>
-      <span class="mono">Mobile-first · 13 sections</span>
+      <span class="mono">Mobile-first · 7 main pages + 3 small ones</span>
       <span class="mono">Orange tags = placeholders I need from you</span>
     </div>
   </div>
@@ -342,20 +364,17 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
         </div>
       </div>
 
-      <div class="rhythm" aria-label="Page rhythm from top to bottom">
-        <span class="mono">Page rhythm, top to bottom</span>
+      <div class="rhythm" aria-label="Home page rhythm from top to bottom">
+        <span class="mono">Home page rhythm, top to bottom</span>
         <ol>
           <li><div class="bar bg-dark"></div>Nav + hero call<span class="tag">gain</span></li>
           <li><div class="bar bg-dark"></div>Missed-call stats<span class="tag">loss</span></li>
           <li><div class="bar bg-split"></div>Same call, two endings<span class="tag">loss / gain</span></li>
-          <li><div class="bar bg-paper"></div>Cost calculator<span class="tag">loss</span></li>
-          <li><div class="bar bg-paper"></div>How it works<span class="tag">trust</span></li>
-          <li><div class="bar bg-dark"></div>Talk to my AI<span class="tag">act</span></li>
-          <li><div class="bar bg-paper"></div>Services<span class="tag">gain</span></li>
-          <li><div class="bar bg-paper"></div>Pricing<span class="tag">act</span></li>
-          <li><div class="bar bg-dark"></div>My story<span class="tag">trust</span></li>
-          <li><div class="bar bg-paper"></div>FAQ<span class="tag">trust</span></li>
-          <li><div class="bar bg-orange"></div>Book a chat<span class="tag">act</span></li>
+          <li><div class="bar bg-paper"></div>Quick cost check → Pricing<span class="tag">loss</span></li>
+          <li><div class="bar bg-paper"></div>Services snapshot → Services<span class="tag">gain</span></li>
+          <li><div class="bar bg-dark"></div>Ring my AI strip → How it works<span class="tag">act</span></li>
+          <li><div class="bar bg-dark"></div>Story teaser → My story<span class="tag">trust</span></li>
+          <li><div class="bar bg-orange"></div>Book a chat strip<span class="tag">act</span></li>
           <li><div class="bar bg-dark"></div>Footer<span class="tag"></span></li>
         </ol>
       </div>
@@ -370,9 +389,68 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
   </div>
 </section>
 
+<section class="block" id="sitemap">
+  <div class="wrap">
+    <span class="kicker">Site map</span>
+    <h2>Seven pages, each with one job.</h2>
+    <p class="intro">The home page tells the story and lands the big hit. Each other page goes deeper on one thing, and every page ends by pointing to the next step, so nobody hits a dead end. "Book a chat" is always one tap away in the menu and the mobile thumb bar.</p>
+    <div class="pages">
+        <div class="pg home">
+          <div class="url"><i></i><i></i><i></i><b>tradebooked.com.au</b></div>
+          <div class="top"><h4>Home</h4><p class="job">Hooks them in 10 seconds and shows what missed calls cost.</p></div>
+          <ol><li><div class="bar bg-dark"></div>Hero with live sample call</li><li><div class="bar bg-dark"></div>Missed-call stats</li><li><div class="bar bg-split"></div>Same call, two endings</li><li><div class="bar bg-paper"></div>Quick cost check (1 slider)</li><li><div class="bar bg-paper"></div>Services snapshot</li><li><div class="bar bg-dark"></div>"Ring my AI" strip</li><li><div class="bar bg-dark"></div>Story teaser</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → How it works</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/how-it-works</b></div>
+          <div class="top"><h4>How it works</h4><p class="job">Shows how easy setup is, then lets them hear it for themselves.</p></div>
+          <ol><li><div class="bar bg-paper"></div>3 steps, in detail</li><li><div class="bar bg-paper"></div>What your text summary looks like</li><li><div class="bar bg-dark"></div>Talk to my AI receptionist</li><li><div class="bar bg-dark"></div>Sample call recordings</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → Pricing</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/services</b></div>
+          <div class="top"><h4>Services</h4><p class="job">Everything it does, each shown as the real message it sends.</p></div>
+          <ol><li><div class="bar bg-paper"></div>Six services bento</li><li><div class="bar bg-paper"></div>One block per service with SMS thread</li><li><div class="bar bg-dark"></div>Works for your trade</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → Pricing</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/pricing</b></div>
+          <div class="top"><h4>Pricing</h4><p class="job">Turns the loss into dollars, then makes the price look small.</p></div>
+          <ol><li><div class="bar bg-paper"></div>Full cost calculator</li><li><div class="bar bg-paper"></div>Three plans, Growth highlighted</li><li><div class="bar bg-paper"></div>Compare what's in each plan</li><li><div class="bar bg-paper"></div>Pricing questions</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → Book a chat</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/my-story</b></div>
+          <div class="top"><h4>My story</h4><p class="job">Proves it was built by a real tradie on real jobs.</p></div>
+          <ol><li><div class="bar bg-dark"></div>Photo on the machine + headline</li><li><div class="bar bg-paper"></div>The story, in your words</li><li><div class="bar bg-paper"></div>Before and after at Avera Earthworx</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → Book a chat</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/faq</b></div>
+          <div class="top"><h4>FAQ</h4><p class="job">Knocks over the doubts that stop people booking.</p></div>
+          <ol><li><div class="bar bg-paper"></div>Questions in groups: calls, setup, cost</li><li><div class="bar bg-dark"></div>"Still unsure? Ring my AI"</li><li><div class="bar bg-orange"></div>Book a chat strip</li></ol>
+          <div class="nx">Next → Book a chat</div>
+        </div>
+        <div class="pg">
+          <div class="url"><i></i><i></i><i></i><b>/book</b></div>
+          <div class="top"><h4>Book a chat</h4><p class="job">Where every page leads. Short, easy, no hard sell.</p></div>
+          <ol><li><div class="bar bg-dark"></div>Book a chat form</li><li><div class="bar bg-dark"></div>What happens next</li><li><div class="bar bg-paper"></div>Or ring my AI right now</li></ol>
+          <div class="nx">Then → Thanks page</div>
+        </div>
+    </div>
+    <div class="small-pages"><span style="border:0; padding:6px 0">Plus 3 small pages:</span><span>/thanks</span><span>/privacy</span><span>/terms</span></div>
+    <div class="path" aria-label="The path most visitors take">
+      <span class="mono" style="color:var(--fg); margin-right:6px">The main path:</span>
+      <span class="st">Home</span><span class="arr">→</span><span class="st">How it works</span><span class="arr">→</span><span class="st">Pricing</span><span class="arr">→</span><span class="st end">Book a chat</span>
+    </div>
+    <p class="intro" style="font-size:15px">Menu on every page: How it works · Services · Pricing · My story · FAQ · <strong style="color:var(--orange-ink)">Book a chat</strong>. Later, for Google, one page per trade (plumbers, sparkies, excavation) can slot in under Services.</p>
+  </div>
+</section>
+
 <section class="block" style="padding-block: 24px 0; border-bottom: 0;">
   <div class="wrap">
     <span class="kicker">Section by section</span>
+    <p class="intro" style="margin-top:10px">Each section below is tagged with the page it lives on.</p>
   </div>
 </section>
 
@@ -384,7 +462,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       <div class="chrome"><i></i><i></i><i></i><span>tradebooked.com.au</span></div>
       <div class="navmk">
         <div class="brand" style="font-size:15px"><span class="mark" style="width:22px;height:22px;border-radius:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>TradeBooked</div>
-        <div class="links"><span>How it works</span><span>Pricing</span><span>My story</span><span>FAQ</span></div>
+        <div class="links"><span>How it works</span><span>Services</span><span>Pricing</span><span>My story</span><span>FAQ</span></div>
         <span class="btn o">Book a chat</span>
       </div>
       <div style="height:70px; background:#17191B; display:grid; place-items:center;"><span class="mono">On phones the top links fold away and this bar sits at the bottom ↓</span></div>
@@ -394,7 +472,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">01</span><h3>Navigation</h3></div>
+      <div class="lot-head"><span class="lot-no">01</span><h3>Navigation</h3><span class="lives">Lives on: Every page</span></div>
       <ul>
         <li>Slim, sticky, goes see-through as you scroll so it never covers the content.</li>
         <li>On mobile, a <strong>thumb bar fixed to the bottom</strong> with the two things that matter: hear a demo call, or book a chat. Easy to hit with one hand on site.</li>
@@ -430,7 +508,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">02</span><h3>Hero with live sample call</h3></div>
+      <div class="lot-head"><span class="lot-no">02</span><h3>Hero with live sample call</h3><span class="lives">Lives on: Home</span></div>
       <div class="copy">
         <div class="h">"You're on the tools. We'll get the phone."</div>
         <div class="s">Other headlines: "Every missed call is a job for someone else." / "Miss the call. Not the job."</div>
@@ -459,7 +537,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">03</span><h3>Real missed-call statistics</h3></div>
+      <div class="lot-head"><span class="lot-no">03</span><h3>Real missed-call statistics</h3><span class="lives">Lives on: Home</span></div>
       <ul>
         <li>Three huge orange numbers that count up as they scroll into view. Dark background, nothing else to look at.</li>
         <li>These are the most widely quoted figures. Most come from US studies, so before the build <strong>I'll check each source</strong>, add a small citation link, and swap in Australian data wherever I can find it. No made-up numbers.</li>
@@ -506,7 +584,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">04</span><h3>"Same call. Two endings."</h3></div>
+      <div class="lot-head"><span class="lot-no">04</span><h3>"Same call. Two endings."</h3><span class="lives">Lives on: Home</span></div>
       <ul>
         <li>The signature section, and the bit nobody else has. On desktop it's a <strong>scroll-driven split screen</strong>: as you scroll, both timelines play out side by side. The grey side drains of colour; the orange side lights up.</li>
         <li>On phones it becomes the switch above. <strong>Try it.</strong> Flicking between the two endings shows the loss better than any paragraph could.</li>
@@ -540,7 +618,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">05</span><h3>Missed-call cost calculator</h3></div>
+      <div class="lot-head"><span class="lot-no">05</span><h3>Missed-call cost calculator</h3><span class="lives">Lives on: Pricing page · teaser on Home</span></div>
       <ul>
         <li>Three plain questions, answered with sliders built for thumbs. No percentages to work out, just "out of 10 callers".</li>
         <li>One big answer: what they're missing out on each year, and how many jobs a month that is. Then one line comparing it to the $400 plan.</li>
@@ -566,7 +644,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">06</span><h3>How it works</h3></div>
+      <div class="lot-head"><span class="lot-no">06</span><h3>How it works</h3><span class="lives">Lives on: How it works page</span></div>
       <ul>
         <li>Three real steps, so they get numbers. A dashed "service line" joins them, and an orange dot travels along it as you scroll.</li>
         <li>Each step opens to show a real screen: the call-forward setting on a phone, a sample call script, the text you'd get.</li>
@@ -594,7 +672,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">07</span><h3>"Talk to my AI receptionist"</h3></div>
+      <div class="lot-head"><span class="lot-no">07</span><h3>"Talk to my AI receptionist"</h3><span class="lives">Lives on: How it works page · strip on Home</span></div>
       <div class="copy">
         <div class="h">The boldest move on the page: a real number they can ring.</div>
         <div class="s">Tradies trust what they can test. A live call beats any claim we make.</div>
@@ -625,7 +703,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">08</span><h3>Services</h3></div>
+      <div class="lot-head"><span class="lot-no">08</span><h3>Services</h3><span class="lives">Lives on: Services page · snapshot on Home</span></div>
       <ul>
         <li>A "bento" grid, with call answering as the big hero tile. Every tile shows the <strong>actual text message</strong> it sends, not an icon and a paragraph. Tradies get it at a glance.</li>
         <li>Tap a tile and its message animates in like a real SMS thread.</li>
@@ -649,7 +727,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">09</span><h3>Pricing</h3></div>
+      <div class="lot-head"><span class="lot-no">09</span><h3>Pricing</h3><span class="lives">Lives on: Pricing page</span></div>
       <ul>
         <li>Three plans, Growth lifted up and outlined in orange as the obvious pick.</li>
         <li>Under the cards, a payback line pulls in the number from their calculator: "You said you lose ~$21,700 a month. Growth is $400."</li>
@@ -676,7 +754,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">10</span><h3>My story</h3></div>
+      <div class="lot-head"><span class="lot-no">10</span><h3>My story</h3><span class="lives">Lives on: My story page · teaser on Home</span></div>
       <ul>
         <li>This is your biggest edge. It wasn't built by a tech company guessing at what tradies need. It was built by a tradie, for their own business first.</li>
         <li>Full-bleed photo of you on site, a short story in your own words, and a "before and after" from your own business.</li>
@@ -701,7 +779,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">11</span><h3>FAQ</h3></div>
+      <div class="lot-head"><span class="lot-no">11</span><h3>FAQ</h3><span class="lives">Lives on: FAQ page · pricing questions also on Pricing</span></div>
       <ul>
         <li>Simple tap-to-open list (tap them on the left). Answers are short and blunt.</li>
         <li>Planned questions: AI or not, keep my number, emergencies, contracts, setup time, calendar sync, what it costs per call, what happens after hours, does it work for my trade.</li>
@@ -735,7 +813,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">12</span><h3>"Book a chat" form</h3></div>
+      <div class="lot-head"><span class="lot-no">12</span><h3>"Book a chat" form</h3><span class="lives">Lives on: Book a chat page · short version at the end of every page</span></div>
       <ul>
         <li>Short form: big inputs, trade as tap chips, no fiddly dropdowns. Their calculator figure carries in automatically.</li>
         <li>Thank-you screen: "Legend. I'll call you [time]."</li>
@@ -755,7 +833,7 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
       </div>
     </div>
     <div class="brief">
-      <div class="lot-head"><span class="lot-no">13</span><h3>Footer</h3></div>
+      <div class="lot-head"><span class="lot-no">13</span><h3>Footer</h3><span class="lives">Lives on: Every page</span></div>
       <ul>
         <li>Ends on a huge orange sign-off line, plus contact details, ABN, privacy and terms (needed because the AI handles callers' details).</li>
         <li><span class="ph">ABN</span> <span class="ph">CONTACT EMAIL</span> <span class="ph">SOCIALS</span></li>
@@ -811,8 +889,8 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
   <div class="wrap">
     <div class="box">
       <span class="mono" style="color:rgba(255,255,255,.8)">Your call</span>
-      <h2>Happy with the layout?</h2>
-      <p>Tell me what to change: swap the headline, reorder sections, cut anything. Or just say <code>build it</code> and I'll turn this into the full working site.</p>
+      <h2>Happy with the pages and layout?</h2>
+      <p>Tell me what to change: add or merge pages, swap the headline, cut anything. Or just say <code>build it</code> and I'll turn this into the full working site.</p>
     </div>
   </div>
 </section>
