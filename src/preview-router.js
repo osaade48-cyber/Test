@@ -4,6 +4,15 @@
   var cta = document.getElementById('tb-cta');
 
   function show(slug, anchor, query) {
+    if (document.startViewTransition && pages.some(function (p) { return !p.hidden; })) {
+      var ok = pages.some(function (p) { return p.dataset.slug === slug; });
+      if (ok) document.startViewTransition(function () { swap(slug, anchor, query); });
+      return ok;
+    }
+    return swap(slug, anchor, query);
+  }
+
+  function swap(slug, anchor, query) {
     var page = pages.filter(function (p) { return p.dataset.slug === slug; })[0];
     if (!page) return false;
     pages.forEach(function (p) { p.hidden = p !== page; });
@@ -22,6 +31,7 @@
     var target = anchor && document.getElementById(anchor);
     if (target) target.scrollIntoView({ behavior: 'instant' });
     else window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.TB_relayout) window.TB_relayout();
     window.dispatchEvent(new Event('scroll'));
     return true;
   }

@@ -24,27 +24,45 @@ nav: home
     </div>
   </section>
 
-  <!-- The problem -->
-  <section class="section section--deep" aria-labelledby="stats-title">
+  <!-- The problem: three animated stat scenes -->
+  <section class="section section--deep stats-story" data-stats aria-labelledby="stats-title">
     <div class="container">
       <div class="section-head">
-        <h2 class="h-lg" id="stats-title">Every missed call is a job for someone else.</h2>
-        <p class="lede">You can't answer the phone from a machine, a roof or a client's kitchen. Your customers won't wait.</p>
+        <h2 class="h-lg" id="stats-title">Every missed call is a job for <span class="accent">someone else.</span></h2>
       </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat__n">62<small>%</small></div>
-          <p class="stat__l">of calls to small businesses aren't answered by a person</p>
-        </div>
-        <div class="stat">
-          <div class="stat__n">78<small>%</small></div>
-          <p class="stat__l">of people have given up on a business because nobody answered</p>
-        </div>
-        <div class="stat">
-          <div class="stat__n">1<small> in </small>5</div>
-          <p class="stat__l">ring the next business straight away</p>
+    </div>
+    <div class="stats-track">
+      <div class="stats-sticky">
+        <div class="container stats-stage">
+          <ol class="stats-dots" aria-hidden="true"><li></li><li></li><li></li></ol>
+
+          <article class="scene" data-scene="0">
+            <div class="scene__text">
+              <p class="scene__n"><span data-to="62">62</span>%</p>
+              <h3 class="scene__cap">of calls to small businesses go unanswered.</h3>
+            </div>
+            <div class="scene__vis scene__vis--phones" data-vis="phones" aria-hidden="true"></div>
+          </article>
+
+          <article class="scene" data-scene="1">
+            <div class="scene__text">
+              <p class="scene__n"><span data-to="78">78</span>%</p>
+              <h3 class="scene__cap">of people have given up on a business because nobody answered.</h3>
+            </div>
+            <div class="scene__vis scene__vis--crowd" data-vis="crowd" aria-hidden="true"></div>
+          </article>
+
+          <article class="scene" data-scene="2">
+            <div class="scene__text">
+              <p class="scene__n">1 <small>in</small> 5</p>
+              <h3 class="scene__cap">ring the next business straight away.</h3>
+            </div>
+            <div class="scene__vis scene__vis--switch" data-vis="switch" aria-hidden="true"></div>
+          </article>
         </div>
       </div>
+    </div>
+    <div class="container">
       <p class="sources">Sources: 411 Locals call study (2016, counts voicemail as unanswered). CallRail survey of 1,000 consumers (2025). Both are US studies.</p>
     </div>
   </section>
