@@ -55,7 +55,6 @@ The home page stats were checked before use:
 
 - **62% unanswered:** 411 Locals call study, Jan 2016 (85 US businesses). Counts calls that went to voicemail as unanswered.
 - **78% have given up on a business / 1 in 5 call a competitor straight away:** CallRail survey of 1,000 US consumers, 2025. Found via secondary reports; link the original CallRail report if you can find it.
-- **Live counter:** based on an industry estimate of ~270,000 missed calls a day to Australian tradies (Chime Labs, via Forbes Australia). It's labelled as an estimate on the page.
 
 The often-quoted "85% never call back" and "80% won't leave a voicemail" figures were left out because no primary source could be found for them.
 

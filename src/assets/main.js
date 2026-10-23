@@ -222,22 +222,27 @@
   if (demoPhone) {
     var demoPlayer = new CallPlayer(demoPhone);
     var scenarioBtns = $$('[data-scenario]');
-    var pick = function (btn) {
-      scenarioBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      demoPlayer.play(SCRIPTS[btn.dataset.scenario], false);
+    var startOverlay = $('.phone-start', demoPhone);
+    var current = function () {
+      return (scenarioBtns.filter(function (b) { return b.getAttribute('aria-checked') === 'true'; })[0] || scenarioBtns[0]).dataset.scenario;
     };
-    scenarioBtns.forEach(function (b) { b.addEventListener('click', function () { pick(b); }); });
-    demoPlayer.showAll(SCRIPTS[scenarioBtns[0].dataset.scenario]);
-  }
-
-  /* ---------- Missed-call ticker ----------
-     Based on an industry estimate of ~270,000 missed calls a day to Aussie tradies (about 3 a second). */
-  var ticker = $('[data-ticker]');
-  if (ticker) {
-    var t0 = Date.now();
-    var perSec = 270000 / 86400;
-    var draw = function () { ticker.textContent = Math.floor((Date.now() - t0) / 1000 * perSec).toLocaleString('en-AU'); };
-    setInterval(draw, 330);
+    var playLabel = $('[data-play-label]');
+    var play = function () {
+      if (startOverlay) startOverlay.hidden = true;
+      if (playLabel) playLabel.textContent = 'Play again';
+      demoPlayer.play(SCRIPTS[current()], false);
+      var r = demoPhone.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) demoPhone.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    };
+    scenarioBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        scenarioBtns.forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+        play();
+      });
+    });
+    $$('[data-play]').forEach(function (b) { b.addEventListener('click', play); });
+    demoPlayer.reset(SCRIPTS[current()]);
+    demoPlayer.status.textContent = 'Sample call';
   }
 
   /* ---------- Count-up numbers (final value is in the HTML) ---------- */
@@ -283,25 +288,6 @@
     if (mobile.addEventListener) mobile.addEventListener('change', syncLayout);
     syncLayout();
 
-    if ('IntersectionObserver' in window && !reduceMotion) {
-      var played = false;
-      var a = $$('li', withoutEl), b = $$('li', withEl);
-      new IntersectionObserver(function (en) {
-        if (!en[0].isIntersecting || played) return;
-        played = true;
-        endings.classList.add('is-playing');
-        (async function () {
-          for (var i = 0; i < Math.max(a.length, b.length); i++) {
-            if (a[i]) a[i].classList.add('is-on');
-            await wait(320);
-            if (b[i]) b[i].classList.add('is-on');
-            await wait(420);
-          }
-          endings.classList.remove('is-playing');
-          $$('li', endings).forEach(function (li) { li.classList.remove('is-on'); });
-        })();
-      }, { threshold: .45 }).observe(endings);
-    }
   }
 
   /* ---------- Range fill ---------- */
@@ -344,10 +330,7 @@
           : 'The Growth plan is $400 a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
       }
       if (out('working')) {
-        out('working').innerHTML =
-          '<b>' + c + '</b> missed calls × 52 weeks = <b>' + n.missed.toLocaleString('en-AU') + '</b> a year<br>' +
-          '<b>' + r + ' in 10</b> would’ve become a job = <b>' + n.jobs.toLocaleString('en-AU') + '</b> jobs<br>' +
-          n.jobs.toLocaleString('en-AU') + ' jobs × <b>' + aud(j) + '</b> = <b>' + aud(n.year) + '</b> a year';
+        out('working').textContent = c + ' missed calls × 52 weeks × ' + r + ' in 10 × ' + aud(j);
       }
       if (e) store.set('tb_calc', { calls: c, rate: r, job: j, year: n.year });
     }
