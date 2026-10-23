@@ -1,0 +1,872 @@
+<title>TradeBooked Layout Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long site-plan sheet. Each section of the future site is a numbered "lot":
+   mockup on the left, brief on the right. Deliberately dark, single-theme, on-brand. */
+:root {
+  --char: #1F2124;
+  --char-2: #26292D;
+  --char-3: #30343A;
+  --line: #3D4248;
+  --orange: #F26A1B;
+  --orange-ink: #FF8A47;
+  --orange-soft: rgba(242,106,27,.14);
+  --fg: #F4F2EF;
+  --muted: #A3A7AC;
+  --paper: #ECEAE6;
+  --paper-ink: #1F2124;
+  --loss: #7E8389;
+  --ok: #3BB273;
+  --display: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--char);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, h4 { font-family: var(--display); line-height: 1.12; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+a { color: var(--orange-ink); }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+/* ---------- Cover ---------- */
+.cover { padding-block: 56px 40px; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.cover::after {
+  content: ""; position: absolute; right: -120px; top: -120px; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242,106,27,.28), transparent);
+  pointer-events: none;
+}
+.cover .wrap { display: grid; gap: 28px; position: relative; z-index: 1; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; }
+.brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--orange); display: grid; place-items: center; }
+.cover h1 { font-size: clamp(34px, 6vw, 64px); font-weight: 800; max-width: 16ch; }
+.cover h1 em { font-style: normal; color: var(--orange); }
+.cover .lede { font-size: 18px; color: var(--muted); max-width: 62ch; }
+.cover .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+
+/* ---------- Concept ---------- */
+section.block { padding-block: 64px; border-bottom: 1px solid var(--line); }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--orange-ink); }
+.kicker::before { content: ""; width: 18px; height: 2px; background: var(--orange); }
+.block h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 700; margin-top: 12px; }
+.block .intro { color: var(--muted); max-width: 64ch; margin-top: 14px; font-size: 17px; }
+
+.concept-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin-top: 36px; align-items: start; }
+.moments { display: grid; gap: 14px; }
+.moment { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--char-2); }
+.moment .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--orange-soft); display: grid; place-items: center; color: var(--orange); }
+.moment h4 { font-size: 17px; font-weight: 600; }
+.moment p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+
+/* page rhythm strip */
+.rhythm { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: var(--char-2); }
+.rhythm ol { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
+.rhythm li { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; font-size: 13px; }
+.rhythm .bar { height: 18px; border-radius: 4px; }
+.rhythm .tag { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.bg-dark { background: #17191B; border: 1px solid var(--line); }
+.bg-paper { background: var(--paper); }
+.bg-orange { background: var(--orange); }
+.bg-split { background: linear-gradient(90deg, #55595e 50%, var(--orange) 50%); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 28px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+.pill.gain::before { background: var(--orange); }
+.pill.loss::before { background: var(--loss); }
+.pill.trust::before { background: var(--ok); }
+.pill.act::before { background: var(--fg); }
+
+/* ---------- Lots (one per site section) ---------- */
+.lot { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 40px; padding-block: 56px; border-top: 1px dashed var(--line); align-items: start; }
+.lot:first-of-type { border-top: 0; }
+.lot-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.lot-no { font-family: var(--mono); font-size: 13px; color: var(--orange-ink); }
+.lot h3 { font-size: clamp(22px, 3vw, 28px); font-weight: 700; }
+.brief { display: grid; gap: 18px; min-width: 0; }
+.brief .copy { border-left: 2px solid var(--orange); padding-left: 14px; }
+.brief .copy .h { font-family: var(--display); font-weight: 600; font-size: 18px; line-height: 1.3; }
+.brief .copy .s { color: var(--muted); font-size: 15px; margin-top: 4px; }
+.brief ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #D6D4D1; font-size: 15px; }
+.brief .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ph { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(255,255,255,.08); color: var(--orange-ink); letter-spacing: .02em; white-space: nowrap; }
+
+/* mockup frame */
+.frame { border-radius: 16px; border: 1px solid var(--line); overflow: hidden; background: #17191B; min-width: 0; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.frame .chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--char-3); border-bottom: 1px solid var(--line); }
+.frame .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #4a4f55; }
+.frame .chrome span { margin-left: 10px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.mk { padding: 28px; position: relative; }
+.mk.paper { background: var(--paper); color: var(--paper-ink); }
+.mk .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); }
+.mk h4 { font-family: var(--display); font-weight: 800; letter-spacing: -0.02em; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 14px; border-radius: 10px; font-family: var(--display); font-weight: 600; font-size: 12px; border: 0; cursor: pointer; }
+.btn.o { background: var(--orange); color: #fff; }
+.btn.g { background: transparent; color: inherit; border: 1px solid currentColor; opacity: .85; }
+
+/* nav mock */
+.navmk { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; background: #17191B; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.navmk .links { display: flex; gap: 16px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.mobilebar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; background: rgba(23,25,27,.92); border-top: 1px solid var(--line); }
+
+/* hero mock */
+.hero-mk { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; padding: 34px 28px; background:
+  radial-gradient(600px 300px at 85% 40%, rgba(242,106,27,.22), transparent 70%), #17191B; }
+.hero-mk h4 { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.05; }
+.hero-mk h4 em { font-style: normal; color: var(--orange); }
+.hero-mk p { color: var(--muted); font-size: 13px; margin-top: 10px; }
+.hero-mk .ctas { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.ticker { margin-top: 18px; font-family: var(--mono); font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.ticker b { color: var(--orange-ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #E5484D; box-shadow: 0 0 0 0 rgba(229,72,77,.6); animation: ping 1.6s infinite; }
+@keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(229,72,77,0); } 100% { box-shadow: 0 0 0 0 rgba(229,72,77,0); } }
+
+/* animated phone */
+.phone { width: 100%; max-width: 230px; aspect-ratio: 9 / 18.5; margin: 0 auto; border-radius: 30px; background: #0E0F10; border: 6px solid #2A2D31; padding: 14px 10px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 7px; }
+.phone .notch { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 60px; height: 14px; border-radius: 10px; background: #2A2D31; }
+.call-top { text-align: center; margin-top: 12px; }
+.call-top .who { font-family: var(--display); font-weight: 600; font-size: 13px; }
+.call-top .st { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.call-top .st .live { color: var(--ok); }
+.bub { font-size: 10.5px; line-height: 1.35; padding: 7px 9px; border-radius: 12px; max-width: 88%; opacity: 0; transform: translateY(6px); animation: bub 16s infinite; }
+.bub.ai { background: var(--orange); color: #fff; border-bottom-left-radius: 4px; align-self: flex-start; }
+.bub.cl { background: #2C3035; color: var(--fg); border-bottom-right-radius: 4px; align-self: flex-end; }
+.bub:nth-of-type(1) { animation-delay: .6s; }
+.bub:nth-of-type(2) { animation-delay: 2.2s; }
+.bub:nth-of-type(3) { animation-delay: 3.8s; }
+.bub:nth-of-type(4) { animation-delay: 5.4s; }
+.bub:nth-of-type(5) { animation-delay: 7s; }
+.booked { margin-top: auto; background: #fff; color: var(--paper-ink); border-radius: 12px; padding: 9px; font-size: 10px; opacity: 0; transform: translateY(12px); animation: bub 16s infinite; animation-delay: 8.8s; }
+.booked b { font-family: var(--display); font-size: 11px; display: block; }
+.booked .tick { color: var(--ok); font-weight: 700; }
+.sms { position: absolute; left: 8px; right: 8px; top: 8px; background: rgba(40,43,47,.97); border: 1px solid #3a3f45; border-radius: 12px; padding: 8px 9px; font-size: 9.5px; line-height: 1.35; opacity: 0; transform: translateY(-20px); animation: sms 16s infinite; animation-delay: 10.6s; z-index: 2; }
+.sms .from { font-family: var(--mono); font-size: 8.5px; color: var(--orange-ink); text-transform: uppercase; letter-spacing: .06em; }
+@keyframes bub { 0% { opacity: 0; transform: translateY(6px); } 4%, 70% { opacity: 1; transform: none; } 76%, 100% { opacity: 0; transform: none; } }
+@keyframes sms { 0% { opacity: 0; transform: translateY(-20px); } 4%, 25% { opacity: 1; transform: none; } 30%, 100% { opacity: 0; transform: translateY(-20px); } }
+
+/* stats mock */
+.stats-mk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+.stat { background: #17191B; padding: 24px 18px; }
+.stat .n { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; color: var(--orange); font-variant-numeric: tabular-nums; }
+.stat .l { font-size: 12px; color: #D6D4D1; margin-top: 8px; }
+.stat .src { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 10px; letter-spacing: .04em; }
+
+/* two endings */
+.ends-toggle { display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--char-3); border-radius: 999px; padding: 4px; margin-bottom: 18px; }
+.ends-toggle button { font-family: var(--display); font-weight: 600; font-size: 12px; border: 0; background: transparent; color: var(--muted); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.ends-toggle button[aria-pressed="true"] { background: var(--fg); color: var(--paper-ink); }
+.ends { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.end { border-radius: 12px; padding: 16px; transition: opacity .4s, filter .4s, transform .4s; }
+.end.without { background: #2A2D31; filter: grayscale(1); }
+.end.with { background: linear-gradient(160deg, #F26A1B, #D9530A); color: #fff; }
+.end h5 { font-family: var(--display); font-size: 13px; margin: 0 0 10px; font-weight: 700; }
+.end ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.end li { display: grid; grid-template-columns: 40px 1fr; gap: 8px; font-size: 11.5px; line-height: 1.35; }
+.end li time { font-family: var(--mono); font-size: 10px; opacity: .75; }
+.end .result { margin-top: 12px; padding-top: 10px; border-top: 1px dashed currentColor; font-family: var(--display); font-weight: 700; font-size: 15px; }
+.ends[data-show="without"] .with, .ends[data-show="with"] .without { opacity: .25; transform: scale(.97); }
+
+/* calculator */
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.slider { display: grid; gap: 4px; margin-bottom: 14px; }
+.slider label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; }
+.slider label output { font-family: var(--display); font-weight: 700; color: var(--orange); font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--orange); }
+.calc-out { background: var(--paper-ink); color: var(--fg); border-radius: 14px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.calc-out .big { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 4.5vw, 44px); line-height: 1; color: var(--orange); font-variant-numeric: tabular-nums; }
+.calc-out .sub { font-size: 12px; color: var(--muted); }
+.vs { display: grid; gap: 6px; margin-top: 4px; }
+.vs .row { display: grid; grid-template-columns: 74px 1fr; gap: 8px; align-items: center; font-size: 10.5px; font-family: var(--mono); color: var(--muted); }
+.vs .track { height: 12px; background: #2C3035; border-radius: 3px; overflow: hidden; }
+.vs .fill { height: 100%; border-radius: 3px; transition: width .3s; }
+.verdict { font-family: var(--display); font-weight: 600; font-size: 13px; }
+
+/* how it works */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; }
+.steps::before { content: ""; position: absolute; left: 8%; right: 8%; top: 22px; height: 2px; background: repeating-linear-gradient(90deg, var(--orange) 0 8px, transparent 8px 14px); }
+.step { position: relative; text-align: center; padding-inline: 4px; }
+.step .num { width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: var(--paper); color: var(--paper-ink); border: 2px solid var(--orange); display: grid; place-items: center; font-family: var(--display); font-weight: 800; position: relative; }
+.step b { font-family: var(--display); font-size: 13px; display: block; }
+.step span { font-size: 11.5px; color: #55595E; }
+
+/* demo */
+.demo-mk { background: #111214; padding: 30px 28px; text-align: center; position: relative; overflow: hidden; }
+.demo-mk .rings { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.demo-mk .rings i { position: absolute; border: 1px solid rgba(242,106,27,.35); border-radius: 50%; animation: ring 3.6s infinite ease-out; width: 120px; height: 120px; }
+.demo-mk .rings i:nth-child(2) { animation-delay: 1.2s; }
+.demo-mk .rings i:nth-child(3) { animation-delay: 2.4s; }
+@keyframes ring { from { transform: scale(.6); opacity: 1; } to { transform: scale(3.2); opacity: 0; } }
+.demo-mk .num { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4vw, 38px); letter-spacing: .01em; position: relative; }
+.demo-mk p { color: var(--muted); font-size: 12px; position: relative; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 18px; position: relative; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--char-3); font-size: 11.5px; border: 1px solid var(--line); }
+.chip .play { width: 18px; height: 18px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; }
+.wave { display: flex; align-items: center; gap: 2px; height: 14px; }
+.wave i { width: 2px; background: var(--muted); border-radius: 1px; }
+
+/* services bento */
+.bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(92px, auto); gap: 10px; }
+.tile { border-radius: 12px; padding: 14px; background: #fff; color: var(--paper-ink); display: grid; align-content: space-between; gap: 8px; font-size: 11px; border: 1px solid #DAD7D2; }
+.tile b { font-family: var(--display); font-size: 13px; }
+.tile.big { grid-column: span 2; grid-row: span 2; background: var(--paper-ink); color: var(--fg); border-color: var(--paper-ink); }
+.tile .txt { background: #EDEBE7; border-radius: 10px 10px 10px 3px; padding: 6px 8px; font-size: 10px; line-height: 1.35; color: #3a3e43; }
+.tile.big .txt { background: var(--orange); color: #fff; }
+
+/* pricing */
+.prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: stretch; }
+.price { border-radius: 14px; padding: 16px; border: 1px solid #DAD7D2; background: #fff; color: var(--paper-ink); display: grid; gap: 8px; align-content: start; font-size: 11px; position: relative; }
+.price .nm { font-family: var(--display); font-weight: 600; font-size: 13px; }
+.price .amt { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; }
+.price .amt small { font-size: 11px; font-weight: 500; opacity: .7; }
+.price ul { margin: 0; padding-left: 14px; display: grid; gap: 3px; }
+.price.hot { background: var(--paper-ink); color: var(--fg); border: 2px solid var(--orange); transform: translateY(-6px); }
+.price .badge { position: absolute; top: -10px; left: 16px; background: var(--orange); color: #fff; font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
+.payback { margin-top: 14px; text-align: center; font-family: var(--display); font-weight: 600; font-size: 13px; }
+.payback em { font-style: normal; color: var(--orange); }
+
+/* story */
+.story-mk { display: grid; grid-template-columns: .9fr 1.1fr; gap: 22px; align-items: center; }
+.photo { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 14px; background:
+  repeating-linear-gradient(135deg, #2b2e32 0 10px, #26292d 10px 20px); display: grid; place-items: center; text-align: center; font-family: var(--mono); font-size: 10px; color: var(--muted); padding: 12px; border: 1px dashed #4a4f55; position: relative; }
+.photo .stamp { position: absolute; bottom: 10px; left: 10px; right: 10px; background: var(--orange); color: #fff; border-radius: 8px; padding: 6px 8px; font-family: var(--display); font-weight: 600; font-size: 10.5px; text-align: left; }
+.story-mk h4 { font-size: clamp(20px, 3vw, 28px); line-height: 1.1; }
+.story-mk p { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.sig { font-family: var(--display); font-weight: 600; font-size: 13px; margin-top: 12px; }
+
+/* faq */
+.faq details { border-bottom: 1px solid #D3D0CB; padding: 10px 0; }
+.faq summary { cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 13px; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--orange); font-weight: 800; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { font-size: 12px; color: #4a4f55; margin-top: 6px; }
+
+/* form */
+.form-mk { display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; }
+.fld { display: grid; gap: 4px; font-size: 11px; font-weight: 500; }
+.fld .in { height: 34px; border-radius: 9px; background: var(--char-3); border: 1px solid var(--line); }
+.fld .in.tall { height: 60px; }
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.trades { display: flex; flex-wrap: wrap; gap: 6px; }
+.trades span { font-size: 10.5px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); }
+.trades span.on { background: var(--orange); border-color: var(--orange); color: #fff; }
+.next { display: grid; gap: 12px; align-content: start; }
+.next div { font-size: 11.5px; color: var(--muted); }
+.next b { display: block; color: var(--fg); font-family: var(--display); font-size: 12.5px; }
+
+/* placeholders + tech */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+.card { border: 1px solid var(--line); border-radius: 14px; padding: 22px; background: var(--char-2); min-width: 0; }
+.card h4 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.check { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.check li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.check li::before { content: ""; width: 14px; height: 14px; margin-top: 5px; border: 1.5px solid var(--orange); border-radius: 4px; }
+.check li span { color: var(--muted); }
+
+.next-step { padding-block: 64px 80px; }
+.next-step .box { border-radius: 20px; padding: 32px; background: linear-gradient(135deg, var(--orange), #C94E08); color: #fff; display: grid; gap: 14px; }
+.next-step h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; }
+.next-step p { max-width: 62ch; font-size: 17px; }
+.next-step code { font-family: var(--mono); background: rgba(0,0,0,.2); padding: 2px 8px; border-radius: 6px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .concept-grid, .lot, .cols { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .lot { padding-block: 44px; }
+}
+@media (max-width: 600px) {
+  .hero-mk, .calc, .story-mk, .form-mk { grid-template-columns: 1fr; }
+  .stats-mk, .steps, .prices { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
+  .ends { grid-template-columns: 1fr; }
+  .ends[data-show="without"] .with, .ends[data-show="with"] .without { display: none; }
+  .bento { grid-template-columns: 1fr 1fr; }
+  .tile.big { grid-column: span 2; grid-row: auto; }
+  .price.hot { transform: none; }
+  .mk, .hero-mk, .demo-mk { padding: 22px 16px; }
+  .fgrid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bub, .booked, .sms { animation: none; opacity: 1; transform: none; }
+  .sms { position: static; margin-bottom: 4px; }
+  .dot, .demo-mk .rings i { animation: none; }
+  .end { transition: none; }
+}
+</style>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="brand"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>TradeBooked</div>
+    <h1>Website layout plan. <em>Review before I build.</em></h1>
+    <p class="lede">This is the blueprint for tradebooked.com.au. Every section of the site is shown as a mini mockup in your colours and fonts, with draft copy and notes on how it moves. The animated call, the calculator, the "two endings" switch and the FAQ already work here, so you can get a feel for them.</p>
+    <div class="meta">
+      <span class="mono">Draft v1 · 23 Oct 2026</span>
+      <span class="mono">Mobile-first · 13 sections</span>
+      <span class="mono">Orange tags = placeholders I need from you</span>
+    </div>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <span class="kicker">The big idea</span>
+    <h2>The whole site follows one missed call.</h2>
+    <p class="intro">Most AI receptionist sites list features. This one tells a story every tradie has lived: the phone rings while you're in the trench, and that job goes to someone else. We show that call answered, then show the same call going wrong, then put a dollar figure on it. Plain words, big numbers, nothing to figure out.</p>
+
+    <div class="concept-grid">
+      <div class="moments">
+        <div class="moment">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+          <div><h4>A live call in the hero</h4><p>A phone on screen gets a real-sounding call, the AI answers, books a site visit, and a text summary lands on the owner's lock screen. They see the product working in the first 10 seconds.</p></div>
+        </div>
+        <div class="moment">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M4 7h5M4 12h5M4 17h5M15 7h5M15 12h5M15 17h5"/></svg></div>
+          <div><h4>"Same call. Two endings."</h4><p>A split screen, with the call nobody answered greyed out next to the call TradeBooked answered in orange. On a phone it's a switch you flick. This is where the loss hits home.</p></div>
+        </div>
+        <div class="moment">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+          <div><h4>A calculator that turns it into money</h4><p>Three sliders give one big orange number for what missed calls cost them a year, set right next to the cost of a plan. It makes the price feel small.</p></div>
+        </div>
+      </div>
+
+      <div class="rhythm" aria-label="Page rhythm from top to bottom">
+        <span class="mono">Page rhythm, top to bottom</span>
+        <ol>
+          <li><div class="bar bg-dark"></div>Nav + hero call<span class="tag">gain</span></li>
+          <li><div class="bar bg-dark"></div>Missed-call stats<span class="tag">loss</span></li>
+          <li><div class="bar bg-split"></div>Same call, two endings<span class="tag">loss / gain</span></li>
+          <li><div class="bar bg-paper"></div>Cost calculator<span class="tag">loss</span></li>
+          <li><div class="bar bg-paper"></div>How it works<span class="tag">trust</span></li>
+          <li><div class="bar bg-dark"></div>Talk to my AI<span class="tag">act</span></li>
+          <li><div class="bar bg-paper"></div>Services<span class="tag">gain</span></li>
+          <li><div class="bar bg-paper"></div>Pricing<span class="tag">act</span></li>
+          <li><div class="bar bg-dark"></div>My story<span class="tag">trust</span></li>
+          <li><div class="bar bg-paper"></div>FAQ<span class="tag">trust</span></li>
+          <li><div class="bar bg-orange"></div>Book a chat<span class="tag">act</span></li>
+          <li><div class="bar bg-dark"></div>Footer<span class="tag"></span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="pill gain">Shows the gain</span>
+      <span class="pill loss">Shows the loss</span>
+      <span class="pill trust">Builds trust</span>
+      <span class="pill act">Gets them to act</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-block: 24px 0; border-bottom: 0;">
+  <div class="wrap">
+    <span class="kicker">Section by section</span>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- 01 NAV -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>tradebooked.com.au</span></div>
+      <div class="navmk">
+        <div class="brand" style="font-size:15px"><span class="mark" style="width:22px;height:22px;border-radius:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>TradeBooked</div>
+        <div class="links"><span>How it works</span><span>Pricing</span><span>My story</span><span>FAQ</span></div>
+        <span class="btn o">Book a chat</span>
+      </div>
+      <div style="height:70px; background:#17191B; display:grid; place-items:center;"><span class="mono">On phones the top links fold away and this bar sits at the bottom ↓</span></div>
+      <div class="mobilebar">
+        <span class="btn g" style="color:var(--fg)">▶ Hear it answer</span>
+        <span class="btn o">Book a chat</span>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">01</span><h3>Navigation</h3></div>
+      <ul>
+        <li>Slim, sticky, goes see-through as you scroll so it never covers the content.</li>
+        <li>On mobile, a <strong>thumb bar fixed to the bottom</strong> with the two things that matter: hear a demo call, or book a chat. Easy to hit with one hand on site.</li>
+        <li>Logo is a wordmark placeholder until you have one. <span class="ph">LOGO</span></li>
+      </ul>
+      <div class="tags"><span class="pill act">Gets them to act</span></div>
+    </div>
+  </article>
+
+  <!-- 02 HERO -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Hero</span></div>
+      <div class="hero-mk">
+        <div>
+          <span class="eyebrow">AI receptionist for Aussie tradies</span>
+          <h4 style="margin-top:10px">You're on the tools. <em>We'll get the phone.</em></h4>
+          <p>When you miss a call, your AI receptionist answers, books the site visit and texts you the details. No more jobs lost to voicemail.</p>
+          <div class="ctas"><span class="btn o">Hear it take a call</span><span class="btn g">Work out what you're losing</span></div>
+          <div class="ticker"><span class="dot"></span>Since you opened this page, Aussie tradies have missed <b id="tick">0</b> calls</div>
+        </div>
+        <div class="phone" aria-label="Animated sample call">
+          <div class="notch"></div>
+          <div class="sms"><div class="from">TradeBooked · now</div><b>New job booked</b> — Sarah, Castle Hill. Retaining wall + site cut. Visit Thu 7:30am. Wants a quote by Fri.</div>
+          <div class="call-top"><div class="who">0412 ••• 381</div><div class="st"><span class="live">● Answered by AI</span> · 00:42</div></div>
+          <div class="bub ai">G'day, Avera Earthworx, you've got the office. How can I help?</div>
+          <div class="bub cl">Hi, I need a quote for a retaining wall and a site cut.</div>
+          <div class="bub ai">No worries. What suburb is the job in, and can a 5-tonne excavator get down the side?</div>
+          <div class="bub cl">Castle Hill. Yeah, side access is 2.4m.</div>
+          <div class="bub ai">Perfect. I can book a site visit Thursday 7:30am. Does that suit?</div>
+          <div class="booked"><b><span class="tick">✓</span> Site visit booked</b>Thu 7:30am · Castle Hill · Added to your calendar</div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">02</span><h3>Hero with live sample call</h3></div>
+      <div class="copy">
+        <div class="h">"You're on the tools. We'll get the phone."</div>
+        <div class="s">Other headlines: "Every missed call is a job for someone else." / "Miss the call. Not the job."</div>
+      </div>
+      <ul>
+        <li>The phone plays a full call on loop: the AI answers, asks smart trade questions (suburb, machine access), books the visit, then the owner's text summary drops in from the top. <strong>It's running on the left now.</strong></li>
+        <li>In the real build the transcript types out word by word, with a soft ring before pickup and an optional sound toggle.</li>
+        <li>A live counter under the buttons ticks up the missed calls happening across Australia while they read. That's the first small hit of "I'm losing work".</li>
+        <li>The sample call uses an excavation job, since that's the business it was built for.</li>
+      </ul>
+      <div class="tags"><span class="pill gain">Shows the gain</span><span class="pill loss">Counter shows the loss</span></div>
+    </div>
+  </article>
+
+  <!-- 03 STATS -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Missed-call stats</span></div>
+      <div class="mk" style="padding:24px 28px 8px; background:#17191B">
+        <h4 style="font-size:22px">The phone rings. You're up to your knees in a trench.</h4>
+      </div>
+      <div class="stats-mk">
+        <div class="stat"><div class="n">62%</div><div class="l">of calls to small businesses go unanswered</div><div class="src">Source to confirm ▸</div></div>
+        <div class="stat"><div class="n">85%</div><div class="l">of people whose call isn't answered won't call back</div><div class="src">Source to confirm ▸</div></div>
+        <div class="stat"><div class="n">80%</div><div class="l">of callers sent to voicemail hang up without leaving a message</div><div class="src">Source to confirm ▸</div></div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">03</span><h3>Real missed-call statistics</h3></div>
+      <ul>
+        <li>Three huge orange numbers that count up as they scroll into view. Dark background, nothing else to look at.</li>
+        <li>These are the most widely quoted figures. Most come from US studies, so before the build <strong>I'll check each source</strong>, add a small citation link, and swap in Australian data wherever I can find it. No made-up numbers.</li>
+        <li>Optional fourth stat from your own phone logs at Avera Earthworx, e.g. "I was missing <span class="ph">X</span> calls a week." Real numbers from a real tradie hit harder than any study.</li>
+      </ul>
+      <div class="tags"><span class="pill loss">Shows the loss</span></div>
+    </div>
+  </article>
+
+  <!-- 04 TWO ENDINGS -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Same call. Two endings.</span></div>
+      <div class="mk" style="background:#17191B">
+        <h4 style="font-size:22px; margin-bottom:14px">Same call. Two endings.</h4>
+        <div class="ends-toggle" role="group" aria-label="Choose an ending">
+          <button type="button" id="btn-without" aria-pressed="false">Without</button>
+          <button type="button" id="btn-with" aria-pressed="false">With TradeBooked</button>
+        </div>
+        <div class="ends" id="ends" data-show="both">
+          <div class="end without">
+            <h5>Without TradeBooked</h5>
+            <ol>
+              <li><time>7:42</time>Phone rings. You're on the excavator.</li>
+              <li><time>7:43</time>Rings out. Goes to voicemail.</li>
+              <li><time>7:44</time>Caller hangs up. No message.</li>
+              <li><time>7:46</time>They Google "excavation Hills District" and ring the next bloke.</li>
+              <li><time>Fri</time>He does the quote. He gets the job.</li>
+            </ol>
+            <div class="result">−$8,400 job. Never knew it existed.</div>
+          </div>
+          <div class="end with">
+            <h5>With TradeBooked</h5>
+            <ol>
+              <li><time>7:42</time>Phone rings. You're on the excavator.</li>
+              <li><time>7:42</time>AI answers on ring 3, sounds like your office.</li>
+              <li><time>7:43</time>Gets the suburb, the job and the site access.</li>
+              <li><time>7:44</time>Books a site visit for Thursday 7:30am.</li>
+              <li><time>7:44</time>You get a text summary. Keep digging.</li>
+            </ol>
+            <div class="result">+$8,400 job in your calendar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">04</span><h3>"Same call. Two endings."</h3></div>
+      <ul>
+        <li>The signature section, and the bit nobody else has. On desktop it's a <strong>scroll-driven split screen</strong>: as you scroll, both timelines play out side by side. The grey side drains of colour; the orange side lights up.</li>
+        <li>On phones it becomes the switch above. <strong>Try it.</strong> Flicking between the two endings shows the loss better than any paragraph could.</li>
+        <li>The job value here is a placeholder. <span class="ph">YOUR TYPICAL JOB $</span></li>
+      </ul>
+      <div class="tags"><span class="pill loss">Shows the loss</span><span class="pill gain">Shows the gain</span></div>
+    </div>
+  </article>
+
+  <!-- 05 CALCULATOR -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Missed-call cost calculator</span></div>
+      <div class="mk paper">
+        <span class="eyebrow">Do the maths</span>
+        <h4 style="font-size:22px; margin:6px 0 18px">What are missed calls costing you?</h4>
+        <div class="calc">
+          <div>
+            <div class="slider"><label for="c-calls">Missed calls a week <output id="o-calls">8</output></label><input id="c-calls" type="range" min="1" max="40" value="8"></div>
+            <div class="slider"><label for="c-job">Average job value <output id="o-job">$2,500</output></label><input id="c-job" type="range" min="200" max="20000" step="100" value="2500"></div>
+            <div class="slider"><label for="c-rate">How many would've booked <output id="o-rate">25%</output></label><input id="c-rate" type="range" min="5" max="80" step="5" value="25"></div>
+          </div>
+          <div class="calc-out" aria-live="polite">
+            <span class="mono" style="font-size:10px">You're leaving on the table</span>
+            <div class="big" id="o-year">$260,000</div>
+            <div class="sub">a year · <span id="o-month">$21,700</span> a month</div>
+            <div class="vs">
+              <div class="row">Lost / mo<div class="track"><div class="fill" id="f-lost" style="width:100%; background:var(--loss)"></div></div></div>
+              <div class="row">Growth / mo<div class="track"><div class="fill" id="f-plan" style="width:2%; background:var(--orange)"></div></div></div>
+            </div>
+            <div class="verdict" id="o-verdict">Growth plan pays for itself with 1 job every 6 months.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">05</span><h3>Missed-call cost calculator</h3></div>
+      <ul>
+        <li>Three chunky sliders built for thumbs. The big number updates as you drag, and it's working on the left now.</li>
+        <li>The two bars put "what you're losing" next to "what the Growth plan costs". The gap does the selling.</li>
+        <li>In the full build: a "Show me how" link with the formula (missed calls × 52 × booking rate × job value), and a button that carries their number into the Book a chat form.</li>
+        <li>Default values are my guesses. <span class="ph">CONFIRM DEFAULTS</span></li>
+      </ul>
+      <div class="tags"><span class="pill loss">Shows the loss</span><span class="pill act">Gets them to act</span></div>
+    </div>
+  </article>
+
+  <!-- 06 HOW IT WORKS -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>How it works</span></div>
+      <div class="mk paper">
+        <h4 style="font-size:22px; margin-bottom:22px">Set up in an afternoon. Works from day one.</h4>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><b>Keep your number</b><span>Your missed calls forward to your AI receptionist. Nothing changes for your customers.</span></div>
+          <div class="step"><div class="num">2</div><b>It answers like your office</b><span>Trained on your services, your area and how you like jobs booked.</span></div>
+          <div class="step"><div class="num">3</div><b>You get a text</b><span>Who called, what they need, and when you're booked in. Hang-ups get an enquiry form by SMS.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">06</span><h3>How it works</h3></div>
+      <ul>
+        <li>Three real steps, so they get numbers. A dashed "service line" joins them, and an orange dot travels along it as you scroll.</li>
+        <li>Each step opens to show a real screen: the call-forward setting on a phone, a sample call script, the text you'd get.</li>
+        <li>The main message is that it's easy. No new phone, no app to learn. <span class="ph">CONFIRM SETUP TIME</span></li>
+      </ul>
+      <div class="tags"><span class="pill trust">Builds trust</span></div>
+    </div>
+  </article>
+
+  <!-- 07 DEMO -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Talk to my AI receptionist</span></div>
+      <div class="demo-mk">
+        <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span class="eyebrow" style="position:relative">Don't take my word for it</span>
+        <h4 style="font-size:22px; margin:8px 0 14px; position:relative">Talk to my AI receptionist</h4>
+        <div class="num">(02) XXXX XXXX</div>
+        <p>Ring it now. Pretend you need a job done. It'll book you in.</p>
+        <div class="chips">
+          <span class="chip"><span class="play"><svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="#fff"/></svg></span>Burst pipe, 9pm<span class="wave" aria-hidden="true"><i style="height:6px"></i><i style="height:12px"></i><i style="height:8px"></i><i style="height:14px"></i><i style="height:5px"></i></span></span>
+          <span class="chip"><span class="play"><svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="#fff"/></svg></span>Quote request<span class="wave" aria-hidden="true"><i style="height:9px"></i><i style="height:5px"></i><i style="height:13px"></i><i style="height:7px"></i><i style="height:11px"></i></span></span>
+          <span class="chip"><span class="play"><svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="#fff"/></svg></span>Existing customer<span class="wave" aria-hidden="true"><i style="height:12px"></i><i style="height:6px"></i><i style="height:10px"></i><i style="height:4px"></i><i style="height:9px"></i></span></span>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">07</span><h3>"Talk to my AI receptionist"</h3></div>
+      <div class="copy">
+        <div class="h">The boldest move on the page: a real number they can ring.</div>
+        <div class="s">Tradies trust what they can test. A live call beats any claim we make.</div>
+      </div>
+      <ul>
+        <li>A huge, tappable phone number with soft rings pulsing behind it. On mobile one tap dials.</li>
+        <li>For people who can't call right now (on site, in the ute): short recordings of real calls they can play with a tap.</li>
+        <li><span class="ph">DEMO PHONE NUMBER</span> <span class="ph">3–4 CALL RECORDINGS</span></li>
+      </ul>
+      <div class="tags"><span class="pill act">Gets them to act</span><span class="pill trust">Builds trust</span></div>
+    </div>
+  </article>
+
+  <!-- 08 SERVICES -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Services</span></div>
+      <div class="mk paper">
+        <h4 style="font-size:22px; margin-bottom:16px">One receptionist. Six jobs off your plate.</h4>
+        <div class="bento">
+          <div class="tile big"><b>AI call answering</b><span style="opacity:.75">Answers missed calls 24/7, books site visits, takes messages.</span><div class="txt">📞 Missed call handled: Dave, Kellyville. Pool dig quote. Booked Mon 8am.</div></div>
+          <div class="tile"><b>Missed-call text-back</b><div class="txt">Sorry we missed you! Tell us about your job here: tbk.au/f/…</div></div>
+          <div class="tile"><b>Quote follow-ups</b><div class="txt">Hi Sarah, just checking you got our quote for the retaining wall?</div></div>
+          <div class="tile"><b>Google reviews</b><div class="txt">Thanks for choosing us! Mind leaving a quick review? ★★★★★</div></div>
+          <div class="tile"><b>Invoice reminders</b><div class="txt">Friendly reminder: invoice #1042 is due Friday.</div></div>
+          <div class="tile"><b>Daily summary</b><div class="txt">Today: 6 calls, 3 booked, 1 urgent.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">08</span><h3>Services</h3></div>
+      <ul>
+        <li>A "bento" grid, with call answering as the big hero tile. Every tile shows the <strong>actual text message</strong> it sends, not an icon and a paragraph. Tradies get it at a glance.</li>
+        <li>Tap a tile and its message animates in like a real SMS thread.</li>
+        <li>"Daily summary" is my suggestion for a sixth tile. Drop it if you don't offer it. <span class="ph">CONFIRM</span></li>
+      </ul>
+      <div class="tags"><span class="pill gain">Shows the gain</span></div>
+    </div>
+  </article>
+
+  <!-- 09 PRICING -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Pricing</span></div>
+      <div class="mk paper" style="padding-top:34px">
+        <div class="prices">
+          <div class="price"><span class="nm">Starter</span><span class="amt">$200<small>/mo</small></span><ul><li>AI answers missed calls</li><li>Takes messages</li><li>Text summary to you</li><li>Missed-call text-back</li></ul></div>
+          <div class="price hot"><span class="badge">Most popular</span><span class="nm">Growth</span><span class="amt">$400<small>/mo</small></span><ul><li>Everything in Starter</li><li>Books site visits</li><li>Quote follow-ups</li><li>Google review requests</li></ul></div>
+          <div class="price"><span class="nm">Full system</span><span class="amt">$900<small>/mo</small></span><ul><li>Everything in Growth</li><li>Invoice reminders</li><li>Custom setup for you</li><li>Priority support</li></ul></div>
+        </div>
+        <div class="payback">One extra job a month and it's <em>paid for itself</em>.</div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">09</span><h3>Pricing</h3></div>
+      <ul>
+        <li>Three plans, Growth lifted up and outlined in orange as the obvious pick.</li>
+        <li>Under the cards, a payback line pulls in the number from their calculator: "You said you lose ~$21,700 a month. Growth is $400."</li>
+        <li>Which features sit in which plan is <strong>my guess</strong>. <span class="ph">CONFIRM PLAN FEATURES</span> <span class="ph">SETUP FEE?</span> <span class="ph">LOCK-IN / CANCEL ANYTIME?</span> <span class="ph">GST INC?</span></li>
+      </ul>
+      <div class="tags"><span class="pill act">Gets them to act</span></div>
+    </div>
+  </article>
+
+  <!-- 10 STORY -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>My story</span></div>
+      <div class="mk" style="background:#17191B">
+        <div class="story-mk">
+          <div class="photo">PHOTO OF YOU ON THE MACHINE<br>(placeholder)<div class="stamp">Avera Earthworx · Sydney</div></div>
+          <div>
+            <span class="eyebrow">Why I built this</span>
+            <h4 style="margin-top:8px">Built on an excavator, not in an office.</h4>
+            <p>I run Avera Earthworx, an excavation business in Sydney. I was losing jobs because I couldn't answer the phone from the cab. So I built a receptionist that could. Now I'm offering it to other tradies.</p>
+            <div class="sig">— Your name, Founder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">10</span><h3>My story</h3></div>
+      <ul>
+        <li>This is your biggest edge. It wasn't built by a tech company guessing at what tradies need. It was built by a tradie, for his own business first.</li>
+        <li>Full-bleed photo of you on site, a short story in your own words, and a "before and after" from your own business.</li>
+        <li>Links to averaearthworx.com.au as proof it's real.</li>
+        <li><span class="ph">YOUR NAME</span> <span class="ph">PHOTO</span> <span class="ph">STORY IN YOUR WORDS</span> <span class="ph">YOUR RESULTS</span></li>
+      </ul>
+      <div class="tags"><span class="pill trust">Builds trust</span></div>
+    </div>
+  </article>
+
+  <!-- 11 FAQ -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>FAQ</span></div>
+      <div class="mk paper faq">
+        <h4 style="font-size:22px; margin-bottom:8px">Fair questions</h4>
+        <details open><summary>Will callers know it's AI?</summary><p>It sounds natural and friendly. If someone asks, it's honest about being your virtual receptionist. Most callers just care that someone picked up.</p></details>
+        <details><summary>Do I keep my phone number?</summary><p>Yes. Your missed calls forward to it. Same number, same phone.</p></details>
+        <details><summary>What about emergencies?</summary><p>You choose what counts as urgent. Urgent calls get flagged and texted to you straight away.</p></details>
+        <details><summary>Am I locked into a contract?</summary><p>Placeholder, waiting on your answer.</p></details>
+        <details><summary>How long does setup take?</summary><p>Placeholder, waiting on your answer.</p></details>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">11</span><h3>FAQ</h3></div>
+      <ul>
+        <li>Simple tap-to-open list (tap them on the left). Answers are short and blunt.</li>
+        <li>Planned questions: AI or not, keep my number, emergencies, contracts, setup time, calendar sync, what it costs per call, what happens after hours, does it work for my trade.</li>
+        <li><span class="ph">CONTRACT TERMS</span> <span class="ph">SETUP TIME</span> <span class="ph">CALENDARS SUPPORTED</span></li>
+      </ul>
+      <div class="tags"><span class="pill trust">Builds trust</span></div>
+    </div>
+  </article>
+
+  <!-- 12 BOOK A CHAT -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Book a chat</span></div>
+      <div class="mk" style="background: linear-gradient(180deg, #17191B, #17191B 60%, #2a1a10)">
+        <h4 style="font-size:24px; margin-bottom:16px">Book a 15-minute chat. <span style="color:var(--orange)">No hard sell.</span></h4>
+        <div class="form-mk">
+          <div style="display:grid; gap:10px">
+            <div class="fgrid"><div class="fld">Your name<div class="in"></div></div><div class="fld">Business name<div class="in"></div></div></div>
+            <div class="fld">Your trade<div class="trades"><span class="on">Excavation</span><span>Plumbing</span><span>Electrical</span><span>Building</span><span>Landscaping</span><span>Other</span></div></div>
+            <div class="fgrid"><div class="fld">Mobile<div class="in"></div></div><div class="fld">Best time to call<div class="in"></div></div></div>
+            <div class="fld">Anything else?<div class="in tall"></div></div>
+            <span class="btn o" style="padding:12px">Book my chat →</span>
+          </div>
+          <div class="next">
+            <span class="mono" style="font-size:10px">What happens next</span>
+            <div><b>1. I give you a call</b>At the time you picked. 15 mins, tops.</div>
+            <div><b>2. We set it up for your business</b>Your services, your area, your calendar.</div>
+            <div><b>3. You stop missing jobs</b>Usually live within <span class="ph">X DAYS</span>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">12</span><h3>"Book a chat" form</h3></div>
+      <ul>
+        <li>Short form: big inputs, trade as tap chips, no fiddly dropdowns. Their calculator figure carries in automatically.</li>
+        <li>Thank-you screen: "Legend. I'll call you [time]."</li>
+        <li>Where submissions go: email, SMS to you, or your CRM. <span class="ph">FORM DESTINATION</span> <span class="ph">EMAIL</span></li>
+      </ul>
+      <div class="tags"><span class="pill act">Gets them to act</span></div>
+    </div>
+  </article>
+
+  <!-- 13 FOOTER -->
+  <article class="lot">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span>Footer</span></div>
+      <div class="mk" style="background:#111214; display:grid; gap:14px">
+        <h4 style="font-size:clamp(28px,5vw,46px); color:var(--orange); line-height:1">Miss the call.<br>Not the job.</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:8px 22px; font-size:11px; color:var(--muted)"><span>hello@tradebooked.com.au</span><span>ABN XX XXX XXX XXX</span><span>Sydney, NSW</span><span>Privacy</span><span>Terms</span></div>
+      </div>
+    </div>
+    <div class="brief">
+      <div class="lot-head"><span class="lot-no">13</span><h3>Footer</h3></div>
+      <ul>
+        <li>Ends on a huge orange sign-off line, plus contact details, ABN, privacy and terms (needed because the AI handles callers' details).</li>
+        <li><span class="ph">ABN</span> <span class="ph">CONTACT EMAIL</span> <span class="ph">SOCIALS</span></li>
+      </ul>
+    </div>
+  </article>
+</main>
+
+<section class="block" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <span class="kicker">Look &amp; feel</span>
+    <h2>What will make it feel like nobody else's.</h2>
+    <div class="cols">
+      <div class="card">
+        <h4>Design details</h4>
+        <ul class="check">
+          <li><div>Hi-vis orange used like site safety gear<br><span>Only on things that matter: money, actions, the AI's voice. Everything else is charcoal and warm concrete grey.</span></div></li>
+          <li><div>Real SMS and call screens instead of stock icons<br><span>Every feature is shown as the actual message a tradie would see on their phone.</span></div></li>
+          <li><div>Motion with a purpose<br><span>The phone call, the two endings and the counting numbers move. Nothing spins for the sake of it. Fully respects "reduce motion" settings.</span></div></li>
+          <li><div>Big, bold Poppins headlines, easy DM Sans body<br><span>Short sentences. Reads easily in the ute at smoko.</span></div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>How I'll build it</h4>
+        <ul class="check">
+          <li><div>Fast on a 4G phone on site<br><span>Plain HTML, CSS and a little JavaScript. No heavy frameworks. Aiming for under 2 seconds to load.</span></div></li>
+          <li><div>Found on Google<br><span>Set up for searches like "AI receptionist for tradies" and "missed call answering Sydney".</span></div></li>
+          <li><div>Accessible<br><span>Good contrast, keyboard friendly, and big tap targets for gloved or dusty thumbs.</span></div></li>
+          <li><div>Easy to host<br><span>Works on Netlify, Vercel or any basic host pointed at tradebooked.com.au.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <h4>Placeholders I'll use until you send the real thing</h4>
+      <ul class="check" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); display:grid">
+        <li><div>Demo phone number for the AI</div></li>
+        <li><div>3–4 sample call recordings</div></li>
+        <li><div>Your name, photo and story</div></li>
+        <li><div>Your before/after results</div></li>
+        <li><div>Features in each plan, setup fee, contract terms</div></li>
+        <li><div>Logo (or I'll make a wordmark)</div></li>
+        <li><div>Contact email, ABN, socials</div></li>
+        <li><div>Where form submissions should go</div></li>
+        <li><div>Typical job value for the examples</div></li>
+        <li><div>Testimonials, once you have clients</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="next-step">
+  <div class="wrap">
+    <div class="box">
+      <span class="mono" style="color:rgba(255,255,255,.8)">Your call</span>
+      <h2>Happy with the layout?</h2>
+      <p>Tell me what to change: swap the headline, reorder sections, cut anything. Or just say <code>build it</code> and I'll turn this into the full working site.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Live missed-call ticker (illustrative rate, roughly one every 2.5s)
+  var tick = document.getElementById('tick');
+  var n = 0;
+  setInterval(function () { n += 1; tick.textContent = n.toLocaleString('en-AU'); }, 2500);
+
+  // Two endings toggle
+  var ends = document.getElementById('ends');
+  var bw = document.getElementById('btn-without');
+  var bt = document.getElementById('btn-with');
+  function show(which) {
+    ends.setAttribute('data-show', which);
+    bw.setAttribute('aria-pressed', which === 'without');
+    bt.setAttribute('aria-pressed', which === 'with');
+  }
+  bw.addEventListener('click', function () { show(ends.dataset.show === 'without' ? 'both' : 'without'); });
+  bt.addEventListener('click', function () { show(ends.dataset.show === 'with' ? 'both' : 'with'); });
+  if (window.matchMedia('(max-width: 600px)').matches) show('without');
+
+  // Calculator
+  var PLAN = 400;
+  var calls = document.getElementById('c-calls');
+  var job = document.getElementById('c-job');
+  var rate = document.getElementById('c-rate');
+  var aud = function (v) { return '$' + Math.round(v).toLocaleString('en-AU'); };
+  function calc() {
+    var c = +calls.value, j = +job.value, r = +rate.value / 100;
+    var year = c * 52 * r * j;
+    var month = year / 12;
+    document.getElementById('o-calls').textContent = c;
+    document.getElementById('o-job').textContent = aud(j);
+    document.getElementById('o-rate').textContent = Math.round(r * 100) + '%';
+    document.getElementById('o-year').textContent = aud(Math.round(year / 100) * 100);
+    document.getElementById('o-month').textContent = aud(Math.round(month / 100) * 100);
+    var max = Math.max(month, PLAN);
+    document.getElementById('f-lost').style.width = Math.max(2, month / max * 100) + '%';
+    document.getElementById('f-plan').style.width = Math.max(2, PLAN / max * 100) + '%';
+    var monthsPerJob = (j / PLAN);
+    var v;
+    if (monthsPerJob >= 1) v = 'Growth plan pays for itself with 1 job every ' + Math.floor(monthsPerJob) + ' month' + (Math.floor(monthsPerJob) === 1 ? '' : 's') + '.';
+    else v = 'Growth plan pays for itself with ' + Math.ceil(PLAN / j) + ' jobs a month.';
+    document.getElementById('o-verdict').textContent = v;
+  }
+  [calls, job, rate].forEach(function (el) { el.addEventListener('input', calc); });
+  calc();
+})();
+</script>
