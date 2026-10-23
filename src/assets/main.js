@@ -245,51 +245,6 @@
     demoPlayer.status.textContent = 'Sample call';
   }
 
-  /* ---------- Count-up numbers (final value is in the HTML) ---------- */
-  var counters = $$('[data-count]');
-  if (counters.length && 'IntersectionObserver' in window && !reduceMotion) {
-    var co = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        co.unobserve(en.target);
-        var el = en.target, target = +el.dataset.count, suffix = el.dataset.suffix || '', start = null;
-        var step = function (ts) {
-          if (!start) start = ts;
-          var p = Math.min(1, (ts - start) / 1400);
-          var eased = 1 - Math.pow(1 - p, 3);
-          el.firstChild.nodeValue = Math.round(target * eased) + suffix;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    }, { threshold: .5 });
-    counters.forEach(function (el) { co.observe(el); });
-  }
-
-  /* ---------- Same call, two endings ---------- */
-  var endings = $('[data-endings]');
-  if (endings) {
-    var withoutEl = $('.ending--without', endings);
-    var withEl = $('.ending--with', endings);
-    var tabs = $$('.endings-switch button');
-    var mobile = window.matchMedia('(max-width: 760px)');
-    var showTab = function (which) {
-      tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.ending === which)); });
-      if (mobile.matches) {
-        withoutEl.hidden = which !== 'without';
-        withEl.hidden = which !== 'with';
-      }
-    };
-    tabs.forEach(function (t) { t.addEventListener('click', function () { showTab(t.dataset.ending); }); });
-    var syncLayout = function () {
-      if (mobile.matches) showTab((tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0]).dataset.ending);
-      else { withoutEl.hidden = false; withEl.hidden = false; }
-    };
-    if (mobile.addEventListener) mobile.addEventListener('change', syncLayout);
-    syncLayout();
-
-  }
-
   /* ---------- Range fill ---------- */
   function paintRange(r) {
     var pct = (r.value - r.min) / (r.max - r.min) * 100;
