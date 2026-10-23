@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{site.siteUrl}}/</loc></url>
+  <url><loc>{{site.siteUrl}}/how-it-works</loc></url>
+  <url><loc>{{site.siteUrl}}/services</loc></url>
+  <url><loc>{{site.siteUrl}}/pricing</loc></url>
+  <url><loc>{{site.siteUrl}}/my-story</loc></url>
+  <url><loc>{{site.siteUrl}}/faq</loc></url>
+  <url><loc>{{site.siteUrl}}/book</loc></url>
+  <url><loc>{{site.siteUrl}}/privacy</loc></url>
+  <url><loc>{{site.siteUrl}}/terms</loc></url>
+</urlset>

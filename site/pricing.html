@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pricing | TradeBooked</title>
+<meta name="description" content="AI receptionist plans for Aussie tradies from $200 a month. Work out what missed calls cost you, then pick a plan. One extra job a month covers it.">
+<link rel="canonical" href="https://tradebooked.com.au/pricing">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TradeBooked">
+<meta property="og:title" content="Pricing | TradeBooked">
+<meta property="og:description" content="AI receptionist plans for Aussie tradies from $200 a month. Work out what missed calls cost you, then pick a plan. One extra job a month covers it.">
+<meta property="og:url" content="https://tradebooked.com.au/pricing">
+<meta property="og:locale" content="en_AU">
+<meta name="theme-color" content="#1F2124">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page-pricing">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html" aria-label="TradeBooked home">
+      <span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <span class="logo__word">Trade<b>Booked</b></span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="how-it-works.html">How it works</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html" aria-current="page">Pricing</a>
+      <a href="my-story.html">My story</a>
+      <a href="faq.html">FAQ</a>
+      <a class="btn btn--primary nav__cta" href="book.html">Book a chat</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="thumb-bar" aria-label="Quick actions">
+  <a class="btn btn--ghost" href="how-it-works.html#demo"><svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>Hear it answer</a>
+  <a class="btn btn--primary" href="book.html">Book a chat</a>
+</div>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__inner">
+        <p class="eyebrow">Pricing</p>
+        <h1 class="h-xl">Costs less than <span class="accent">one missed job.</span></h1>
+        <p class="lede">Start by working out what missed calls are costing you now. Then pick the plan that fits.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="section section--paper" id="calculator" aria-labelledby="calc-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Do the maths</p>
+        <h2 class="h-lg" id="calc-title">What are missed calls costing you?</h2>
+        <p class="lede">Answer three quick questions. Be honest, even rough numbers are fine.</p>
+      </div>
+      <div data-calc data-calc-restore>
+        <div class="calc">
+          <div class="calc__inputs">
+            <div class="range">
+              <div class="range__top"><label for="calc-calls">How many calls do you miss a week?</label><output for="calc-calls" data-out="calls">8</output></div>
+              <input id="calc-calls" name="calls" type="range" min="1" max="40" value="8">
+              <div class="range__scale"><span>1</span><span>40</span></div>
+            </div>
+            <div class="range">
+              <div class="range__top"><label for="calc-rate">Out of 10 callers, how many would become a job?</label><output for="calc-rate" data-out="rate">3 in 10</output></div>
+              <input id="calc-rate" name="rate" type="range" min="1" max="10" value="3">
+              <div class="range__scale"><span>1 in 10</span><span>10 in 10</span></div>
+            </div>
+            <div class="range">
+              <div class="range__top"><label for="calc-job">What's a typical job worth?</label><output for="calc-job" data-out="job">$2,500</output></div>
+              <input id="calc-job" name="job" type="range" min="200" max="20000" step="100" value="2500">
+              <div class="range__scale"><span>$200</span><span>$20,000</span></div>
+            </div>
+          </div>
+          <div class="calc__out" aria-live="polite">
+            <p class="calc__label">Work you're missing out on</p>
+            <p class="calc__big" data-out="year">$312,500</p>
+            <p class="calc__sub">every year. That's <b data-out="jobs">10 jobs a month</b> going to someone else.</p>
+            <p class="calc__verdict" data-out="verdict">The Growth plan is $400 a month. <em>Win back one job and it’s paid for.</em></p>
+            <a class="btn btn--primary" href="book.html" style="justify-self:start; margin-top:6px">Book a chat about this</a>
+          </div>
+        </div>
+        <p class="calc__working" data-out="working"><b>8</b> missed calls × 52 weeks = <b>416</b> a year<br><b>3 in 10</b> would’ve become a job = <b>125</b> jobs<br>125 jobs × <b>$2,500</b> = <b>$312,500</b> a year</p>
+        <p class="calc__note">This is an estimate to show what's at stake, not a promise of results. Not every missed caller would have booked, and that's what the "out of 10" slider is for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section class="section section--white" id="plans" aria-labelledby="plans-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Plans</p>
+        <h2 class="h-lg" id="plans-title">Pick your plan.</h2>
+        <p class="lede">Monthly plans. <span class="ph">No lock-in contracts? Confirm</span></p>
+      </div>
+      <div class="plans">
+        <article class="plan">
+          <h3 class="plan__name">Starter</h3>
+          <p class="plan__for">Never miss a caller again.</p>
+          <p class="plan__price">$200<small> /month</small></p>
+          <ul>
+            <li>AI answers your missed calls</li>
+            <li>Takes messages</li>
+            <li>Text summary after every call</li>
+            <li>Missed-call text-back with enquiry form</li>
+          </ul>
+          <a class="btn btn--ghost" href="book.html?plan=Starter">Book a chat</a>
+        </article>
+        <article class="plan plan--hot">
+          <span class="plan__badge">Most popular</span>
+          <h3 class="plan__name">Growth</h3>
+          <p class="plan__for">Turn more calls into booked work.</p>
+          <p class="plan__price">$400<small> /month</small></p>
+          <ul>
+            <li class="plan__plus">Everything in Starter, plus:</li>
+            <li>Books site visits into your calendar</li>
+            <li>Quote follow-ups</li>
+            <li>Google review requests</li>
+            <li>Daily wrap-up text</li>
+          </ul>
+          <a class="btn btn--primary" href="book.html?plan=Growth">Book a chat</a>
+        </article>
+        <article class="plan">
+          <h3 class="plan__name">Full system</h3>
+          <p class="plan__for">Your whole front office, handled.</p>
+          <p class="plan__price">$900<small> /month</small></p>
+          <ul>
+            <li class="plan__plus">Everything in Growth, plus:</li>
+            <li>Invoice reminders</li>
+            <li>Custom setup for your business</li>
+            <li><span>Connects to your job management software <span class="ph">confirm</span></span></li>
+            <li>Priority support</li>
+          </ul>
+          <a class="btn btn--ghost" href="book.html?plan=Full%20system">Book a chat</a>
+        </article>
+      </div>
+      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Setup fee? Confirm</span></p>
+
+      <div class="payback">
+        <p>A typical job is worth more than a month of Growth. <em>One extra job and it's paid for itself.</em></p>
+        <a class="btn btn--primary" href="#calculator">Check with your numbers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare -->
+  <section class="section section--paper" aria-labelledby="compare-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Side by side</p>
+        <h2 class="h-md" id="compare-title">What's in each plan</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="compare">
+          <thead>
+            <tr><th scope="col">Feature</th><th scope="col">Starter</th><th scope="col" class="is-hot">Growth</th><th scope="col">Full system</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AI answers missed and after-hours calls</td><td class="yes">✓</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Takes messages</td><td class="yes">✓</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Text summary after every call</td><td class="yes">✓</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Missed-call text-back with enquiry form</td><td class="yes">✓</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Books site visits into your calendar</td><td class="no">–</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Quote follow-ups</td><td class="no">–</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Google review requests</td><td class="no">–</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Daily wrap-up text</td><td class="no">–</td><td class="yes is-hot">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Invoice reminders</td><td class="no">–</td><td class="no is-hot">–</td><td class="yes">✓</td></tr>
+            <tr><td>Custom setup and software connections</td><td class="no">–</td><td class="no is-hot">–</td><td class="yes">✓</td></tr>
+            <tr><td>Priority support</td><td class="no">–</td><td class="no is-hot">–</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing questions -->
+  <section class="section section--white" aria-labelledby="pq-title">
+    <div class="container container--narrow">
+      <div class="section-head">
+        <p class="eyebrow">Pricing questions</p>
+        <h2 class="h-md" id="pq-title">Straight answers</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Am I locked into a contract?</summary><div><p><span class="ph">Your answer here, e.g. "No. It's month to month. Cancel any time with 30 days' notice."</span></p></div></details>
+        <details><summary>Is there a setup fee?</summary><div><p><span class="ph">Your answer here.</span></p></div></details>
+        <details><summary>Is there a limit on calls?</summary><div><p><span class="ph">Your answer here, e.g. included minutes per month and what happens if you go over.</span></p></div></details>
+        <details><summary>Can I change plans later?</summary><div><p><span class="ph">Your answer here, e.g. "Yes, move up or down any time."</span></p></div></details>
+      </div>
+      <div class="handoff">
+        <small>Next</small>
+        <a href="book.html">Book a 15-min chat <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section class="cta-strip" aria-labelledby="cta-strip-title">
+  <div class="container cta-strip__inner">
+    <div>
+      <p class="eyebrow eyebrow--on-orange">Stop losing jobs to voicemail</p>
+      <h2 id="cta-strip-title">Next call could be a big one. Let's make sure it's answered.</h2>
+    </div>
+    <div class="cta-strip__actions">
+      <a class="btn btn--dark btn--lg" href="book.html">Book a 15-min chat</a>
+      <p class="cta-strip__or">or ring my AI receptionist on <span class="nowrap">(02) XXXX XXXX</span></p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="site-footer__sign">Miss the call.<br>Not the job.</p>
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html" aria-label="TradeBooked home">
+          <span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <span class="logo__word">Trade<b>Booked</b></span>
+        </a>
+        <p class="site-footer__blurb">AI receptionist for Aussie tradies. Built by a Sydney excavation business, for tradies.</p>
+      </div>
+      <nav aria-label="Footer">
+        <p class="site-footer__h">Pages</p>
+        <a href="how-it-works.html">How it works</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="my-story.html">My story</a>
+        <a href="faq.html">FAQ</a>
+        <a href="book.html">Book a chat</a>
+      </nav>
+      <div>
+        <p class="site-footer__h">Get in touch</p>
+        <p><span class="selectable">hello@tradebooked.com.au</span></p>
+        <p>AI demo line: <span class="selectable">(02) XXXX XXXX</span></p>
+        <p>Sydney, NSW</p>
+      </div>
+      <div>
+        <p class="site-footer__h">The fine print</p>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of service</a>
+        <p>ABN XX XXX XXX XXX</p>
+      </div>
+    </div>
+    <p class="site-footer__base">© 2026 TradeBooked. Made in Sydney.</p>
+  </div>
+</footer>
+<script src="assets/main.js" defer></script>
+</body>
+</html>

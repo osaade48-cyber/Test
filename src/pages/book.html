@@ -1,0 +1,105 @@
+---
+title: Book a chat | TradeBooked
+description: Book a free 15-minute chat about setting up an AI receptionist for your trade business. No hard sell.
+cta: no
+---
+<main id="main">
+  <section class="section section--dark" style="padding-top: clamp(40px, 7vw, 88px)">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Book a chat</p>
+        <h1 class="h-xl">15 minutes. <span class="accent">No hard sell.</span></h1>
+        <p class="lede">Tell me a bit about your business and when suits. I'll give you a call, show you how it would work for you, and you can decide from there.</p>
+      </div>
+
+      <div class="book">
+        <form class="form" id="book-form" novalidate data-endpoint="{{site.formEndpoint}}" data-email="{{site.email}}">
+          <div class="calc-carry" role="status">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            <span>You worked out missed calls could be costing you <b>$0</b> a year. I'll bring that to our chat.</span>
+          </div>
+          <input type="hidden" name="calculator_estimate" value="">
+          <input type="hidden" name="plan" value="">
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="f-business">Business name</label>
+              <input id="f-business" name="business" type="text" autocomplete="organization" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Your trade</legend>
+            <div class="chips">
+              <label><input type="radio" name="trade" value="Excavation" checked><span>Excavation</span></label>
+              <label><input type="radio" name="trade" value="Plumbing"><span>Plumbing</span></label>
+              <label><input type="radio" name="trade" value="Electrical"><span>Electrical</span></label>
+              <label><input type="radio" name="trade" value="Building"><span>Building</span></label>
+              <label><input type="radio" name="trade" value="Landscaping"><span>Landscaping</span></label>
+              <label><input type="radio" name="trade" value="Concreting"><span>Concreting</span></label>
+              <label><input type="radio" name="trade" value="Other"><span>Other</span></label>
+            </div>
+          </fieldset>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-phone">Mobile</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="04XX XXX XXX" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="f-time">Best time to call</label>
+              <select id="f-time" name="time">
+                <option>Early morning (6–8am)</option>
+                <option>Smoko (9–11am)</option>
+                <option>Lunch (12–1pm)</option>
+                <option selected>Arvo (3–5pm)</option>
+                <option>Evening (5–7pm)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-email">Email <span class="opt">(optional)</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="f-msg">Anything else? <span class="opt">(optional)</span></label>
+            <textarea id="f-msg" name="message" placeholder="e.g. I miss heaps of calls when I'm on site"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--lg" type="submit">Book my chat</button>
+          <p class="form__status" aria-live="polite"></p>
+          <p class="form__fine">I'll only use your details to get in touch about TradeBooked. <a href="privacy.html">Privacy policy</a>.</p>
+        </form>
+
+        <aside style="display:grid; gap:28px">
+          <div>
+            <p class="calc__label" style="margin-bottom:16px">What happens next</p>
+            <ol class="nexts">
+              <li><div><b>I give you a call</b><span>At the time you picked. 15 minutes, tops.</span></div></li>
+              <li><div><b>We set it up for your business</b><span>Your services, your area, your calendar.</span></div></li>
+              <li><div><b>You stop missing jobs</b><span>Usually live within <span class="ph">X days</span>.</span></div></li>
+            </ol>
+          </div>
+          <div class="side-card">
+            <p class="calc__label">Rather just try it?</p>
+            <p>Ring my AI receptionist now:</p>
+            <a class="ring-strip__num" href="tel:{{site.demoPhoneTel}}" style="font-size:30px">{{site.demoPhone}}</a>
+          </div>
+          <div class="side-card">
+            <p class="calc__label">Or email</p>
+            <p class="selectable">{{site.email}}</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
