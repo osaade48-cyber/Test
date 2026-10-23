@@ -9,7 +9,7 @@ description: AI receptionist plans for Aussie tradies from $200 a month. Work ou
       <div class="page-hero__inner">
         <p class="eyebrow">Pricing</p>
         <h1 class="h-xl">Costs less than <span class="accent">one missed job.</span></h1>
-        <p class="lede">Simple monthly plans. <span class="ph">No lock-in contracts? Confirm</span></p>
+        <p class="lede">Two plans. Answer the calls you get, or let us bring you more.</p>
       </div>
     </div>
   </section>
@@ -17,46 +17,41 @@ description: AI receptionist plans for Aussie tradies from $200 a month. Work ou
   <!-- Plans -->
   <section class="section section--white" id="plans" aria-label="Plans">
     <div class="container">
-      <div class="plans">
+      <div class="plans plans--two">
         <article class="plan">
-          <h2 class="plan__name">Starter</h2>
-          <p class="plan__for">Never miss a caller again.</p>
-          <p class="plan__price"><span data-countup="200" data-prefix="$">$200</span><small> /month</small></p>
+          <h2 class="plan__name">Growth</h2>
+          <p class="plan__for">We answer the calls you're already getting.</p>
+          <p class="plan__price"><span data-countup="{{site.growthPrice}}" data-prefix="$">${{site.growthPrice}}</span><small> /month</small></p>
+          <p class="plan__setup">+ ${{site.growthSetup}} one-off setup</p>
           <ul>
-            <li>AI answers your missed calls</li>
-            <li>Takes messages</li>
+            <li>AI answers your missed calls, 24/7</li>
+            <li>Books site visits into your calendar</li>
             <li>Text summary after every call</li>
-            <li>Missed-call text-back</li>
+            <li>Texts people who hang up</li>
+            <li>Quote follow-ups and Google review requests</li>
+            <li>Invoice reminders</li>
           </ul>
-          <a class="btn btn--ghost" href="book.html?plan=Starter">Choose Starter</a>
+          <a class="btn btn--ghost" href="book.html?plan=Growth">Choose Growth</a>
         </article>
         <article class="plan plan--hot">
-          <span class="plan__badge">Most popular</span>
-          <h2 class="plan__name">Growth</h2>
-          <p class="plan__for">Turn more calls into booked work.</p>
-          <p class="plan__price"><span data-countup="400" data-prefix="$">$400</span><small> /month</small></p>
-          <ul>
-            <li class="plan__plus">Everything in Starter, plus:</li>
-            <li>Books site visits into your calendar</li>
-            <li>Quote follow-ups</li>
-            <li>Google review requests</li>
-          </ul>
-          <a class="btn btn--primary" href="book.html?plan=Growth">Choose Growth</a>
-        </article>
-        <article class="plan">
-          <h2 class="plan__name">Full system</h2>
-          <p class="plan__for">Your whole front office, handled.</p>
-          <p class="plan__price"><span data-countup="900" data-prefix="$">$900</span><small> /month</small></p>
+          <span class="plan__badge">Most jobs</span>
+          <h2 class="plan__name">{{site.topPlan}}</h2>
+          <p class="plan__for">We bring you the jobs, then book them in.</p>
+          <p class="plan__price"><span data-countup="1495" data-prefix="$">${{site.topPrice}}</span><small> /month</small></p>
+          <p class="plan__setup">+ ${{site.topSetup}} one-off setup</p>
           <ul>
             <li class="plan__plus">Everything in Growth, plus:</li>
-            <li>Invoice reminders</li>
-            <li>Custom setup for your business</li>
-            <li>Priority support</li>
+            <li>Meta ads run for you in your area</li>
+            <li>AI calls every new lead within a minute</li>
+            <li>Books quote appointments for you</li>
+            <li>Confirmations, reminders and follow-ups</li>
           </ul>
-          <a class="btn btn--ghost" href="book.html?plan=Full%20system">Choose Full system</a>
+          <p class="plan__fine">Ad spend paid to Meta directly, min ${{site.minAdSpend}}/day. 3-month minimum.</p>
+          <a class="btn btn--primary" href="book.html?plan={{site.topPlan}}">Choose {{site.topPlan}}</a>
+          <a class="plan__more" href="get-more-jobs.html">See how it works →</a>
         </article>
       </div>
-      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Setup fee? Confirm</span></p>
+      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span></p>
     </div>
   </section>
 

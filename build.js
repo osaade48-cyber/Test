@@ -87,7 +87,7 @@ for (const f of pages) {
 // The real site is site/; this file is never hosted.
 const previewPages = bundle
   .filter((p) => p.slug !== '404')
-  .map((p) => `<div class="tb-page" data-slug="${p.slug}" data-title="${p.meta.title}" data-cta="${p.meta.cta === 'no' ? 'no' : 'yes'}" hidden>\n` +
+  .map((p) => `<div class="tb-page" data-slug="${p.slug}" data-title="${fill(p.meta.title, {})}" data-cta="${p.meta.cta === 'no' ? 'no' : 'yes'}" hidden>\n` +
     p.body.replace('<main id="main">', '<main>') + '\n</div>')
   .join('\n');
 const preview = [

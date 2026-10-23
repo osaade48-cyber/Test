@@ -7,5 +7,11 @@
   "founderName": "[Your name]",
   "founderFirstName": "[Your first name]",
   "location": "Sydney, NSW",
-  "formEndpoint": ""
+  "formEndpoint": "",
+  "topPlan": "Lead Engine",
+  "growthPrice": "495",
+  "growthSetup": "500",
+  "topPrice": "1,495",
+  "topSetup": "2,000",
+  "minAdSpend": "50"
 }

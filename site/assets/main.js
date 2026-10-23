@@ -263,7 +263,7 @@
   }
 
   /* ---------- Calculators ---------- */
-  var PLAN = 400;
+  var PLAN = 495;
   function calcNumbers(calls, inTen, job) {
     var missed = calls * 52;
     var jobs = Math.round(missed * inTen / 10);
@@ -288,8 +288,8 @@
       if (out('jobs')) out('jobs').textContent = jobsPhrase(n.perMonth, n.jobs);
       if (out('verdict')) {
         out('verdict').innerHTML = j >= PLAN
-          ? 'The Growth plan is $400 a month. <em>Win back one job and it’s paid for.</em>'
-          : 'The Growth plan is $400 a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
+          ? 'The Growth plan is $' + PLAN + ' a month. <em>Win back one job and it’s paid for.</em>'
+          : 'The Growth plan is $' + PLAN + ' a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
       }
       if (out('working')) {
         out('working').textContent = c + ' missed calls × 52 weeks × ' + r + ' in 10 × ' + aud(j);
@@ -408,7 +408,8 @@
   var REVEAL = ['.section-head > *', '.page-hero__inner > p', '.hero__copy > p', '.hero__copy > .btn-row', '.phone-wrap',
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
-    '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *'];
+    '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
+    '.srv__copy', '.srv__msg', '.srv-cta', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -419,6 +420,7 @@
       revealEls.push(el);
     });
   });
+  $$('.more__flow li').forEach(function (el, k) { el.style.setProperty('--k', k); });
   $$('.flow__step').forEach(function (el, k) { el.style.setProperty('--k', k); el.style.setProperty('--d', (k * 600 + 200) + 'ms'); });
 
   function onReveal(el) {
@@ -460,7 +462,7 @@
     var step = function (ts) {
       if (!start) start = ts;
       var p = Math.min(1, (ts - start) / 1100);
-      el.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3)));
+      el.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-AU');
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -640,6 +642,22 @@
     }
   }
 
+  /* ---------- Pipeline (Get more jobs) ---------- */
+  var pipes = $$('[data-pipe]');
+  function drawPipes() {
+    pipes.forEach(function (pipe) {
+      if (!isShown(pipe)) return;
+      var r = pipe.getBoundingClientRect();
+      var fill = reduceMotion ? r.height : Math.max(0, Math.min(r.height, window.innerHeight * 0.6 - r.top));
+      pipe.style.setProperty('--pipe-fill', fill + 'px');
+      $$('.pipe__step', pipe).forEach(function (st) {
+        var n = $('.pipe__n', st);
+        var y = n.getBoundingClientRect().top + n.offsetHeight / 2 - r.top;
+        st.classList.toggle('is-on', fill >= y);
+      });
+    });
+  }
+
   /* ---------- One scroll loop for everything ---------- */
   var ticking = false;
   function frame() {
@@ -648,6 +666,7 @@
     drawLightups();
     drawParallax();
     drawStats();
+    drawPipes();
   }
   function requestFrame() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', requestFrame, { passive: true });
