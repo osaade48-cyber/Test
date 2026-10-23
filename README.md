@@ -13,6 +13,7 @@ src/static/        robots.txt and sitemap.xml
 build.js           Puts it all together into site/
 site/              The finished website. This is the folder you host.
 plan/              The original layout plan
+preview/           (generated, not committed) every page bundled into one file for the claude.ai preview link
 ```
 
 ## Making changes

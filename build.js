@@ -59,6 +59,7 @@ for (const f of fs.readdirSync(path.join(SRC, 'static'))) {
 }
 
 const pages = fs.readdirSync(path.join(SRC, 'pages')).filter((f) => f.endsWith('.html'));
+const bundle = [];
 for (const f of pages) {
   const { meta, body } = parsePage(path.join(SRC, 'pages', f));
   const slug = f.replace(/\.html$/, '');
@@ -78,6 +79,34 @@ for (const f of pages) {
   ].join('\n');
   // Two passes so partials can use page variables and site config.
   fs.writeFileSync(path.join(OUT, f), fill(fill(html, vars), vars));
+  bundle.push({ slug, meta, body: fill(fill(body.replace(/<!--\s*include:([\w-]+)\s*-->/g, (all, name) => partial(name)), vars), vars) });
 }
+
+// Preview: every page bundled into one file that switches pages without navigating.
+// Used for the claude.ai preview link, where links between separate files don't work.
+// The real site is site/; this file is never hosted.
+const previewPages = bundle
+  .filter((p) => p.slug !== '404')
+  .map((p) => `<div class="tb-page" data-slug="${p.slug}" data-title="${p.meta.title}" data-cta="${p.meta.cta === 'no' ? 'no' : 'yes'}" hidden>\n` +
+    p.body.replace('<main id="main">', '<main>') + '\n</div>')
+  .join('\n');
+const preview = [
+  '<title>TradeBooked Website</title>',
+  '<meta name="description" content="Preview of the TradeBooked website">',
+  '<link rel="preconnect" href="https://fonts.googleapis.com">',
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap">',
+  '<style>' + read(path.join(SRC, 'assets', 'styles.css')) + '</style>',
+  "<script>document.documentElement.classList.add('js');</script>",
+  fill(fill(partial('header'), {}), {}),
+  previewPages,
+  '<div id="tb-cta">' + fill(partial('cta'), {}) + '</div>',
+  fill(fill(partial('footer'), { year: String(new Date().getFullYear()) }), {})
+    .replace(/<script[^>]*><\/script>/, '').replace('</body>', '').replace('</html>', ''),
+  '<script>' + read(path.join(SRC, 'preview-router.js')) + '</script>',
+  '<script>' + read(path.join(SRC, 'assets', 'main.js')) + '</script>',
+].join('\n');
+fs.mkdirSync(path.join(ROOT, 'preview'), { recursive: true });
+fs.writeFileSync(path.join(ROOT, 'preview', 'index.html'), preview);
 
 console.log(`Built ${pages.length} pages into site/`);

@@ -363,13 +363,17 @@
   /* ---------- Book a chat form ---------- */
   var form = $('#book-form');
   if (form) {
-    var saved = store.get('tb_calc');
-    var carry = $('.calc-carry', form);
-    if (saved && saved.year && carry) {
-      carry.classList.add('is-on');
-      $('b', carry).textContent = aud(saved.year);
-      $('[name="calculator_estimate"]', form).value = aud(saved.year) + ' a year (' + saved.calls + ' missed calls/wk, ' + saved.rate + ' in 10 book, ' + aud(saved.job) + ' job)';
-    }
+    var fillCarry = function () {
+      var saved = store.get('tb_calc');
+      var carry = $('.calc-carry', form);
+      if (saved && saved.year && carry) {
+        carry.classList.add('is-on');
+        $('b', carry).textContent = aud(saved.year);
+        $('[name="calculator_estimate"]', form).value = aud(saved.year) + ' a year (' + saved.calls + ' missed calls/wk, ' + saved.rate + ' in 10 book, ' + aud(saved.job) + ' job)';
+      }
+    };
+    fillCarry();
+    window.TB_fillCarry = fillCarry;
     var plan = new URLSearchParams(location.search).get('plan');
     if (plan && $('[name="plan"]', form)) $('[name="plan"]', form).value = plan;
 
@@ -395,7 +399,7 @@
       var endpoint = form.dataset.endpoint;
       var done = function () {
         store.set('tb_lead', { name: form.elements.name.value.trim().split(' ')[0], time: form.elements.time.value });
-        location.href = 'thanks.html';
+        if (window.TB_go) window.TB_go('thanks.html'); else location.href = 'thanks.html';
       };
       if (!endpoint) { done(); return; }
       btn.disabled = true;
@@ -411,12 +415,15 @@
   }
 
   /* ---------- Thanks page ---------- */
-  var thanks = $('[data-thanks]');
-  if (thanks) {
+  function fillThanks() {
+    var thanks = $('[data-thanks]');
+    if (!thanks) return;
     var lead = store.get('tb_lead');
     if (lead && lead.name) $('[data-thanks-name]').textContent = lead.name;
     if (lead && lead.time) $('[data-thanks-time]').textContent = lead.time.toLowerCase();
     var unconnected = $('[data-unconnected]');
     if (unconnected && !thanks.dataset.endpoint) unconnected.hidden = false;
   }
+  fillThanks();
+  window.TB_fillThanks = fillThanks;
 })();
