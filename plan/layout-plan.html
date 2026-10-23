@@ -192,11 +192,8 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
 .calc-out { background: var(--paper-ink); color: var(--fg); border-radius: 14px; padding: 18px; display: grid; gap: 10px; align-content: start; }
 .calc-out .big { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 4.5vw, 44px); line-height: 1; color: var(--orange); font-variant-numeric: tabular-nums; }
 .calc-out .sub { font-size: 12px; color: var(--muted); }
-.vs { display: grid; gap: 6px; margin-top: 4px; }
-.vs .row { display: grid; grid-template-columns: 74px 1fr; gap: 8px; align-items: center; font-size: 10.5px; font-family: var(--mono); color: var(--muted); }
-.vs .track { height: 12px; background: #2C3035; border-radius: 3px; overflow: hidden; }
-.vs .fill { height: 100%; border-radius: 3px; transition: width .3s; }
-.verdict { font-family: var(--display); font-weight: 600; font-size: 13px; }
+.verdict { font-family: var(--display); font-weight: 600; font-size: 13px; padding-top: 10px; border-top: 1px solid #3A3E43; }
+.working { margin-top: 16px; padding: 10px 12px; border-radius: 10px; background: #fff; border: 1px dashed #C9C5BF; font-family: var(--mono); font-size: 11px; color: #4a4f55; font-variant-numeric: tabular-nums; }
 
 /* how it works */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; }
@@ -528,29 +525,27 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
         <h4 style="font-size:22px; margin:6px 0 18px">What are missed calls costing you?</h4>
         <div class="calc">
           <div>
-            <div class="slider"><label for="c-calls">Missed calls a week <output id="o-calls">8</output></label><input id="c-calls" type="range" min="1" max="40" value="8"></div>
-            <div class="slider"><label for="c-job">Average job value <output id="o-job">$2,500</output></label><input id="c-job" type="range" min="200" max="20000" step="100" value="2500"></div>
-            <div class="slider"><label for="c-rate">How many would've booked <output id="o-rate">25%</output></label><input id="c-rate" type="range" min="5" max="80" step="5" value="25"></div>
+            <div class="slider"><label for="c-calls">How many calls do you miss a week? <output id="o-calls">8</output></label><input id="c-calls" type="range" min="1" max="40" value="8"></div>
+            <div class="slider"><label for="c-rate">Out of 10 callers, how many would become a job? <output id="o-rate">3</output></label><input id="c-rate" type="range" min="1" max="10" value="3"></div>
+            <div class="slider"><label for="c-job">What's a typical job worth? <output id="o-job">$2,500</output></label><input id="c-job" type="range" min="200" max="20000" step="100" value="2500"></div>
           </div>
           <div class="calc-out" aria-live="polite">
-            <span class="mono" style="font-size:10px">You're leaving on the table</span>
-            <div class="big" id="o-year">$260,000</div>
-            <div class="sub">a year · <span id="o-month">$21,700</span> a month</div>
-            <div class="vs">
-              <div class="row">Lost / mo<div class="track"><div class="fill" id="f-lost" style="width:100%; background:var(--loss)"></div></div></div>
-              <div class="row">Growth / mo<div class="track"><div class="fill" id="f-plan" style="width:2%; background:var(--orange)"></div></div></div>
-            </div>
-            <div class="verdict" id="o-verdict">Growth plan pays for itself with 1 job every 6 months.</div>
+            <span class="mono" style="font-size:10px">Work you're missing out on</span>
+            <div class="big" id="o-year">$312,500</div>
+            <div class="sub">every year. That's <b id="o-jobs" style="color:var(--fg)">10 jobs a month</b> going to someone else.</div>
+            <div class="verdict" id="o-verdict">TradeBooked Growth is $400 a month. Win back one job and it's paid for.</div>
           </div>
         </div>
+        <div class="working" id="o-working" aria-live="polite">8 calls × 52 weeks = 416 missed calls → 3 in 10 become jobs = 125 jobs → × $2,500 = $312,500</div>
       </div>
     </div>
     <div class="brief">
       <div class="lot-head"><span class="lot-no">05</span><h3>Missed-call cost calculator</h3></div>
       <ul>
-        <li>Three chunky sliders built for thumbs. The big number updates as you drag, and it's working on the left now.</li>
-        <li>The two bars put "what you're losing" next to "what the Growth plan costs". The gap does the selling.</li>
-        <li>In the full build: a "Show me how" link with the formula (missed calls × 52 × booking rate × job value), and a button that carries their number into the Book a chat form.</li>
+        <li>Three plain questions, answered with sliders built for thumbs. No percentages to work out, just "out of 10 callers".</li>
+        <li>One big answer: what they're missing out on each year, and how many jobs a month that is. Then one line comparing it to the $400 plan.</li>
+        <li>The working is shown underneath in a single line, so nobody has to trust a mystery number. It's live on the left now.</li>
+        <li>In the full build, a "Book a chat" button carries their number into the form.</li>
         <li>Default values are my guesses. <span class="ph">CONFIRM DEFAULTS</span></li>
       </ul>
       <div class="tags"><span class="pill loss">Shows the loss</span><span class="pill act">Gets them to act</span></div>
@@ -849,22 +844,22 @@ input[type="range"] { width: 100%; accent-color: var(--orange); }
   var rate = document.getElementById('c-rate');
   var aud = function (v) { return '$' + Math.round(v).toLocaleString('en-AU'); };
   function calc() {
-    var c = +calls.value, j = +job.value, r = +rate.value / 100;
-    var year = c * 52 * r * j;
-    var month = year / 12;
+    var c = +calls.value, r = +rate.value, j = +job.value;
+    var missed = c * 52;
+    var jobs = Math.round(missed * r / 10);
+    var year = jobs * j;
+    var perMonth = Math.round(jobs / 12);
     document.getElementById('o-calls').textContent = c;
+    document.getElementById('o-rate').textContent = r;
     document.getElementById('o-job').textContent = aud(j);
-    document.getElementById('o-rate').textContent = Math.round(r * 100) + '%';
-    document.getElementById('o-year').textContent = aud(Math.round(year / 100) * 100);
-    document.getElementById('o-month').textContent = aud(Math.round(month / 100) * 100);
-    var max = Math.max(month, PLAN);
-    document.getElementById('f-lost').style.width = Math.max(2, month / max * 100) + '%';
-    document.getElementById('f-plan').style.width = Math.max(2, PLAN / max * 100) + '%';
-    var monthsPerJob = (j / PLAN);
-    var v;
-    if (monthsPerJob >= 1) v = 'Growth plan pays for itself with 1 job every ' + Math.floor(monthsPerJob) + ' month' + (Math.floor(monthsPerJob) === 1 ? '' : 's') + '.';
-    else v = 'Growth plan pays for itself with ' + Math.ceil(PLAN / j) + ' jobs a month.';
+    document.getElementById('o-year').textContent = aud(year);
+    document.getElementById('o-jobs').textContent = perMonth < 1 ? 'about 1 job every ' + Math.round(12 / Math.max(jobs, 1)) + ' months' : perMonth + (perMonth === 1 ? ' job' : ' jobs') + ' a month';    var v = j >= PLAN
+      ? 'TradeBooked Growth is $400 a month. Win back one job and it\'s paid for.'
+      : 'TradeBooked Growth is $400 a month. Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it\'s paid for.';
     document.getElementById('o-verdict').textContent = v;
+    document.getElementById('o-working').textContent =
+      c + ' calls × 52 weeks = ' + missed.toLocaleString('en-AU') + ' missed calls → ' + r + ' in 10 become jobs = ' +
+      jobs.toLocaleString('en-AU') + ' jobs → × ' + aud(j) + ' = ' + aud(year);
   }
   [calls, job, rate].forEach(function (el) { el.addEventListener('input', calc); });
   calc();
