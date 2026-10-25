@@ -20,46 +20,31 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--deep painsec" aria-labelledby="pain-title">
+  <section class="section section--paper cp-sec" aria-labelledby="cp-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Sound familiar?</p>
-        <h2 class="h-lg" id="pain-title">The first tradie to call back <span class="accent">usually wins the job.</span></h2>
+      <div class="cp-head">
+        <p class="eyebrow">The callback race</p>
+        <h2 class="h-lg" id="cp-title">Leads ask three tradies for a quote. <span class="accent">The first to call back usually wins.</span></h2>
+        <p class="lede">Same lead, two very different call-back times.</p>
       </div>
-      <div class="pains">
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">A lead comes in at 10am. You call back at 6pm. They've already booked someone else.</p>
-          <p class="pain__cost">Paid for the lead, lost the job.</p>
+      <div class="race2" data-cp="race2">
+        <div class="lane2">
+          <p class="lane2__label">A typical call-back</p>
+          <p class="lane2__watch" data-w1>0:00:00</p>
+          <div class="lane2__track"><i data-t1></i></div>
+          <p class="lane2__res lane2__res--bad" data-r1>Too late. Jess booked someone else.</p>
         </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">You play phone tag for days and the lead goes cold.</p>
-          <p class="pain__cost">Hours wasted chasing.</p>
-        </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">People forget the quote time and aren't home when you turn up.</p>
-          <p class="pain__cost">Wasted trips across town.</p>
+        <div class="lane2 lane2--ai">
+          <p class="lane2__label">Your AI lead caller</p>
+          <p class="lane2__watch" data-w2>0:00:00</p>
+          <div class="lane2__track"><i data-t2></i></div>
+          <p class="lane2__res lane2__res--good" data-r2>Quote booked: Thu 7:30am</p>
+          <div class="lane2__texts" data-texts><p class="bub-out">You're booked for Thu 7:30am. See you then!</p><p class="bub-out">Reminder: we'll see you tomorrow at 7:30am.</p></div>
         </div>
       </div>
-      <div class="cost">
-        <p class="cost__n"><span data-countup="7" data-suffix="×">7×</span></p>
-        <div><p class="cost__t">more likely to have a real conversation when a lead is contacted within an hour.</p><p class="cost__src">Source: Harvard Business Review, "The Short Life of Online Sales Leads" (2011)</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--paper" aria-labelledby="change-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="change-title">What changes <span class="accent">for you.</span></h2>
-        <p class="lede">The same business. A very different week.</p>
-      </div>
-      <div class="change">
-        <div class="change__col change__col--without"><p class="change__h">Without it</p><ul><li>Leads waiting hours for a call</li><li>Phone tag for days</li><li>No-shows at quotes</li><li>Leads forgotten in your inbox</li><li>Ad money that doesn't turn into jobs</li></ul></div>
-        <div class="change__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="change__col change__col--with"><p class="change__h">With TradeBooked</p><ul><li>Every lead called within a minute</li><li>Quotes booked on the first call</li><li>Confirmations and reminders sent</li><li>Every lead followed up</li><li>More of your ad spend turned into jobs</li></ul></div>
+      <div class="cp-foot">
+        <p class="cp-stat"><b>7×</b> more likely to have a real conversation when a lead is contacted within an hour. <span>Source: Harvard Business Review, "The Short Life of Online Sales Leads" (2011)</span></p>
+        <button class="cp-replay" type="button" data-replay><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg> Play again</button>
       </div>
     </div>
   </section>
@@ -91,39 +76,10 @@ nav: services
   </section>
 
   <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get">
+    <div class="container svc-get svc-get--solo">
       <div class="svc-get__list">
         <h2 class="h-lg" id="get-title">What you get</h2>
         <ul class="checks"><li>Calls every new lead within a minute</li><li>Books quote appointments into your calendar</li><li>Confirmation and reminder texts</li><li>Follows up anyone who doesn't answer</li><li>Notes from every call saved in your CRM</li><li>Works day and night</li></ul>
-      </div>
-      <div class="svc-get__ex">
-        <ol class="timeline">
-  <li><time>7:41:02</time><b>New Facebook lead</b><span>Jess, Kellyville · Pool dig</span></li>
-  <li><time>7:41:31</time><b>AI calling Jess</b><span>29 seconds later</span></li>
-  <li><time>7:43:10</time><b>Quote booked</b><span>Thu 7:30am · in your calendar</span></li>
-  <li><time>7:43:12</time><b>Confirmation sent</b><span>Reminder set for Wednesday</span></li>
-</ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--paper" aria-labelledby="results-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="results-title">The difference it makes.</h2>
-        <p class="lede">Real research on why it matters, and real results from our clients as they come in.</p>
-      </div>
-      <div class="results">
-        <div class="result">
-          <p class="result__n"><span data-countup="23" data-suffix="%">23%</span></p>
-          <p class="result__t">of companies never responded to a web lead at all. Easy to beat.</p>
-          <p class="result__src">Harvard Business Review audit of 2,241 US companies (2011)</p>
-        </div>
-        <div class="result result--case">
-          <span class="result__tag">Case study · coming soon</span>
-          <p class="result__case"><span class="ph">Avera Earthworx: average time to call a new lead, from hours to under a minute.</span></p>
-          <p class="result__src">Real client results will appear here. We never make them up.</p>
-        </div>
       </div>
     </div>
   </section>

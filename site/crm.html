@@ -74,46 +74,23 @@
     </div>
   </section>
 
-  <section class="section section--deep painsec" aria-labelledby="pain-title">
+  <section class="section section--paper cp-sec" aria-labelledby="cp-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Sound familiar?</p>
-        <h2 class="h-lg" id="pain-title">Leads on scraps of paper <span class="accent">don't turn into jobs.</span></h2>
+      <div class="cp-head">
+        <p class="eyebrow">Move the jobs</p>
+        <h2 class="h-lg" id="cp-title">A pipeline you can see, <span class="accent">and texts that send themselves.</span></h2>
+        <p class="lede">Tap or drag a job to the next column and watch what happens automatically.</p>
       </div>
-      <div class="pains">
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">Leads are spread across texts, emails, voicemails and the back of a docket.</p>
-          <p class="pain__cost">Things get forgotten.</p>
-        </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">You send a quote, then never chase it. They went with someone who did.</p>
-          <p class="pain__cost">Quotes left on the table.</p>
-        </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">Happy customers never leave a review, because nobody asked.</p>
-          <p class="pain__cost">Your reputation stays invisible.</p>
-        </div>
+      <div class="board" data-cp="board">
+        <div class="board__col" data-stage="0"><p class="board__h">New lead</p><div class="board__cards"><button class="jcard" type="button" data-name="Sarah">Sarah<span>Retaining wall</span></button><button class="jcard" type="button" data-name="Tom">Tom<span>Site cut</span></button></div></div>
+        <div class="board__col" data-stage="1"><p class="board__h">Quote booked</p><div class="board__cards"><button class="jcard" type="button" data-name="Priya">Priya<span>Turf and beds</span></button></div></div>
+        <div class="board__col" data-stage="2"><p class="board__h">Quoted</p><div class="board__cards"><button class="jcard" type="button" data-name="Dave">Dave<span>Trenching</span></button></div></div>
+        <div class="board__col board__col--won" data-stage="3"><p class="board__h">Won</p><div class="board__cards"></div></div>
+        <div class="board__toasts" data-toasts aria-live="polite"></div>
       </div>
-      <div class="cost">
-        <p class="cost__n"><span data-countup="68" data-suffix="%">68%</span></p>
-        <div><p class="cost__t">of people left a review when a business asked them to. Most tradies never ask.</p><p class="cost__src">Source: BrightLocal, Local Consumer Review Survey (2017)</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--paper" aria-labelledby="change-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="change-title">What changes <span class="accent">for you.</span></h2>
-        <p class="lede">The same business. A very different week.</p>
-      </div>
-      <div class="change">
-        <div class="change__col change__col--without"><p class="change__h">Without it</p><ul><li>Leads lost in texts and notebooks</li><li>Quotes nobody follows up</li><li>No reviews because nobody asks</li><li>Chasing late invoices yourself</li><li>No idea where your work comes from</li></ul></div>
-        <div class="change__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="change__col change__col--with"><p class="change__h">With TradeBooked</p><ul><li>Every lead in one place, on your phone</li><li>Quote follow-ups sent for you</li><li>Review requests after every job</li><li>Invoice reminders sent for you</li><li>Know which leads pay off</li></ul></div>
+      <div class="cp-foot">
+        <p class="cp-stat"><b>68%</b> of people left a review when a business asked them to. Most tradies never ask. <span>Source: BrightLocal, Local Consumer Review Survey (2017)</span></p>
+        <button class="cp-replay" type="button" data-replay><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg> Play again</button>
       </div>
     </div>
   </section>
@@ -145,18 +122,10 @@
   </section>
 
   <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get">
+    <div class="container svc-get svc-get--solo">
       <div class="svc-get__list">
         <h2 class="h-lg" id="get-title">What you get</h2>
         <ul class="checks"><li>Simple pipeline on your phone</li><li>Every call, text and note in one place</li><li>Quote follow-ups sent for you</li><li>Google review requests after each job</li><li>Invoice reminders before and after the due date</li><li>See where your best leads come from</li></ul>
-      </div>
-      <div class="svc-get__ex">
-        <div class="pipeline">
-  <div class="pipeline__col"><p>New lead <i>3</i></p><span>Jess · Pool dig</span><span>Tom · Site cut</span><span class="ghost">Priya · Turf</span></div>
-  <div class="pipeline__col"><p>Quote booked <i>2</i></p><span>Sarah · Retaining wall</span><span>Mark · Driveway</span></div>
-  <div class="pipeline__col"><p>Quoted <i>2</i></p><span>Dave · Trenching</span><span>Lee · Pool dig</span></div>
-  <div class="pipeline__col won"><p>Won <i>4</i></p><span>Ana · Site cut</span><span>Ben · Retaining wall</span></div>
-</div>
       </div>
     </div>
   </section>
@@ -172,28 +141,7 @@
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="results-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="results-title">The difference it makes.</h2>
-        <p class="lede">Real research on why it matters, and real results from our clients as they come in.</p>
-      </div>
-      <div class="results">
-        <div class="result">
-          <p class="result__n"><span data-countup="97" data-suffix="%">97%</span></p>
-          <p class="result__t">of consumers read online reviews when choosing a local business.</p>
-          <p class="result__src">BrightLocal, Local Consumer Review Survey (2026)</p>
-        </div>
-        <div class="result result--case">
-          <span class="result__tag">Case study · coming soon</span>
-          <p class="result__case"><span class="ph">Avera Earthworx: X new Google reviews in the first 3 months.</span></p>
-          <p class="result__src">Real client results will appear here. We never make them up.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--white" aria-labelledby="faq-title">
+  <section class="section section--paper" aria-labelledby="faq-title">
     <div class="container container--narrow">
       <div class="bundle-in"><p class="bundle-in__h">Included in</p><div class="bundle-tags"><a class="bundle-tag" href="bundles.html#never-miss"><b>Never Miss a Job</b><span>$495/mo</span></a><a class="bundle-tag" href="bundles.html#booked-out"><b>Booked Out</b><span>$1,495/mo</span></a><a class="bundle-tag" href="bundles.html#get-found"><b>Get Found</b><span>$895/mo</span></a></div><p class="bundle-in__or">Or add it to a <a href="bundles.html#custom">custom plan</a>.</p></div>
       <div class="faq" style="margin-top:48px">

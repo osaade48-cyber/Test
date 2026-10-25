@@ -20,46 +20,25 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--deep painsec" aria-labelledby="pain-title">
+  <section class="section section--deep cp-sec" aria-labelledby="cp-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Sound familiar?</p>
-        <h2 class="h-lg" id="pain-title">Every missed call is <span class="accent">a job for someone else.</span></h2>
+      <div class="cp-head">
+        <p class="eyebrow">A day on the tools</p>
+        <h2 class="h-lg" id="cp-title">You can't answer the phone from a roof. <span class="accent">But every call you miss is money.</span></h2>
+        <p class="lede">Watch one ordinary Tuesday unfold, then flick the switch.</p>
       </div>
-      <div class="pains">
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">You're up a ladder. The phone rings. By the time you call back, they've booked someone else.</p>
-          <p class="pain__cost">A job lost in two minutes.</p>
-        </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">You spend your nights returning calls and listening to voicemails.</p>
-          <p class="pain__cost">Your evenings, gone.</p>
-        </div>
-        <div class="pain">
-          <span class="pain__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg></span>
-          <p class="pain__moment">Homeowners ring after 5pm when they're home. Nobody answers.</p>
-          <p class="pain__cost">Your busiest hours, unanswered.</p>
+      <div class="pileup" data-cp="pileup">
+        <div class="lock2"><p class="lock2__time" data-time>7:00</p><p class="lock2__date">Tuesday</p><div class="lock2__list" data-list></div></div>
+        <div class="pileup__side">
+          <p class="pileup__count"><b data-missed>0</b> missed calls today</p>
+          <p class="pileup__t" data-missed-t>Each one could have been a job.</p>
+          <button class="aitoggle" type="button" aria-pressed="false" data-toggle><span class="aitoggle__sw"></span><span>Turn on your AI receptionist</span></button>
+          <p class="pileup__after" data-after>Every call answered. <b>4 jobs booked</b>, 2 messages taken. All while you worked.</p>
         </div>
       </div>
-      <div class="cost">
-        <p class="cost__n"><span data-countup="62" data-suffix="%">62%</span></p>
-        <div><p class="cost__t">of calls to small businesses aren't answered by a person.</p><p class="cost__src">Source: 411 Locals call study (2016), counts voicemail as unanswered</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--paper" aria-labelledby="change-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="change-title">What changes <span class="accent">for you.</span></h2>
-        <p class="lede">The same business. A very different week.</p>
-      </div>
-      <div class="change">
-        <div class="change__col change__col--without"><p class="change__h">Without it</p><ul><li>Calls going to voicemail</li><li>Callers ringing the next business</li><li>Nights spent calling people back</li><li>No idea who rang or why</li><li>Nobody answering after hours</li></ul></div>
-        <div class="change__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="change__col change__col--with"><p class="change__h">With TradeBooked</p><ul><li>Every call answered, 24/7</li><li>Jobs booked while you work</li><li>A text summary of every call</li><li>Urgent jobs flagged straight away</li><li>Your evenings back</li></ul></div>
+      <div class="cp-foot">
+        <p class="cp-stat"><b>62%</b> of calls to small businesses aren't answered by a person. <span>Source: 411 Locals call study (2016), counts voicemail as unanswered</span></p>
+        <button class="cp-replay" type="button" data-replay><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg> Play again</button>
       </div>
     </div>
   </section>
@@ -91,16 +70,10 @@ nav: services
   </section>
 
   <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get">
+    <div class="container svc-get svc-get--solo">
       <div class="svc-get__list">
         <h2 class="h-lg" id="get-title">What you get</h2>
         <ul class="checks"><li>Answers missed and after-hours calls, 24/7</li><li>Books jobs into your calendar</li><li>Text summary after every call</li><li>Urgent calls flagged straight away</li><li>Texts people who hang up</li><li>Keeps your existing number</li></ul>
-      </div>
-      <div class="svc-get__ex">
-        <div class="msg-card">
-  <p class="msg-card__from">Text to you, 7:44am</p>
-  <p class="msg"><b>New job booked</b><br>Sarah, Castle Hill<br>Retaining wall + site cut<br><b>Site visit Thu 7:30am</b></p>
-</div>
       </div>
     </div>
   </section>
@@ -135,33 +108,7 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="results-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h-lg" id="results-title">The difference it makes.</h2>
-        <p class="lede">Real research on why it matters, and real results from our clients as they come in.</p>
-      </div>
-      <div class="results">
-        <div class="result">
-          <p class="result__n"><span data-countup="78" data-suffix="%">78%</span></p>
-          <p class="result__t">of people have given up on a business because their call wasn't answered.</p>
-          <p class="result__src">CallRail consumer survey (2025)</p>
-        </div>
-        <div class="result">
-          <p class="result__n">1 in 5</p>
-          <p class="result__t">ring the next business straight away when nobody picks up.</p>
-          <p class="result__src">CallRail consumer survey (2025)</p>
-        </div>
-        <div class="result result--case">
-          <span class="result__tag">Case study · coming soon</span>
-          <p class="result__case"><span class="ph">Avera Earthworx: X calls answered and X jobs booked in the first month.</span></p>
-          <p class="result__src">Real client results will appear here. We never make them up.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--white" aria-labelledby="faq-title">
+  <section class="section section--paper" aria-labelledby="faq-title">
     <div class="container container--narrow">
       <div class="bundle-in"><p class="bundle-in__h">Included in</p><div class="bundle-tags"><a class="bundle-tag" href="bundles.html#never-miss"><b>Never Miss a Job</b><span>${{site.nmjPrice}}/mo</span></a><a class="bundle-tag" href="bundles.html#booked-out"><b>Booked Out</b><span>${{site.boPrice}}/mo</span></a></div><p class="bundle-in__or">Or add it to a <a href="bundles.html#custom">custom plan</a>.</p></div>
       <div class="faq" style="margin-top:48px">

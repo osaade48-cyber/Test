@@ -67,7 +67,7 @@ Service pages use these sources (keep the source lines on the page if you edit t
 - AI lead caller and Meta ads: Harvard Business Review, "The Short Life of Online Sales Leads" (2011)
 - AI chatbot: HubSpot Research customer expectations survey (2018)
 
-Each service page also has a "Case study · coming soon" card. Fill these with real client results only.
+Each service page has its own interactive centrepiece near the top (the logic is in the "Service centrepieces" part of `main.js`). When you have real client results, add them to the service pages. Real results only.
 
 The often-quoted "85% never call back" and "80% won't leave a voicemail" figures were left out because no primary source could be found for them.
 

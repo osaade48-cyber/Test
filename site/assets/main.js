@@ -693,6 +693,353 @@
     });
   }
 
+
+  /* =================================================================
+     Service centrepieces
+     Each one plays when it scrolls into view. "Play again" restarts it.
+     ================================================================= */
+  var CP = {};
+  var sleep = function (ms, tok) { return new Promise(function (r, j) { setTimeout(function () { tok.dead ? j('stop') : r(); }, ms); }); };
+  var typeInto = async function (el, text, tok, speed) {
+    for (var i = 1; i <= text.length; i++) { el.textContent = text.slice(0, i); await sleep(speed || 45, tok); }
+  };
+
+  // 1. Websites: the loading race
+  CP.race = {
+    reset: function (r) {
+      $$('.rload', r).forEach(function (l) { l.classList.remove('is-done'); });
+      $('.rload__bar', r).style.setProperty('--load', '0%');
+      $('[data-rtime]', r).textContent = '0.0s';
+      $('[data-left]', r).textContent = '0';
+      $('.rnotif', r).classList.remove('is-in');
+    },
+    play: async function (r, tok) {
+      var t0 = performance.now(), fastDone = false, notified = false;
+      var bar = $('.rload__bar', r), time = $('[data-rtime]', r), left = $('[data-left]', r);
+      while (true) {
+        var t = (performance.now() - t0) / 1000;
+        if (!fastDone && t > 0.8) { fastDone = true; $('.rload--fast', r).classList.add('is-done'); }
+        if (!notified && t > 2.2) { notified = true; $('.rnotif', r).classList.add('is-in'); }
+        var shown = Math.min(t * 1.15, 8);
+        time.textContent = shown.toFixed(1) + 's';
+        bar.style.setProperty('--load', Math.min(100, t / 7 * 92) + '%');
+        left.textContent = Math.round(53 * Math.min(1, Math.max(0, (shown - 1.5) / 5.5)));
+        if (t > 7) break;
+        await sleep(80, tok);
+      }
+      $('.rload:not(.rload--fast)', r).classList.add('is-done');
+    },
+    still: function (r) {
+      $$('.rload', r).forEach(function (l) { l.classList.add('is-done'); });
+      $('[data-rtime]', r).textContent = '8.0s'; $('[data-left]', r).textContent = '53';
+      $('.rnotif', r).classList.add('is-in');
+    }
+  };
+
+  // 3. SEO: climb the map
+  CP.climb = {
+    order: function (r, mePos) {
+      var items = $$('.ci', r), me = $('.ci--me', r), others = items.filter(function (i) { return i !== me; });
+      var slots = []; others.forEach(function (o) { slots.push(o); });
+      slots.splice(mePos, 0, me);
+      slots.forEach(function (el, i) { el.style.top = (i * 62) + 'px'; });
+      me.classList.toggle('is-top', mePos < 3);
+    },
+    set: function (r, step) {
+      var pos = [5, 4, 3, 2, 1, 0][step], months = [0, 1, 2, 3, 4, 6][step];
+      var revs = [5, 18, 37, 61, 92, 126][step], calls = [2, 5, 11, 19, 27, 38][step];
+      CP.climb.order(r, pos);
+      $('[data-c-pos]', r).textContent = '#' + (pos + 1);
+      $('[data-c-rev]', r).textContent = revs;
+      $('[data-c-rev2]', r).textContent = '4.9 (' + revs + ')';
+      $('[data-c-calls]', r).textContent = calls;
+      $('[data-month]', r).textContent = 'Month ' + months;
+    },
+    reset: function (r) { CP.climb.set(r, 0); },
+    play: async function (r, tok) { for (var i = 1; i <= 5; i++) { await sleep(900, tok); CP.climb.set(r, i); } },
+    still: function (r) { CP.climb.set(r, 5); }
+  };
+
+  // 4. Meta ads: scroll to lead
+  CP.feed = {
+    step: function (r, n) { $$('.fsteps li', r).forEach(function (li) { var k = +li.dataset.s; li.classList.toggle('is-on', k === n); li.classList.toggle('is-done', k < n); }); },
+    reset: function (r) {
+      $('[data-feed]', r).style.transform = 'translateY(0)';
+      $('[data-ad]', r).classList.remove('is-hot'); $('[data-adbtn]', r).classList.remove('is-tap');
+      $('[data-form]', r).classList.remove('is-in'); $('[data-lead]', r).classList.remove('is-in');
+      $$('[data-type]', r).forEach(function (e) { e.textContent = ''; });
+      CP.feed.step(r, 0);
+    },
+    tap: async function (r, el, tok) {
+      var tap = $('[data-tap]', r), sr = $('.fphone__screen', r).getBoundingClientRect(), er = el.getBoundingClientRect();
+      tap.style.left = (er.left - sr.left + er.width / 2) + 'px'; tap.style.top = (er.top - sr.top + er.height / 2) + 'px';
+      tap.classList.remove('is-on'); void tap.offsetWidth; tap.classList.add('is-on');
+      el.classList.add('is-tap'); await sleep(450, tok);
+    },
+    play: async function (r, tok) {
+      var feed = $('[data-feed]', r), ad = $('[data-ad]', r), screen = $('.fphone__screen', r);
+      CP.feed.step(r, 1);
+      var target = ad.offsetTop - (screen.clientHeight - ad.offsetHeight) / 2;
+      feed.style.transform = 'translateY(' + (-target) + 'px)';
+      await sleep(2700, tok);
+      CP.feed.step(r, 2); ad.classList.add('is-hot'); await sleep(1300, tok);
+      CP.feed.step(r, 3); await CP.feed.tap(r, $('[data-adbtn]', r), tok);
+      $('[data-form]', r).classList.add('is-in'); await sleep(600, tok);
+      CP.feed.step(r, 4);
+      var fields = $$('[data-type]', r);
+      for (var i = 0; i < fields.length; i++) { await typeInto(fields[i], fields[i].dataset.type, tok, 55); await sleep(200, tok); }
+      await CP.feed.tap(r, $('[data-submit]', r), tok);
+      CP.feed.step(r, 5); $('[data-lead]', r).classList.add('is-in');
+    },
+    still: function (r) {
+      $('[data-form]', r).classList.add('is-in'); $('[data-lead]', r).classList.add('is-in');
+      $$('[data-type]', r).forEach(function (e) { e.textContent = e.dataset.type; });
+      CP.feed.step(r, 5);
+    }
+  };
+
+  // 5. Google Ads: live search
+  CP.gsearch = {
+    reset: function (r) {
+      $('[data-q]', r).textContent = ''; $('[data-results]', r).classList.remove('is-in');
+      $('[data-call]', r).classList.remove('is-pulse'); $('[data-calling]', r).classList.remove('is-in');
+      $('[data-yourphone]', r).classList.remove('is-ring');
+    },
+    play: async function (r, tok) {
+      await sleep(400, tok);
+      await typeInto($('[data-q]', r), 'emergency plumber dee why', tok, 70);
+      await sleep(500, tok); $('[data-results]', r).classList.add('is-in');
+      await sleep(1400, tok); $('[data-call]', r).classList.add('is-pulse');
+      await sleep(1800, tok); $('[data-calling]', r).classList.add('is-in');
+      await sleep(700, tok); $('[data-yourphone]', r).classList.add('is-ring');
+    },
+    still: function (r) { $('[data-q]', r).textContent = 'emergency plumber dee why'; $('[data-results]', r).classList.add('is-in'); $('[data-yourphone]', r).classList.add('is-ring'); }
+  };
+
+  // 6. AI receptionist: missed-call pile-up
+  var CALLS = [['7:42', 'Missed call', '0412 ••• 381', 'New job booked', 'Retaining wall · Thu 7:30am'], ['9:15', 'Missed call', '0433 ••• 902', 'Message taken', 'Builder wants a callback'], ['11:03', 'Missed call', '0401 ••• 557', 'New job booked', 'Pool dig · Mon 8am'], ['12:48', 'Missed call', '0422 ••• 160', 'New job booked', 'Driveway · Fri 9am'], ['14:20', 'Missed call', '0419 ••• 774', 'Message taken', 'Supplier re: delivery'], ['16:35', 'Missed call', '0455 ••• 230', 'New job booked', 'Site cut · Wed 7am']];
+  CP.pileup = {
+    reset: function (r) {
+      $('[data-list]', r).innerHTML = ''; $('[data-time]', r).textContent = '7:00'; $('[data-missed]', r).textContent = '0';
+      var tg = $('[data-toggle]', r); tg.setAttribute('aria-pressed', 'false'); tg.classList.remove('is-ready');
+      $('[data-after]', r).classList.remove('is-in'); r._switched = false;
+    },
+    add: function (r, c) {
+      var n = document.createElement('div'); n.className = 'n2';
+      n.innerHTML = '<span class="n2__ico"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div class="n2__txt"><b></b><span></span></div><time></time>';
+      $('.n2__txt b', n).textContent = c[1]; $('.n2__txt span', n).textContent = c[2]; $('time', n).textContent = c[0];
+      n._ok = c; $('[data-list]', r).appendChild(n);
+    },
+    switchOn: async function (r, tok) {
+      if (r._switched) return; r._switched = true;
+      var tg = $('[data-toggle]', r); tg.classList.remove('is-ready'); tg.setAttribute('aria-pressed', 'true');
+      var ns = $$('.n2', r);
+      for (var i = 0; i < ns.length; i++) {
+        await sleep(260, tok);
+        ns[i].classList.add('is-ok'); $('.n2__txt b', ns[i]).textContent = ns[i]._ok[3]; $('.n2__txt span', ns[i]).textContent = ns[i]._ok[4];
+      }
+      $('[data-missed]', r).textContent = '0'; $('[data-after]', r).classList.add('is-in');
+    },
+    play: async function (r, tok) {
+      var time = $('[data-time]', r), missed = $('[data-missed]', r), k = 0;
+      for (var m = 7 * 60; m <= 17 * 60; m += 10) {
+        time.textContent = Math.floor(m / 60) + ':' + ('0' + m % 60).slice(-2);
+        while (k < CALLS.length) {
+          var p = CALLS[k][0].split(':'), cm = +p[0] * 60 + +p[1];
+          if (cm > m) break;
+          CP.pileup.add(r, CALLS[k]); k++; missed.textContent = k;
+        }
+        await sleep(70, tok);
+      }
+      $('[data-toggle]', r).classList.add('is-ready');
+      await sleep(4500, tok);
+      await CP.pileup.switchOn(r, tok);
+    },
+    init: function (r, run) { $('[data-toggle]', r).addEventListener('click', function () { if ($$('.n2', r).length) CP.pileup.switchOn(r, run.tok); }); },
+    still: function (r) { CALLS.forEach(function (c) { CP.pileup.add(r, c); }); $('[data-time]', r).textContent = '17:00'; CP.pileup.switchOn(r, { dead: false }); }
+  };
+
+  // 7. AI lead caller: the callback race
+  var hms = function (sec) { sec = Math.round(sec); return Math.floor(sec / 3600) + ':' + ('0' + Math.floor(sec % 3600 / 60)).slice(-2) + ':' + ('0' + sec % 60).slice(-2); };
+  CP.race2 = {
+    reset: function (r) {
+      $('[data-w1]', r).textContent = '0:00:00'; $('[data-w2]', r).textContent = '0:00:00';
+      $('[data-t1]', r).style.width = '0'; $('[data-t2]', r).style.width = '0';
+      ['[data-r1]', '[data-r2]', '[data-texts]'].forEach(function (q) { $(q, r).classList.remove('is-in'); });
+    },
+    play: async function (r, tok) {
+      var t0 = performance.now(), aiDone = false;
+      while (true) {
+        var t = (performance.now() - t0) / 1000;
+        var ai = Math.min(47, t / 1.4 * 47), slow = Math.min(15120, Math.pow(Math.min(1, t / 5.5), 2) * 15120);
+        $('[data-w2]', r).textContent = hms(ai); $('[data-t2]', r).style.width = (ai / 47 * 100) + '%';
+        $('[data-w1]', r).textContent = hms(slow); $('[data-t1]', r).style.width = (slow / 15120 * 100) + '%';
+        if (!aiDone && ai >= 47) { aiDone = true; $('[data-r2]', r).classList.add('is-in'); setTimeout(function () { $('[data-texts]', r).classList.add('is-in'); }, 700); }
+        if (slow >= 15120) break;
+        await sleep(50, tok);
+      }
+      $('[data-r1]', r).classList.add('is-in');
+    },
+    still: function (r) { $('[data-w1]', r).textContent = '4:12:00'; $('[data-w2]', r).textContent = '0:00:47'; $('[data-t1]', r).style.width = '100%'; $('[data-t2]', r).style.width = '100%'; ['[data-r1]', '[data-r2]', '[data-texts]'].forEach(function (q) { $(q, r).classList.add('is-in'); }); }
+  };
+
+  // 8. AI chatbot: a working demo
+  var BOT = {
+    greet: "G'day! I'm the Coastline Plumbing assistant. What can I help with?",
+    q: [
+      ['Do you service Manly?', "Yes, we cover Manly and the whole Northern Beaches. What do you need done?"],
+      ['How much for a new hot water system?', "Most replacements are between $1,800 and $3,500 installed, depending on the type. We'll give you an exact price on site. Want me to book that?"],
+      ['Can someone come tomorrow?', "We've got a spot tomorrow at 8am or 1pm. Which suits you better?"],
+      ['Are you licensed?', "Yes, fully licensed and insured. Licence no. 000000."]
+    ],
+    book: ['Book me in', "Easy. What's your name and best number? (In the real thing, they type it here.)", "Thanks Megan! You're booked for tomorrow at 8am. You'll get a text confirmation shortly."]
+  };
+  CP.chat = {
+    say: async function (r, who, text, tok) {
+      var log = $('[data-log]', r);
+      if (who === 'bot') {
+        var t = document.createElement('div'); t.className = 'cbub cbub--typing'; t.innerHTML = '<i></i><i></i><i></i>';
+        log.appendChild(t); log.scrollTop = log.scrollHeight;
+        await sleep(Math.min(1400, 500 + text.length * 12), tok); t.remove();
+      }
+      var b = document.createElement('div'); b.className = 'cbub cbub--' + (who === 'bot' ? 'bot' : 'me'); b.textContent = text;
+      log.appendChild(b); log.scrollTop = log.scrollHeight;
+    },
+    chips: function (r, run) {
+      var box = $('[data-chips]', r); box.innerHTML = '';
+      var asked = r._asked || [];
+      var opts = BOT.q.filter(function (q) { return asked.indexOf(q[0]) < 0; });
+      if (asked.length && !r._booked) opts = [BOT.book].concat(opts);
+      opts.forEach(function (q) {
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = q[0];
+        b.addEventListener('click', function () { CP.chat.ask(r, q, run); });
+        box.appendChild(b);
+      });
+    },
+    ask: async function (r, q, run) {
+      var tok = run.tok; $('[data-chips]', r).innerHTML = '';
+      try {
+        await CP.chat.say(r, 'me', q[0], tok);
+        if (q === BOT.book) {
+          r._booked = true;
+          await CP.chat.say(r, 'bot', q[1], tok);
+          await sleep(900, tok); await CP.chat.say(r, 'me', 'Megan, 0412 ••• 381', tok);
+          await CP.chat.say(r, 'bot', q[2], tok);
+        } else {
+          (r._asked = r._asked || []).push(q[0]);
+          await CP.chat.say(r, 'bot', q[1], tok);
+        }
+        CP.chat.chips(r, run);
+      } catch (e) {}
+    },
+    reset: function (r) { $('[data-log]', r).innerHTML = ''; $('[data-chips]', r).innerHTML = ''; r._asked = []; r._booked = false; },
+    play: async function (r, tok, run) { await CP.chat.say(r, 'bot', BOT.greet, tok); CP.chat.chips(r, run); },
+    still: function (r, run) { var b = document.createElement('div'); b.className = 'cbub cbub--bot'; b.textContent = BOT.greet; $('[data-log]', r).appendChild(b); CP.chat.chips(r, run); }
+  };
+
+  // 9. CRM: move the jobs (tap to advance, or drag between columns)
+  var STAGE_MSG = [null, function (n) { return 'Confirmation text sent to ' + n; }, function (n) { return 'Quote follow-up booked for ' + n + ' in 3 days'; }, function (n) { return 'Google review request sent to ' + n; }];
+  CP.board = {
+    snapshot: null,
+    toast: function (r, msg) {
+      var box = $('[data-toasts]', r), t = document.createElement('div'); t.className = 'toast2'; t.textContent = msg;
+      box.appendChild(t);
+      setTimeout(function () { t.classList.add('is-out'); setTimeout(function () { t.remove(); }, 400); }, 2600);
+      while (box.children.length > 3) box.removeChild(box.firstChild);
+    },
+    move: function (r, card, stage) {
+      var col = $('[data-stage="' + stage + '"] .board__cards', r);
+      if (!col || card.parentNode === col) return;
+      col.appendChild(card); card.classList.remove('is-new'); void card.offsetWidth; card.classList.add('is-new');
+      if (STAGE_MSG[stage]) CP.board.toast(r, STAGE_MSG[stage](card.dataset.name));
+    },
+    init: function (r) {
+      r._html = $$('.board__cards', r).map(function (c) { return c.innerHTML; });
+      r.addEventListener('click', function (e) {
+        var card = e.target.closest('.jcard'); if (!card || r._dragged) return;
+        var stage = +card.closest('.board__col').dataset.stage;
+        if (stage < 3) CP.board.move(r, card, stage + 1);
+      });
+      var drag = null;
+      r.addEventListener('pointerdown', function (e) {
+        var card = e.target.closest('.jcard'); if (!card || e.button > 0) return;
+        drag = { card: card, x: e.clientX, y: e.clientY, on: false }; r._dragged = false;
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        if (!drag.on && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 8) {
+          drag.on = true; r._dragged = true;
+          var rc = drag.card.getBoundingClientRect();
+          drag.ghost = drag.card.cloneNode(true); drag.ghost.classList.add('is-drag');
+          drag.ghost.style.width = rc.width + 'px'; drag.dx = e.clientX - rc.left; drag.dy = e.clientY - rc.top;
+          document.body.appendChild(drag.ghost); drag.card.style.opacity = '.3';
+        }
+        if (drag.on) {
+          drag.ghost.style.left = (e.clientX - drag.dx) + 'px'; drag.ghost.style.top = (e.clientY - drag.dy) + 'px';
+          $$('.board__col', r).forEach(function (c) { var b = c.getBoundingClientRect(); c.classList.toggle('is-over', e.clientX > b.left && e.clientX < b.right && e.clientY > b.top && e.clientY < b.bottom); });
+        }
+      });
+      window.addEventListener('pointerup', function () {
+        if (!drag) return;
+        if (drag.on) {
+          var over = $('.board__col.is-over', r);
+          if (over) CP.board.move(r, drag.card, +over.dataset.stage);
+          drag.ghost.remove(); drag.card.style.opacity = '';
+          $$('.board__col', r).forEach(function (c) { c.classList.remove('is-over'); });
+          setTimeout(function () { r._dragged = false; }, 50);
+        }
+        drag = null;
+      });
+    },
+    reset: function (r) { $$('.board__cards', r).forEach(function (c, i) { c.innerHTML = r._html[i]; }); $('[data-toasts]', r).innerHTML = ''; },
+    play: async function (r, tok) {
+      await sleep(900, tok);
+      for (var st = 1; st <= 3; st++) {
+        var card = $$('.jcard', r).filter(function (c) { return c.dataset.name === 'Sarah'; })[0];
+        CP.board.move(r, card, st); await sleep(1500, tok);
+      }
+    },
+    still: function () {}
+  };
+
+  // Compare sliders (websites before/after, branding)
+  $$('[data-cmp]').forEach(function (c) {
+    var range = $('.cmp__range', c);
+    range.addEventListener('input', function () { c.style.setProperty('--x', range.value + '%'); c._touched = true; });
+  });
+  var sweep = async function (c) {
+    if (reduceMotion || c._touched) return;
+    var range = $('.cmp__range', c), tok = { dead: false };
+    var to = function (v, ms) { return new Promise(function (res) { var a = +range.value, t0 = performance.now(); (function f(now) { if (c._touched) return res(); var p = Math.min(1, (now - t0) / ms), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; range.value = a + (v - a) * e; c.style.setProperty('--x', range.value + '%'); p < 1 ? requestAnimationFrame(f) : res(); })(t0); }); };
+    await to(85, 1100); await to(15, 1400); await to(50, 900);
+  };
+
+  // Runner: one run per centrepiece; a new run cancels the old one.
+  $$('.cp-sec').forEach(function (sec) {
+    var root = $('[data-cp]', sec), cmp = $$('[data-cmp]', sec);
+    var name = root && root.dataset.cp, def = name && CP[name];
+    var run = { tok: { dead: false } };
+    var start = function () {
+      if (def) {
+        run.tok.dead = true; run.tok = { dead: false };
+        def.reset(root, run);
+        if (reduceMotion) { def.still(root, run); }
+        else { def.play(root, run.tok, run).catch(function () {}); }
+      }
+      cmp.forEach(function (c) { c._touched = false; sweep(c); });
+    };
+    if (def && def.init) def.init(root, run);
+    if (def) def.reset(root, run);
+    var replay = $('[data-replay]', sec);
+    if (replay) replay.addEventListener('click', start);
+    if (hasIO) {
+      var seen = false;
+      new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting && !seen) { seen = true; start(); }
+      }, { threshold: .35 }).observe(root || sec);
+    } else { start(); }
+  });
+
   /* ---------- One scroll loop for everything ---------- */
   var ticking = false;
   function frame() {
