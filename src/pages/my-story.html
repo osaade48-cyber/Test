@@ -1,68 +1,127 @@
 ---
 title: My story | TradeBooked
-description: TradeBooked was built by the owner of Avera Earthworx, a Sydney excavation business, to stop losing jobs to missed calls. Now it's helping other tradies.
+description: TradeBooked was built by the owner of Avera Earthworx, a Sydney excavation business, to stop losing jobs. It worked so well, now it's helping other tradies.
 ---
 <main id="main">
 
-  <section class="section section--dark">
-    <div class="container story-hero">
-      <div class="photo-ph" data-parallax>PHOTO: you on the excavator, on site<br>(placeholder, portrait 4:5)
-        <div class="photo-ph__stamp"><small>Owner &amp; operator</small>Avera Earthworx · Sydney</div>
-      </div>
-      <div style="display:grid; gap:22px">
+  <!-- Hero -->
+  <section class="story-top">
+    <div class="container story-top__grid">
+      <div class="story-top__copy">
         <p class="eyebrow">My story</p>
         <h1 class="h-xl">Built on an excavator, <span class="accent">not in an office.</span></h1>
         <p class="lede">I built TradeBooked for my own excavation business, to stop losing jobs. It worked so well that I wanted every tradie to have it.</p>
-        <p class="signature">{{site.founderName}}<span>Founder, TradeBooked · Owner, <a href="https://averaearthworx.com.au" target="_blank" rel="noopener" style="color:inherit">Avera Earthworx</a></span></p>
+        <ul class="facts-row">
+          <li><b>Avera Earthworx</b><span>Excavation, Sydney</span></li>
+          <li><b><span class="ph">Year</span></b><span>On the tools since</span></li>
+          <li><b>Tradie first</b><span>Founder second</span></li>
+        </ul>
+      </div>
+      <div class="story-top__photo">
+        <div class="photo-ph" data-parallax>PHOTO: you on the excavator, on site<br>(placeholder, portrait 4:5)</div>
+        <span class="story-top__badge">Owner &amp; operator</span>
       </div>
     </div>
   </section>
 
-  <section class="section section--paper">
-    <div class="container container--narrow">
-      <div class="prose">
-        <p class="pullquote">Every time the phone rang in the cab, I knew I was probably losing a job.</p>
-        <p><span class="ph">This is placeholder copy written from what you've told me. Rewrite it in your own words. It reads best when it sounds like you talking.</span></p>
-        <h2>The problem</h2>
-        <p>I run <a href="https://averaearthworx.com.au" target="_blank" rel="noopener">Avera Earthworx</a>, an excavation business in Sydney. Most days I'm on the machine from first light. You can't answer the phone halfway through a site cut, and by the time I got to my voicemails at lunch, half of those people had already booked someone else.</p>
-        <p>I tried calling everyone back at the end of the day. I tried a call centre. <span class="ph">What else did you try? What went wrong?</span></p>
-        <h2>So I built my own</h2>
-        <p>I set up an AI receptionist that answers like my office would. It knows the questions I'd ask: what suburb, what's the job, can a machine get down the side. It books the site visit and texts me the details. If someone hangs up, they get a text with an enquiry form.</p>
-        <p><span class="ph">How long did it take? What was the first job it won you?</span></p>
-        <h2>Now I'm offering it to other tradies</h2>
-        <p>Once it was working for me, other tradies I know started asking about it. So I made it into TradeBooked. Same setup, tuned for your trade, set up for you by someone who knows what life on the tools is like.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--white" aria-labelledby="ba-title">
+  <!-- Chapters -->
+  <section class="section section--white" aria-labelledby="chapters-title">
     <div class="container">
-      <div class="section-head">
-                <h2 class="h-lg" id="ba-title">Before and after</h2>
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="chapters-title">How it started.</h2>
+        <p class="lede"><span class="ph">Placeholder story from what you've told me. Rewrite each chapter in your own words.</span></p>
+      </div>
+
+      <ol class="pipe chapters" data-pipe>
+        <li class="pipe__step">
+          <div class="pipe__text"><span class="pipe__n">1</span><p class="chapter__tag">The problem</p><h3>The phone kept ringing in the cab</h3><p>Most days I'm on the machine from first light. You can't answer the phone halfway through a site cut, and by lunch half those callers had booked someone else.</p></div>
+          <div class="pipe__vis"><div class="notif-stack"><span class="notif notif--miss">Missed call · 7:42am</span><span class="notif notif--miss">Missed call · 9:15am</span><span class="notif notif--miss">Missed call · 11:03am</span></div></div>
+        </li>
+        <li class="pipe__step">
+          <div class="pipe__text"><span class="pipe__n">2</span><p class="chapter__tag">What I tried</p><h3>Call-backs, voicemail, a call centre</h3><p>I tried ringing everyone back at night. I tried a call centre. Nothing kept up with how fast people move on. <span class="ph">What else did you try?</span></p></div>
+          <div class="pipe__vis"><div class="mini mini--voicemail"><span class="vm-ico">●●</span><div><b>Voicemail (0 new)</b><span>Most callers hung up</span></div></div></div>
+        </li>
+        <li class="pipe__step">
+          <div class="pipe__text"><span class="pipe__n">3</span><p class="chapter__tag">The fix</p><h3>So I built my own</h3><p>An AI receptionist that answers like my office would, asks the questions I'd ask, books the job and texts me the details.</p></div>
+          <div class="pipe__vis"><div class="mini mini--texts"><p class="bub-out"><b>New job booked</b><br>Sarah, Castle Hill. Retaining wall. Thu 7:30am.</p></div></div>
+        </li>
+        <li class="pipe__step">
+          <div class="pipe__text"><span class="pipe__n">4</span><p class="chapter__tag">The next step</p><h3>Then the work started coming to me</h3><p>Add ads that bring in the leads, and an AI that calls every one within a minute, and the calendar fills itself. <span class="ph">Confirm: did you run ads for Avera Earthworx?</span></p></div>
+          <div class="pipe__vis"><div class="mini mini--cal"><span class="mini-cal__day">MON</span><div><b>3 quotes booked</b><span>All from this week's leads</span></div></div></div>
+        </li>
+        <li class="pipe__step">
+          <div class="pipe__text"><span class="pipe__n">5</span><p class="chapter__tag">Today</p><h3>Now it's for every tradie</h3><p>Other tradies kept asking how I did it. So I turned it into TradeBooked, set up for you by someone who knows life on the tools.</p></div>
+          <div class="pipe__vis"><div class="mini mini--done"><span class="lh-tick">✓</span><b>Built for tradies, by a tradie</b></div></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="section section--dark story-quote" aria-label="In my words">
+    <div class="container container--narrow">
+      <p class="pullquote">Every time the phone rang in the cab, I knew I was probably losing a job. Now every call gets answered, and every lead gets a call back in a minute.</p>
+      <p class="signature">{{site.founderName}}<span>Founder, TradeBooked · Owner, <a href="https://averaearthworx.com.au" target="_blank" rel="noopener" style="color:inherit">Avera Earthworx</a></span></p>
+    </div>
+  </section>
+
+  <!-- Before / after -->
+  <section class="section section--paper" aria-labelledby="ba-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="ba-title">My phone, before and after.</h2>
         <p class="lede"><span class="ph">Swap in your real numbers. Real results from a real tradie are the most convincing thing on this site.</span></p>
       </div>
-      <div class="ba">
-        <div class="ba__col ba__col--before">
-          <p class="calc__label" style="color:var(--muted-ink)">Before</p>
-          <p class="ba__n">X calls</p>
-          <p>missed every week <span class="ph">your number</span></p>
-          <ul>
-            <li>Voicemails checked at lunch, if at all</li>
-            <li>Callers ringing the next business</li>
-            <li>Quotes never followed up</li>
-          </ul>
+      <div class="lockscreens">
+        <div class="lock lock--before">
+          <p class="lock__label">Before</p>
+          <div class="lock__screen">
+            <p class="lock__time">12:30</p>
+            <span class="notif notif--miss">Missed call · 0412 ••• 381</span>
+            <span class="notif notif--miss">Missed call · 0433 ••• 902</span>
+            <span class="notif notif--miss">Missed call · 0401 ••• 557</span>
+            <span class="notif notif--grey">Voicemail · 0 new messages</span>
+          </div>
+          <p class="lock__cap"><b>X calls</b> missed a week <span class="ph">your number</span></p>
         </div>
-        <div class="ba__col ba__col--after">
-          <p class="calc__label">After</p>
-          <p class="ba__n">X jobs</p>
-          <p>booked by the AI in the first month <span class="ph">your number</span></p>
-          <ul>
-            <li>Every missed call answered</li>
-            <li>Site visits booked while I'm on the machine</li>
-            <li>A text summary of every call</li>
-          </ul>
+        <div class="lock lock--after">
+          <p class="lock__label">After</p>
+          <div class="lock__screen">
+            <p class="lock__time">12:30</p>
+            <span class="notif notif--ok"><b>New job booked</b> · Castle Hill, Thu 7:30am</span>
+            <span class="notif notif--ok"><b>Quote booked</b> · Kellyville, Mon 8am</span>
+            <span class="notif notif--ok"><b>Message</b> · Tom wants a call after 3pm</span>
+            <span class="notif notif--org"><b>Today</b> · 6 calls answered, 3 booked</span>
+          </div>
+          <p class="lock__cap"><b>X jobs</b> booked in the first month <span class="ph">your number</span></p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section--white" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="values-title">What I stand for.</h2>
+      </div>
+      <div class="values">
+        <div class="value"><span class="value__ico" style="--c: #F26A1B"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><h3>Tradies belong on the tools</h3><p>Not stuck on the phone or chasing leads at night.</p></div>
+        <div class="value"><span class="value__ico" style="--c: #2F80ED"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><h3>Every lead deserves a fast reply</h3><p>A call back in a minute, not tomorrow arvo.</p></div>
+        <div class="value"><span class="value__ico" style="--c: #3BB273"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span><h3>Plain talk, no tech jargon</h3><p>If you can read a text, you can use it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sign-off -->
+  <section class="section section--paper section--tight" aria-label="Get in touch">
+    <div class="container signoff">
+      <div class="signoff__avatar" aria-hidden="true">PHOTO</div>
+      <div>
+        <p class="signoff__h">Want to see if it'd work for your business?</p>
+        <p class="muted">Book a chat with me. I'll show you exactly how I'd set it up for your trade.</p>
+      </div>
+      <a class="btn btn--primary btn--lg" href="book.html">Book a chat with me</a>
     </div>
   </section>
 
