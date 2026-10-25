@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+/* ---------- Design tokens: warm white, charcoal, dark timber ---------- */
+@theme {
+  --color-paper: #f6f3ee;
+  --color-paper-2: #eeeae3;
+  --color-stone: #ddd6cb;
+  --color-line: #d9d2c6;
+  --color-ink: #262624;
+  --color-ink-soft: #4b4945;
+  --color-muted: #7a756d;
+  --color-timber: #4a3426;
+  --color-timber-soft: #6e5241;
+  --color-night: #15181d;
+  --color-night-2: #1d2128;
+  --color-glow: #e9b47a;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --breakpoint-xs: 420px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-timber);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-timber);
+  outline-offset: 3px;
+}
+
+/* ---------- Type ---------- */
+@layer components {
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    line-height: 0.98;
+  }
+  .heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-ink-soft);
+  }
+  .wordmark {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.6s var(--ease-lux),
+      color 0.6s var(--ease-lux),
+      border-color 0.6s var(--ease-lux);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-primary:hover {
+    background: var(--color-timber);
+  }
+  .btn-light {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .btn-light:hover {
+    background: #fff;
+  }
+  .btn-outline {
+    border: 1px solid currentColor;
+  }
+  .btn-outline:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-outline-light {
+    border: 1px solid rgb(246 243 238 / 0.5);
+    color: var(--color-paper);
+  }
+  .btn-outline-light:hover {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding-bottom: 0.35rem;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    transition: background-size 0.8s var(--ease-lux);
+  }
+  .link-arrow:hover {
+    background-size: 35% 1px;
+  }
+
+  /* ---------- Form fields ---------- */
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.85rem 0;
+    font-size: 1rem;
+    color: var(--color-ink);
+    border-radius: 0;
+    transition: border-color 0.5s var(--ease-lux);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-ink);
+  }
+  .field::placeholder {
+    color: #aaa398;
+  }
+  select.field {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%237a756d'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.25rem center;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ---------- Reveal on scroll (only when JS is running) ---------- */
+html.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 1.4s var(--ease-lux),
+    transform 1.6s var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes loading-line {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+.loading-line {
+  animation: loading-line 2.4s var(--ease-lux) infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(300%);
+  }
+}
+.scroll-cue {
+  animation: scroll-cue 2.8s var(--ease-lux) infinite;
+}
+
+@keyframes slow-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in-slow {
+  animation: slow-fade-in 1.8s var(--ease-lux) both;
+}
+
+/* Hide scrollbars on horizontal galleries, keep them scrollable */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
