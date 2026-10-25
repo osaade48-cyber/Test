@@ -1678,3 +1678,5 @@ main { position: relative; }
 .bcard--hot .inc { border-top-color: var(--line); }
 .bcard .inc small { font-size: 13px; }
 @media (max-width: 620px) { .bcard__setup { min-height: 0; } }
+.bcards--1 { grid-template-columns: minmax(0, 1fr); max-width: 440px; margin: 0 auto; }
+.checks--sm { align-content: start; }

@@ -77,12 +77,22 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get svc-get--solo">
-      <div class="svc-get__list">
-        <h2 class="h-lg" id="get-title">What you get</h2>
-        <ul class="checks"><li>Ad campaigns set up and managed</li><li>Ads written and designed from your job photos</li><li>Targeted to the suburbs you service</li><li>Lead forms built into Facebook and Instagram</li><li>Fresh ads every month</li><li>Weekly checks and a monthly report</li></ul>
+  <section class="section section--paper" id="pricing" aria-labelledby="get-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="get-title">What it costs</h2>
       </div>
+      <div class="bcards bcards--1">
+        <article class="bcard">
+          <h3 class="bcard__name">Meta ads</h3>
+          <p class="bcard__line">Facebook and Instagram ads that bring in leads.</p>
+          <p class="bcard__price"><small>from </small>${{site.metaPrice}}<small> /month</small></p>
+          <p class="bcard__setup bcard__setup--tier">+ ${{site.metaSetup}} setup · 3-month minimum<br>+ ad spend paid to Meta (min ${{site.minAdSpend}}/day)</p>
+          <ul class="checks checks--sm"><li>Ad campaigns set up and managed</li><li>Ads written and designed from your job photos</li><li>Targeted to the suburbs you service</li><li>Lead forms built into Facebook and Instagram</li><li>Fresh ads every month</li><li>Weekly checks and a monthly report</li></ul>
+          <a class="btn btn--ghost" href="book.html?plan=Custom%20plan" aria-label="Book a call about Meta ads">Book a call</a>
+        </article>
+      </div>
+      <p class="plans-note">Or get it in <a href="bundles.html#growth">Growth</a> (save {{site.boSavePct}}%). Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span></p>
     </div>
   </section>
 
@@ -115,7 +125,7 @@ nav: services
 
   <section class="section section--paper" aria-labelledby="faq-title">
     <div class="container container--narrow">
-      <div class="bundle-in"><p class="bundle-in__h">Included in</p><div class="bundle-tags"><a class="bundle-tag" href="bundles.html#growth"><b>Growth</b><span>${{site.boPrice}}/mo</span></a></div><p class="bundle-in__or">Or add it to a <a href="bundles.html#custom">custom plan</a>.</p></div>
+      <div class="bundle-in"><p class="bundle-in__h">Included in</p><div class="bundle-tags"><a class="bundle-tag" href="bundles.html#growth"><b>Growth</b><span>from ${{site.boPrice}}/mo</span></a></div><p class="bundle-in__or">Or add it to a <a href="bundles.html#custom">custom plan</a>.</p></div>
       <div class="faq" style="margin-top:48px">
         <h2 class="h-md" id="faq-title" style="margin-bottom:8px">Questions about Meta ads</h2>
         <details><summary>Is the ad spend included?</summary><div><p>No. You pay Meta directly, minimum ${{site.minAdSpend}} a day, so you always see exactly what's spent.</p></div></details><details><summary>Do I need to make videos?</summary><div><p>No. We make the ads from your before-and-after photos.</p></div></details><details><summary>Is there a minimum term?</summary><div><p>Yes, 3 months. Ads need time to learn what works in your area.</p></div></details>

@@ -28,5 +28,21 @@
   "boSavePct": "25",
   "webCare": "100",
   "bwStdUp": "1,700",
-  "bwPremUp": "3,700"
+  "bwPremUp": "3,700",
+  "seoPrice": "795",
+  "seoSetup": "750",
+  "metaPrice": "795",
+  "metaSetup": "1,000",
+  "gadsPrice": "795",
+  "gadsSetup": "1,000",
+  "recPrice": "350",
+  "recSetup": "500",
+  "callerPrice": "350",
+  "callerSetup": "500",
+  "chatPrice": "150",
+  "chatSetup": "300",
+  "reviewsPrice": "100",
+  "reviewsSetup": "150",
+  "followPrice": "150",
+  "followSetup": "300"
 }
