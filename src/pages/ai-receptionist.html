@@ -84,7 +84,7 @@ nav: services
         <h2 class="h-lg" id="calc-title">What are missed calls costing you?</h2>
         <p class="lede">Two questions. Move the sliders.</p>
       </div>
-      <div data-calc data-calc-restore>
+      <div data-calc data-calc-restore data-plan="{{site.nmjPrice}}">
         <div class="calc">
           <div class="calc__inputs">
             <div class="range">
@@ -100,7 +100,7 @@ nav: services
             <p class="calc__label">Work you could be missing</p>
             <p class="calc__big" data-out="year">$312,500</p>
             <p class="calc__sub">a year. That's <b data-out="jobs">10 jobs a month</b>.</p>
-            <p class="calc__verdict" data-out="verdict">Reception is $495 a month. <em>Win back one job and it’s paid for.</em></p>
+            <p class="calc__verdict" data-out="verdict">Reception is ${{site.nmjPrice}} a month. <em>Win back one job and it’s paid for.</em></p>
           </div>
         </div>
         <p class="calc__note">Assumes 3 in 10 people who couldn't get through would have booked a job. It's an estimate to show what's at stake, not a promise.</p>

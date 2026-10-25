@@ -264,7 +264,8 @@
   }
 
   /* ---------- Calculators ---------- */
-  var PLAN = 495;
+  var planEl = $('[data-plan]');
+  var PLAN = planEl ? +planEl.getAttribute('data-plan').replace(/,/g, '') : 550;
   function calcNumbers(calls, inTen, job) {
     var missed = calls * 52;
     var jobs = Math.round(missed * inTen / 10);
