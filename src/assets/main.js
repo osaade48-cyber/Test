@@ -410,7 +410,7 @@
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -464,11 +464,11 @@
   function countUp(el) {
     if (reduceMotion || el._done) return;
     el._done = true;
-    var to = +el.dataset.countup, pre = el.dataset.prefix || '', start = null;
+    var to = +el.dataset.countup, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '', start = null;
     var step = function (ts) {
       if (!start) start = ts;
       var p = Math.min(1, (ts - start) / 1100);
-      el.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-AU');
+      el.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-AU') + suf;
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);

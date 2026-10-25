@@ -57,6 +57,18 @@ The home page stats were checked before use:
 - **62% unanswered:** 411 Locals call study, Jan 2016 (85 US businesses). Counts calls that went to voicemail as unanswered.
 - **78% have given up on a business / 1 in 5 call a competitor straight away:** CallRail survey of 1,000 US consumers, 2025. Found via secondary reports; link the original CallRail report if you can find it.
 
+Service pages use these sources (keep the source lines on the page if you edit them):
+
+- Websites: Google "The Need for Mobile Speed" (2016), 53% of mobile visits abandoned over 3s; Lindgaard et al. (2006), 50 ms first impression
+- Branding: Lucidpress/Marq State of Brand Consistency (2019), 33% is a survey estimate from brand managers
+- SEO and CRM: BrightLocal Local Consumer Review Survey (2026: 97% read reviews; 2017: 68% left a review when asked)
+- Google Ads and SEO: StatCounter Australia (2025–26), ~88% of searches on Google, ~97% on mobile
+- Meta ads: DataReportal Digital 2025 Australia, ~17M ad reach, ~78% use Facebook
+- AI lead caller and Meta ads: Harvard Business Review, "The Short Life of Online Sales Leads" (2011)
+- AI chatbot: HubSpot Research customer expectations survey (2018)
+
+Each service page also has a "Case study · coming soon" card. Fill these with real client results only.
+
 The often-quoted "85% never call back" and "80% won't leave a voicemail" figures were left out because no primary source could be found for them.
 
 ## Hosting
