@@ -1,12 +1,12 @@
 # TradeBooked website
 
-The website for [tradebooked.com.au](https://tradebooked.com.au): an AI receptionist for Aussie tradies.
+The website for [tradebooked.com.au](https://tradebooked.com.au): marketing (Meta ads) and AI receptionist for Aussie tradies.
 
 ## What's where
 
 ```
 site.config.json   Phone number, email, ABN, your name, plan name (topPlan), prices, form endpoint. Change once, updates every page.
-src/pages/         One file per page (home, how it works, get more jobs, services, pricing, my story, FAQ, book, thanks, privacy, terms, 404)
+src/pages/         One file per page (home, how it works, booked-out, growth, my story, FAQ, book, thanks, privacy, terms, 404)
 src/partials/      Shared bits used on every page: head, header + mobile thumb bar, Book a chat strip, footer, phone mockup
 src/assets/        styles.css, main.js (call animation, calculators, form), favicon
 src/static/        robots.txt and sitemap.xml
@@ -35,9 +35,9 @@ Search the pages for `class="ph"`: every highlighted placeholder needs your real
 - [ ] Your name, email, ABN (`site.config.json`)
 - [ ] Your photo and story (`src/pages/my-story.html`, and the teaser on the home page)
 - [ ] Your before/after numbers (`my-story.html`)
-- [ ] Name for the top plan (`topPlan` in `site.config.json`, currently the working name "Lead Engine")
-- [ ] Plan features, Growth contract terms, GST (`pricing.html`, `faq.html`)
-- [ ] If the minimum ad spend changes, also update the "about $1,520 a month" line in `get-more-jobs.html`
+- [ ] Name for the main package (`topPlan` in `site.config.json`, currently "Booked Out"; the page file is booked-out.html)
+- [ ] Package features, Growth contract terms, GST (`booked-out.html`, `growth.html`, `faq.html`)
+- [ ] If the minimum ad spend changes, also update the "about $1,520 a month" line in `booked-out.html`
 - [ ] Setup time and supported calendars (`faq.html`, `book.html`)
 - [ ] Privacy policy and terms reviewed by a lawyer (`privacy.html`, `terms.html`)
 - [ ] Real call recordings (the demo currently plays animated transcripts)

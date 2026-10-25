@@ -2,9 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{{site.siteUrl}}/</loc></url>
   <url><loc>{{site.siteUrl}}/how-it-works</loc></url>
-  <url><loc>{{site.siteUrl}}/get-more-jobs</loc></url>
-  <url><loc>{{site.siteUrl}}/services</loc></url>
-  <url><loc>{{site.siteUrl}}/pricing</loc></url>
+  <url><loc>{{site.siteUrl}}/booked-out</loc></url>
+  <url><loc>{{site.siteUrl}}/growth</loc></url>
   <url><loc>{{site.siteUrl}}/my-story</loc></url>
   <url><loc>{{site.siteUrl}}/faq</loc></url>
   <url><loc>{{site.siteUrl}}/book</loc></url>

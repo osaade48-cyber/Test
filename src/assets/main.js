@@ -38,18 +38,19 @@
   /* ---------- Sample calls ---------- */
   var SCRIPTS = {
     hero: {
-      caller: '0412 ••• 381',
+      outbound: true,
+      caller: 'Jess · Facebook lead',
       business: 'Avera Earthworx',
       turns: [
-        ['ai', "G'day, Avera Earthworx. You've got the office, how can I help?"],
-        ['caller', "Hi, I need a quote for a retaining wall and a site cut."],
-        ['ai', "No worries. What suburb's the job in, and can a 5-tonne excavator get down the side?"],
-        ['caller', "Castle Hill. Yeah, side access is about 2.4 metres."],
-        ['ai', "Perfect. I can get someone out for a site visit Thursday at 7:30am. Does that suit?"],
-        ['caller', "Thursday's great, thanks."]
+        ['ai', "Hi, is that Jess? It's Avera Earthworx. You just asked about a pool dig on Facebook."],
+        ['caller', "Oh yes! That was quick."],
+        ['ai', "We like to be. Roughly how big's the pool, and can a 5-tonne digger get down the side?"],
+        ['caller', "About 8 by 4 metres. Side access is around 3 metres."],
+        ['ai', "Perfect. I can get someone out to quote Thursday at 7:30am. Does that suit?"],
+        ['caller', "Thursday works, thanks."]
       ],
-      booked: ['Site visit booked', 'Thu 7:30am · Castle Hill · In your calendar'],
-      sms: ['New job booked', 'Sarah, Castle Hill. Retaining wall + site cut, 2.4m side access. Site visit Thu 7:30am.']
+      booked: ['Quote booked', 'Thu 7:30am · Kellyville · Confirmation sent'],
+      sms: ['New quote booked', 'Jess, Kellyville. Pool dig 8×4m, 3m side access. Thu 7:30am. From your Facebook ad.']
     },
     emergency: {
       caller: '0433 ••• 902',
@@ -113,7 +114,7 @@
     b.className = 'bubble bubble--' + (who === 'ai' ? 'ai' : 'caller');
     var label = document.createElement('span');
     label.className = 'bubble__who';
-    label.textContent = who === 'ai' ? 'AI receptionist' : 'Caller';
+    label.textContent = who === 'ai' ? 'AI receptionist' : 'Customer';
     var body = document.createElement('span');
     b.appendChild(label);
     b.appendChild(body);
@@ -141,7 +142,7 @@
     this.card(s);
     this.fillSms(s);
     this.sms.classList.add('is-in');
-    this.status.innerHTML = '<span class="live">● Answered by AI</span> · call ended';
+    this.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI called' : 'Answered by AI') + '</span> · call ended';
   };
   CallPlayer.prototype.play = function (s, loop) {
     var self = this;
@@ -152,7 +153,7 @@
     function tickTimer() {
       secs++;
       var m = Math.floor(secs / 60), r = secs % 60;
-      self.status.innerHTML = '<span class="live">● Answered by AI</span> · ' + (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI on the call' : 'Answered by AI') + '</span> · ' + (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
     }
     function stopTimer() { if (timer) clearInterval(timer); timer = null; }
 
@@ -161,7 +162,7 @@
       self.phone.classList.add('is-ringing');
       for (var ring = 1; ring <= 3; ring++) {
         if (!alive()) return;
-        self.status.innerHTML = '<span class="ringing">Incoming call · ring ' + ring + '</span>';
+        self.status.innerHTML = '<span class="ringing">' + (s.outbound ? 'AI calling · ring ' : 'Incoming call · ring ') + ring + '</span>';
         await wait(750);
       }
       self.phone.classList.remove('is-ringing');
@@ -187,7 +188,7 @@
       await wait(1300);
       stopTimer();
       if (!alive()) return;
-      self.status.innerHTML = '<span class="live">● Answered by AI</span> · call ended';
+      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI called' : 'Answered by AI') + '</span> · call ended';
       self.fillSms(s);
       self.sms.classList.add('is-in');
       if (!loop) return;
@@ -320,7 +321,7 @@
     fillCarry();
     window.TB_fillCarry = fillCarry;
     var plan = new URLSearchParams(location.search).get('plan');
-    if (plan && $('[name="plan"]', form)) $('[name="plan"]', form).value = plan;
+    $$('[name="plan"]', form).forEach(function (r) { if (plan && r.value === plan) r.checked = true; });
 
     var setError = function (field, msg) {
       var wrap = field.closest('.field');
@@ -409,7 +410,7 @@
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -420,7 +421,7 @@
       revealEls.push(el);
     });
   });
-  $$('.more__flow li').forEach(function (el, k) { el.style.setProperty('--k', k); });
+  $$('.more__flow li, .journey__step').forEach(function (el, k, all) { el.style.setProperty('--k', Array.prototype.indexOf.call(el.parentNode.children, el)); });
   $$('.flow__step').forEach(function (el, k) { el.style.setProperty('--k', k); el.style.setProperty('--d', (k * 600 + 200) + 'ms'); });
 
   function onReveal(el) {

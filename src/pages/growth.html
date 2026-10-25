@@ -1,20 +1,24 @@
 ---
-title: Services | TradeBooked
-description: AI call answering, missed-call text-back, quote follow-ups, Google review requests and invoice reminders for Australian tradies.
+title: Growth | TradeBooked
+description: Growth is TradeBooked's AI receptionist: it answers your missed calls, books jobs, texts people who hang up and chases quotes, reviews and invoices. ${{site.growthPrice}} a month.
 ---
 <main id="main">
 
   <section class="page-hero">
     <div class="container">
       <div class="page-hero__inner">
-        <p class="eyebrow">Services</p>
-        <h1 class="h-xl">What TradeBooked <span class="accent">does for you.</span></h1>
-        <p class="lede">Five jobs off your plate. Here's when each one happens and the exact message that goes out.</p>
+        <p class="eyebrow">Growth · AI receptionist</p>
+        <h1 class="h-xl">Already getting calls? <span class="accent">Never miss one again.</span></h1>
+        <p class="lede">Your AI receptionist answers when you can't, books the job and chases the follow-ups you never get round to. Five jobs off your plate.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--lg" href="book.html?plan=Growth">Book a chat</a>
+          <a class="btn btn--ghost btn--lg" href="#price">See the price</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--white" aria-label="All services">
+  <section class="section section--white" aria-label="What Growth does">
     <div class="container container--mid">
 
       <article class="srv" id="answering">
@@ -82,13 +86,69 @@ description: AI call answering, missed-call text-back, quote follow-ups, Google 
         </div>
       </article>
 
-      <a class="srv-cta" href="get-more-jobs.html">
-        <span class="srv-cta__tag">{{site.topPlan}}</span>
-        <span class="srv-cta__h">Want us to find the leads too?</span>
-        <span class="srv-cta__p">We run Meta ads, and your AI calls every new lead within a minute and books the quote.</span>
-        <span class="srv-cta__go">See how it works <span aria-hidden="true">→</span></span>
-      </a>
+    </div>
+  </section>
 
+  <!-- Calculator -->
+  <section class="section section--paper" id="calculator" aria-labelledby="calc-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h-lg" id="calc-title">What are missed calls costing you?</h2>
+        <p class="lede">Two questions. Move the sliders.</p>
+      </div>
+      <div data-calc data-calc-restore>
+        <div class="calc">
+          <div class="calc__inputs">
+            <div class="range">
+              <div class="range__top"><label for="calc-calls">How many calls do you miss a week?</label><output for="calc-calls" data-out="calls">8</output></div>
+              <input id="calc-calls" name="calls" type="range" min="1" max="40" value="8">
+            </div>
+            <div class="range">
+              <div class="range__top"><label for="calc-job">What's a typical job worth?</label><output for="calc-job" data-out="job">$2,500</output></div>
+              <input id="calc-job" name="job" type="range" min="200" max="20000" step="100" value="2500">
+            </div>
+          </div>
+          <div class="calc__out" aria-live="polite">
+            <p class="calc__label">Work you could be missing</p>
+            <p class="calc__big" data-out="year">$312,500</p>
+            <p class="calc__sub">a year. That's <b data-out="jobs">10 jobs a month</b>.</p>
+            <p class="calc__verdict" data-out="verdict">The Growth plan is $400 a month. <em>Win back one job and it’s paid for.</em></p>
+          </div>
+        </div>
+        <p class="calc__note">Assumes 3 in 10 people who couldn't get through would have booked a job. It's an estimate to show what's at stake, not a promise.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Price -->
+  <section class="section section--white" id="price" aria-labelledby="price-title">
+    <div class="container">
+      <div class="price-block">
+        <div class="price-block__copy">
+          <h2 class="h-lg" id="price-title">Simple pricing.</h2>
+          <p class="lede">Everything above, set up for your business.</p>
+          <a class="upsell" href="booked-out.html">
+            <span class="upsell__tag">Want more leads too?</span>
+            <span class="upsell__h">{{site.topPlan}} runs your ads and books the quotes for you.</span>
+            <span class="upsell__go">See {{site.topPlan}} →</span>
+          </a>
+        </div>
+        <div class="plan growth-card">
+          <h3 class="plan__name">Growth</h3>
+          <p class="plan__price"><span data-countup="{{site.growthPrice}}" data-prefix="$">${{site.growthPrice}}</span><small> /month</small></p>
+          <p class="plan__setup">+ ${{site.growthSetup}} one-off setup</p>
+          <ul>
+            <li>AI answers your missed calls, 24/7</li>
+            <li>Books jobs into your calendar</li>
+            <li>Text summary after every call</li>
+            <li>Texts people who hang up</li>
+            <li>Quote follow-ups and Google reviews</li>
+            <li>Invoice reminders</li>
+          </ul>
+          <p class="plan__fine">Prices in AUD. <span class="ph">GST inc. or ex.? Contract terms? Confirm</span></p>
+          <a class="btn btn--primary btn--lg" href="book.html?plan=Growth">Book a chat</a>
+        </div>
+      </div>
     </div>
   </section>
 

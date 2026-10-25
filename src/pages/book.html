@@ -1,6 +1,6 @@
 ---
 title: Book a chat | TradeBooked
-description: Book a free 15-minute chat about setting up an AI receptionist for your trade business. No hard sell.
+description: Book a free 15-minute chat about getting more jobs for your trade business. No hard sell.
 cta: no
 ---
 <main id="main">
@@ -19,7 +19,7 @@ cta: no
             <span>You worked out missed calls could be costing you <b>$0</b> a year. I'll bring that to our chat.</span>
           </div>
           <input type="hidden" name="calculator_estimate" value="">
-          <input type="hidden" name="plan" value="">
+          
 
           <div class="form__row">
             <div class="field">
@@ -33,6 +33,15 @@ cta: no
               <p class="field__error" aria-live="polite"></p>
             </div>
           </div>
+
+          <fieldset class="field">
+            <legend>What are you interested in?</legend>
+            <div class="chips">
+              <label><input type="radio" name="plan" value="{{site.topPlan}}" checked><span>{{site.topPlan}} (ads + AI)</span></label>
+              <label><input type="radio" name="plan" value="Growth"><span>Growth (AI receptionist)</span></label>
+              <label><input type="radio" name="plan" value="Not sure"><span>Not sure yet</span></label>
+            </div>
+          </fieldset>
 
           <fieldset class="field">
             <legend>Your trade</legend>
