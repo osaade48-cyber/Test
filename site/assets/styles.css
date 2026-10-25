@@ -1669,3 +1669,12 @@ main { position: relative; }
 .bcard__save small { display: block; font-size: 12.5px; font-weight: 500; opacity: .85; }
 .bcard__setup--tier { margin: 8px 0 18px !important; min-height: 0; }
 .bcards--3 .bcard__setup--tier + .checks--sm { margin-top: 0; }
+/* simplified bundle cards */
+.bcard { padding: 26px 22px 22px; }
+.bcard__line { min-height: 0; margin-bottom: 18px; }
+.bcard__setup { min-height: 2.9em; margin: 6px 0 14px; line-height: 1.45; }
+.bcard__save { display: inline-block; align-self: flex-start; margin: 0 0 20px; padding: 5px 12px; border-radius: 99px; font-size: 13.5px; }
+.bcard .inc { margin-bottom: 22px; flex: 1; align-content: start; padding-top: 18px; border-top: 1px solid var(--line-light); }
+.bcard--hot .inc { border-top-color: var(--line); }
+.bcard .inc small { font-size: 13px; }
+@media (max-width: 620px) { .bcard__setup { min-height: 0; } }
