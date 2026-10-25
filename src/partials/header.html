@@ -7,11 +7,18 @@
     <nav class="nav" id="site-nav" aria-label="Main">
       <a href="index.html"{{nav_home}}>Home</a>
       <a href="how-it-works.html"{{nav_how-it-works}}>How it works</a>
-      <a href="booked-out.html"{{nav_booked-out}}>{{site.topPlan}}</a>
-      <a href="growth.html"{{nav_growth}}>Growth</a>
+      <div class="nav__drop">
+        <a class="nav__droplink" href="services.html"{{nav_services}} aria-haspopup="true">Services <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav__panel">
+          <div class="nav__col"><p>Get found</p><a href="websites.html">Websites</a><a href="branding.html">Branding</a><a href="seo.html">SEO and Google profile</a></div>
+          <div class="nav__col"><p>Get leads</p><a href="meta-ads.html">Meta ads</a><a href="google-ads.html">Google Ads</a></div>
+          <div class="nav__col"><p>Get booked</p><a href="ai-receptionist.html">AI receptionist</a><a href="ai-lead-caller.html">AI lead caller</a><a href="ai-chatbot.html">AI website chatbot</a><a href="crm.html">CRM and follow-ups</a></div>
+        </div>
+      </div>
+      <a href="bundles.html"{{nav_bundles}}>Bundles</a>
       <a href="my-story.html"{{nav_my-story}}>My story</a>
       <a href="faq.html"{{nav_faq}}>FAQ</a>
-      <a class="btn btn--primary nav__cta" href="book.html"{{nav_book}}>Book a chat</a>
+      <a class="btn btn--primary nav__cta" href="book.html"{{nav_book}}>Book a call</a>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="nav-toggle__bars" aria-hidden="true"></span>
@@ -22,5 +29,5 @@
 
 <div class="thumb-bar" aria-label="Quick actions">
   <a class="btn btn--ghost" href="how-it-works.html#demo">Try the demo</a>
-  <a class="btn btn--primary" href="book.html">Book a chat</a>
+  <a class="btn btn--primary" href="book.html">Book a call</a>
 </div>

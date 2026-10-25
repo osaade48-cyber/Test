@@ -1,5 +1,5 @@
 ---
-title: Book a chat | TradeBooked
+title: Book a call | TradeBooked
 description: Book a free 15-minute chat about getting more jobs for your trade business. No hard sell.
 cta: no
 ---
@@ -7,7 +7,7 @@ cta: no
   <section class="section section--dark" style="padding-top: clamp(40px, 7vw, 88px)">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Book a chat</p>
+        <p class="eyebrow">Book a call</p>
         <h1 class="h-xl">15 minutes. <span class="accent">No hard sell.</span></h1>
         <p class="lede">Tell me a bit about your business and when suits. I'll give you a call, show you how it would work for you, and you can decide from there.</p>
       </div>
@@ -37,8 +37,11 @@ cta: no
           <fieldset class="field">
             <legend>What are you interested in?</legend>
             <div class="chips">
-              <label><input type="radio" name="plan" value="{{site.topPlan}}" checked><span>{{site.topPlan}} (ads + AI)</span></label>
-              <label><input type="radio" name="plan" value="Growth"><span>Growth (AI receptionist)</span></label>
+              <label><input type="radio" name="plan" value="Booked Out" checked><span>Booked Out</span></label>
+              <label><input type="radio" name="plan" value="Never Miss a Job"><span>Never Miss a Job</span></label>
+              <label><input type="radio" name="plan" value="Get Found"><span>Get Found</span></label>
+              <label><input type="radio" name="plan" value="Brand &amp; Website"><span>Brand &amp; Website</span></label>
+              <label><input type="radio" name="plan" value="Custom plan"><span>Custom plan</span></label>
               <label><input type="radio" name="plan" value="Not sure"><span>Not sure yet</span></label>
             </div>
           </fieldset>
@@ -84,7 +87,7 @@ cta: no
             <textarea id="f-msg" name="message" placeholder="e.g. I miss heaps of calls when I'm on site"></textarea>
           </div>
 
-          <button class="btn btn--primary btn--lg" type="submit">Book my chat</button>
+          <button class="btn btn--primary btn--lg" type="submit">Book my call</button>
           <p class="form__status" aria-live="polite"></p>
           <p class="form__fine">I'll only use your details to get in touch about TradeBooked. <a href="privacy.html">Privacy policy</a>.</p>
         </form>

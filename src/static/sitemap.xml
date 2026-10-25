@@ -2,8 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{{site.siteUrl}}/</loc></url>
   <url><loc>{{site.siteUrl}}/how-it-works</loc></url>
-  <url><loc>{{site.siteUrl}}/booked-out</loc></url>
-  <url><loc>{{site.siteUrl}}/growth</loc></url>
+  <url><loc>{{site.siteUrl}}/services</loc></url>
+  <url><loc>{{site.siteUrl}}/bundles</loc></url>
+  <url><loc>{{site.siteUrl}}/websites</loc></url>
+  <url><loc>{{site.siteUrl}}/branding</loc></url>
+  <url><loc>{{site.siteUrl}}/seo</loc></url>
+  <url><loc>{{site.siteUrl}}/meta-ads</loc></url>
+  <url><loc>{{site.siteUrl}}/google-ads</loc></url>
+  <url><loc>{{site.siteUrl}}/ai-receptionist</loc></url>
+  <url><loc>{{site.siteUrl}}/ai-lead-caller</loc></url>
+  <url><loc>{{site.siteUrl}}/ai-chatbot</loc></url>
+  <url><loc>{{site.siteUrl}}/crm</loc></url>
   <url><loc>{{site.siteUrl}}/my-story</loc></url>
   <url><loc>{{site.siteUrl}}/faq</loc></url>
   <url><loc>{{site.siteUrl}}/book</loc></url>

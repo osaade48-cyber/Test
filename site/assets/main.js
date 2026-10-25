@@ -289,8 +289,8 @@
       if (out('jobs')) out('jobs').textContent = jobsPhrase(n.perMonth, n.jobs);
       if (out('verdict')) {
         out('verdict').innerHTML = j >= PLAN
-          ? 'The Growth plan is $' + PLAN + ' a month. <em>Win back one job and it’s paid for.</em>'
-          : 'The Growth plan is $' + PLAN + ' a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
+          ? 'Never Miss a Job is $' + PLAN + ' a month. <em>Win back one job and it’s paid for.</em>'
+          : 'Never Miss a Job is $' + PLAN + ' a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
       }
       if (out('working')) {
         out('working').textContent = c + ' missed calls × 52 weeks × ' + r + ' in 10 × ' + aud(j);
@@ -354,7 +354,7 @@
         .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
         .catch(function () {
           btn.disabled = false;
-          btn.textContent = 'Book my chat';
+          btn.textContent = 'Book my call';
           status.textContent = 'That didn’t send. Check your connection and try again, or email ' + form.dataset.email + '.';
         });
     });
@@ -410,7 +410,7 @@
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -422,7 +422,12 @@
     });
   });
   $$('.more__flow li, .journey__step').forEach(function (el, k, all) { el.style.setProperty('--k', Array.prototype.indexOf.call(el.parentNode.children, el)); });
-  $$('.flow__step').forEach(function (el, k) { el.style.setProperty('--k', k); el.style.setProperty('--d', (k * 600 + 200) + 'ms'); });
+  $$('.flow__step').forEach(function (el) {
+    var k = Array.prototype.indexOf.call(el.parentNode.children, el);
+    el.style.setProperty('--k', k);
+    el.style.setProperty('--d', (k * 600 + 200) + 'ms');
+  });
+  $$('.area').forEach(function (el) { el.style.setProperty('--k', Array.prototype.indexOf.call(el.parentNode.children, el)); });
 
   function onReveal(el) {
     el.classList.add('is-in');
@@ -643,6 +648,35 @@
     }
   }
 
+  /* ---------- Website previews scroll inside their browser frame ---------- */
+  var shots = $$('.shot');
+  function measureShots() {
+    shots.forEach(function (sh) {
+      var img = $('img', sh), view = $('.shot__view', sh);
+      if (!img || !view || !img.offsetHeight) return;
+      sh.style.setProperty('--dist', Math.min(0, view.clientHeight - img.offsetHeight) + 'px');
+    });
+  }
+  shots.forEach(function (sh) {
+    var img = $('img', sh);
+    if (img) img.addEventListener('load', measureShots);
+  });
+  // On touch screens there's no hover, so previews scroll up and down by themselves once in view.
+  if (shots.length && !reduceMotion && !window.matchMedia('(hover: hover)').matches && hasIO) {
+    var so2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var sh = en.target;
+        if (en.isIntersecting && !sh._timer) {
+          sh.classList.add('is-auto');
+          sh._timer = setInterval(function () { sh.classList.toggle('is-auto'); }, 7500);
+        } else if (!en.isIntersecting && sh._timer) {
+          clearInterval(sh._timer); sh._timer = null; sh.classList.remove('is-auto');
+        }
+      });
+    }, { threshold: .4 });
+    shots.forEach(function (sh) { so2.observe(sh); });
+  }
+
   /* ---------- Pipeline (Get more jobs) ---------- */
   var pipes = $$('[data-pipe]');
   function drawPipes() {
@@ -671,9 +705,9 @@
   }
   function requestFrame() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', requestFrame, { passive: true });
-  window.addEventListener('resize', function () { layoutSignal(); requestFrame(); });
-  window.addEventListener('load', function () { layoutSignal(); requestFrame(); });
+  window.addEventListener('resize', function () { layoutSignal(); measureShots(); requestFrame(); });
+  window.addEventListener('load', function () { layoutSignal(); measureShots(); requestFrame(); });
   layoutSignal();
   frame();
-  window.TB_relayout = function () { layoutSignal(); frame(); };
+  window.TB_relayout = function () { layoutSignal(); measureShots(); frame(); };
 })();

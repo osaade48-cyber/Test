@@ -19,10 +19,13 @@
     cta.hidden = page.dataset.cta === 'no';
     document.title = page.dataset.title;
     document.body.className = 'page-' + slug;
-    document.querySelectorAll('#site-nav a').forEach(function (a) {
-      if ((a.getAttribute('href') || '').replace('.html', '') === slug) a.setAttribute('aria-current', 'page');
+    var SERVICES = ['services', 'websites', 'branding', 'seo', 'meta-ads', 'google-ads', 'ai-receptionist', 'ai-lead-caller', 'ai-chatbot', 'crm'];
+    var navSlug = SERVICES.indexOf(slug) > -1 ? 'services' : slug;
+    document.querySelectorAll('#site-nav > a, #site-nav .nav__droplink').forEach(function (a) {
+      if ((a.getAttribute('href') || '').replace('.html', '') === navSlug) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     var plan = query && new URLSearchParams(query).get('plan');
     document.querySelectorAll('#book-form [name="plan"]').forEach(function (r) { if (plan && r.value === plan) r.checked = true; });
     if (slug === 'thanks' && window.TB_fillThanks) window.TB_fillThanks();

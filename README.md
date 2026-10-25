@@ -1,14 +1,14 @@
 # TradeBooked website
 
-The website for [tradebooked.com.au](https://tradebooked.com.au): marketing (Meta ads) and AI receptionist for Aussie tradies.
+The website for [tradebooked.com.au](https://tradebooked.com.au): the marketing agency for Aussie tradies (websites, branding, SEO, Meta and Google ads, AI receptionist, AI lead caller, chatbot, CRM).
 
 ## What's where
 
 ```
-site.config.json   Phone number, email, ABN, your name, plan name (topPlan), prices, form endpoint. Change once, updates every page.
-src/pages/         One file per page (home, how it works, booked-out, growth, my story, FAQ, book, thanks, privacy, terms, 404)
+site.config.json   Phone number, email, ABN, your name, bundle prices, ad spend minimums, form endpoint. Change once, updates every page.
+src/pages/         One file per page: home, how it works, services (overview + 9 service pages), bundles, my story, FAQ, book, thanks, privacy, terms, 404
 src/partials/      Shared bits used on every page: head, header + mobile thumb bar, Book a chat strip, footer, phone mockup
-src/assets/        styles.css, main.js (call animation, calculators, form), favicon
+src/assets/        styles.css, main.js (animations, call demo, calculator, form), favicon, work/ (website preview images)
 src/static/        robots.txt and sitemap.xml
 build.js           Puts it all together into site/
 site/              The finished website. This is the folder you host.
@@ -35,9 +35,8 @@ Search the pages for `class="ph"`: every highlighted placeholder needs your real
 - [ ] Your name, email, ABN (`site.config.json`)
 - [ ] Your photo and story (`src/pages/my-story.html`, and the teaser on the home page)
 - [ ] Your before/after numbers (`my-story.html`)
-- [ ] Name for the main package (`topPlan` in `site.config.json`, currently "Booked Out"; the page file is booked-out.html)
-- [ ] Package features, Growth contract terms, GST (`booked-out.html`, `growth.html`, `faq.html`)
-- [ ] If the minimum ad spend changes, also update the "about $1,520 a month" line in `booked-out.html`
+- [ ] Bundle prices and contents (`site.config.json`, `bundles.html`), contract terms, GST
+- [ ] Replace concept work with real work as you get it: website screenshots in `src/assets/work/` and the galleries in `websites.html`, `branding.html` and `meta-ads.html`. Concept and sample items are labelled on the page; keep them labelled until they're swapped.
 - [ ] Setup time and supported calendars (`faq.html`, `book.html`)
 - [ ] Privacy policy and terms reviewed by a lawyer (`privacy.html`, `terms.html`)
 - [ ] Real call recordings (the demo currently plays animated transcripts)

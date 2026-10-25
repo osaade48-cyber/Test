@@ -8,10 +8,13 @@
   "founderFirstName": "[Your first name]",
   "location": "Sydney, NSW",
   "formEndpoint": "",
-  "topPlan": "Booked Out",
-  "growthPrice": "495",
-  "growthSetup": "500",
-  "topPrice": "1,495",
-  "topSetup": "2,000",
-  "minAdSpend": "50"
+  "minAdSpend": "50",
+  "bwPrice": "4,500",
+  "gfPrice": "895",
+  "gfSetup": "750",
+  "nmjPrice": "495",
+  "nmjSetup": "500",
+  "boPrice": "1,495",
+  "boSetup": "2,000",
+  "minGoogleSpend": "30"
 }
