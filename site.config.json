@@ -18,16 +18,14 @@
   "boSetup": "2,000",
   "minGoogleSpend": "30",
   "bwCare": "199",
-  "bwSave": "905",
-  "gfSave": "1,728",
-  "gfSetupSave": "150",
-  "nmjSave": "1,824",
-  "nmjSetupSave": "600",
-  "boSave": "8,904",
-  "boSetupSave": "1,300",
   "webSimple": "1,800",
   "webStandard": "3,500",
   "webPremium": "5,500",
   "brandKit": "750",
-  "brandVehicle": "350"
+  "brandVehicle": "350",
+  "bwSavePct": "18",
+  "gfSavePct": "14",
+  "nmjSavePct": "23",
+  "boSavePct": "30",
+  "webCare": "99"
 }

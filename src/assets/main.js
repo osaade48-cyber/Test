@@ -289,8 +289,8 @@
       if (out('jobs')) out('jobs').textContent = jobsPhrase(n.perMonth, n.jobs);
       if (out('verdict')) {
         out('verdict').innerHTML = j >= PLAN
-          ? 'Never Miss a Job is $' + PLAN + ' a month. <em>Win back one job and it’s paid for.</em>'
-          : 'Never Miss a Job is $' + PLAN + ' a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
+          ? 'AI Front Desk is $' + PLAN + ' a month. <em>Win back one job and it’s paid for.</em>'
+          : 'AI Front Desk is $' + PLAN + ' a month. <em>Win back ' + Math.ceil(PLAN / j) + ' jobs a month and it’s paid for.</em>';
       }
       if (out('working')) {
         out('working').textContent = c + ' missed calls × 52 weeks × ' + r + ' in 10 × ' + aud(j);
