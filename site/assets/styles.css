@@ -1601,7 +1601,7 @@ main { position: relative; }
   .js .reveal { opacity: 1; transform: none; }
 }
 
-/* ---------- Bundles page: picker, cards, compare table ---------- */
+/* ---------- Bundles page: picker and cards ---------- */
 .pick-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); text-align: center; margin: 0 0 22px; }
 .picks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .pick { display: flex; flex-direction: column; gap: 8px; text-align: left; padding: 18px 18px 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--char-2); color: var(--fg); font: inherit; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
@@ -1641,21 +1641,6 @@ main { position: relative; }
 .bcards.has-pick .bcard:not(.is-picked) { opacity: .45; transform: scale(.98); }
 .bcard.is-picked { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange), 0 24px 50px -28px rgba(242,106,27,.7); transform: translateY(-4px); }
 
-.mx-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 20px; background: #fff; border: 1px solid var(--line-light); }
-.mx { width: 100%; min-width: 680px; border-collapse: collapse; font-size: 15px; }
-.mx th, .mx td { padding: 12px 14px; border-bottom: 1px solid var(--line-light); text-align: center; vertical-align: middle; }
-.mx thead th { font-family: 'Poppins', sans-serif; font-size: 14.5px; font-weight: 700; padding-top: 18px; padding-bottom: 14px; }
-.mx tbody th[scope="row"] { text-align: left; font-weight: 600; white-space: nowrap; }
-.mx tbody th[scope="row"] a { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
-.mx tbody th[scope="row"] a:hover { color: var(--orange-deep); }
-.mx .inc__ico { width: 28px; height: 28px; border-radius: 8px; }
-.mx-group th { text-align: left !important; background: var(--paper); font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-ink); padding-top: 10px; padding-bottom: 10px; }
-.mx .is-hot { background: rgba(242,106,27,.07); }
-.mx thead .is-hot { color: var(--orange-deep); }
-.mx-yes { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: #fff; font-weight: 800; font-size: 14px; }
-.mx-no { color: #B7B3AD; }
-.mx-part { font-size: 13.5px; color: var(--muted-ink); }
-.mx tr:last-child th, .mx tr:last-child td { border-bottom: 0; }
 
 @media (max-width: 1080px) {
   .bcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
@@ -1671,5 +1656,4 @@ main { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .bcard, .pick { transition: none; }
 }
-.mx tbody th[scope="row"], .mx thead th:first-child { position: sticky; left: 0; z-index: 1; background: #fff; }
 .bcards.has-pick .bcard--hot:not(.is-picked) { opacity: .6; }
