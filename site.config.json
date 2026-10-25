@@ -9,7 +9,7 @@
   "location": "Sydney, NSW",
   "formEndpoint": "",
   "minAdSpend": "50",
-  "bwPrice": "3,995",
+  "bwPrice": "2,295",
   "gfPrice": "849",
   "gfSetup": "750",
   "nmjPrice": "495",
@@ -17,15 +17,16 @@
   "boPrice": "1,695",
   "boSetup": "2,000",
   "minGoogleSpend": "30",
-  "bwCare": "199",
   "webSimple": "1,800",
   "webStandard": "3,500",
   "webPremium": "5,500",
   "brandKit": "750",
   "brandVehicle": "350",
-  "bwSavePct": "18",
+  "bwSavePct": "20",
   "gfSavePct": "14",
   "nmjSavePct": "23",
   "boSavePct": "30",
-  "webCare": "99"
+  "webCare": "99",
+  "bwStdUp": "1,700",
+  "bwPremUp": "3,700"
 }
