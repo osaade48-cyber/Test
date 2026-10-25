@@ -36,6 +36,7 @@ Search the pages for `class="ph"`: every highlighted placeholder needs your real
 - [ ] Your photo and story (`src/pages/my-story.html`, and the teaser on the home page)
 - [ ] Your before/after numbers (`my-story.html`)
 - [ ] Bundle prices and contents (`site.config.json`, `bundles.html`), contract terms, GST
+- [ ] **"You save" amounts** on the bundle cards are typed in `site.config.json` (`bwSave`, `gfSave`, `nmjSave`, `boSave` and the `...SetupSave` values), worked out from the separate service prices. If you change a bundle or service price, update these too.
 - [ ] Replace concept work with real work as you get it: website screenshots in `src/assets/work/` and the galleries in `websites.html`, `branding.html` and `meta-ads.html`. Concept and sample items are labelled on the page; keep them labelled until they're swapped.
 - [ ] Setup time and supported calendars (`faq.html`, `book.html`)
 - [ ] Privacy policy and terms reviewed by a lawyer (`privacy.html`, `terms.html`)

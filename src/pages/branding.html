@@ -91,12 +91,29 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get svc-get--solo">
-      <div class="svc-get__list">
-        <h2 class="h-lg" id="get-title">What you get</h2>
-        <ul class="checks"><li>Logo in 3 versions (full, stacked, icon)</li><li>Brand colours and fonts</li><li>One-page brand guide</li><li>Business card design</li><li>Ute or van signage design</li><li>Uniform and hi-vis designs</li><li>Site signs and social media images</li></ul>
+  <section class="section section--paper" id="pricing" aria-labelledby="get-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="get-title">What it costs</h2>
+        <p class="lede">You get print-ready files to hand to any sign shop or uniform supplier. Printing is extra.</p>
       </div>
+      <div class="bcards bcards--2">
+        <article class="bcard">
+          <h3 class="bcard__name">Logo and brand kit</h3>
+          <p class="bcard__line">The look of your business, sorted.</p>
+          <p class="bcard__price">${{site.brandKit}}<small> one-off</small></p>
+          <ul class="checks checks--sm"><li>Logo in 3 versions (full, stacked, icon)</li><li>Brand colours and fonts</li><li>One-page brand guide</li><li>Business card design</li></ul>
+          <a class="btn btn--ghost" href="book.html?plan=Website%20or%20branding" aria-label="Book a call about a brand kit">Book a call</a>
+        </article>
+        <article class="bcard">
+          <h3 class="bcard__name">Vehicle and uniforms</h3>
+          <p class="bcard__line">Your brand on the ute, the shirts and the site.</p>
+          <p class="bcard__price">${{site.brandVehicle}}<small> one-off</small></p>
+          <ul class="checks checks--sm"><li>Ute or van signage design</li><li>Uniform and hi-vis designs</li><li>Site sign design</li><li>Social media images</li></ul>
+          <a class="btn btn--ghost" href="book.html?plan=Website%20or%20branding" aria-label="Book a call about vehicle and uniform designs">Book a call</a>
+        </article>
+      </div>
+      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span> Need a website too? <a href="bundles.html#look-the-part">Look the Part</a> bundles both with a Standard website and saves you ${{site.bwSave}}.</p>
     </div>
   </section>
 

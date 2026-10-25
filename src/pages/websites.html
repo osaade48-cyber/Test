@@ -100,12 +100,36 @@ nav: services
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="get-title">
-    <div class="container svc-get svc-get--solo">
-      <div class="svc-get__list">
-        <h2 class="h-lg" id="get-title">What you get</h2>
-        <ul class="checks"><li>Custom design that matches your brand</li><li>Built mobile-first and fast to load</li><li>A page for each service you offer</li><li>Quote forms and click-to-call buttons</li><li>Set up for Google (SEO-ready)</li><li>Tracking for your ads (Meta Pixel)</li><li>Optional care plan: hosting, updates, small edits</li></ul>
+  <section class="section section--paper" id="pricing" aria-labelledby="get-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 class="h-lg" id="get-title">Pick your website</h2>
+        <p class="lede">Every site is mobile-first, fast, set up for Google, with quote forms and click-to-call.</p>
       </div>
+      <div class="bcards bcards--3">
+        <article class="bcard">
+          <h3 class="bcard__name">Simple</h3>
+          <p class="bcard__line">Get online fast with a clean, proven layout.</p>
+          <p class="bcard__price">${{site.webSimple}}<small> one-off</small></p>
+          <ul class="checks checks--sm"><li>Up to 5 pages</li><li>Your logo and colours</li><li>Quote form and click-to-call</li><li>Google basics: speed, mobile, local setup</li></ul>
+          <a class="btn btn--ghost" href="book.html?plan=Website%20or%20branding" aria-label="Book a call about a Simple website">Book a call</a>
+        </article>
+        <article class="bcard bcard--hot"><span class="bcard__badge">Most popular</span>
+          <h3 class="bcard__name">Standard</h3>
+          <p class="bcard__line">A custom site that wins work. Right for most tradies.</p>
+          <p class="bcard__price">${{site.webStandard}}<small> one-off</small></p>
+          <ul class="checks checks--sm"><li>6 to 10 pages</li><li>Custom design around your brand</li><li>A page for each service and suburb</li><li>Project gallery and reviews</li><li>Tracking for your ads (Meta Pixel)</li></ul>
+          <a class="btn btn--primary" href="book.html?plan=Website%20or%20branding" aria-label="Book a call about a Standard website">Book a call</a>
+        </article>
+        <article class="bcard">
+          <h3 class="bcard__name">Premium</h3>
+          <p class="bcard__line">Stand out with animations and interactive features.</p>
+          <p class="bcard__price">${{site.webPremium}}<small> one-off</small></p>
+          <ul class="checks checks--sm"><li>10+ pages</li><li>Fully custom design with animations</li><li>Quote calculator or booking tools</li><li>Everything in Standard</li></ul>
+          <a class="btn btn--ghost" href="book.html?plan=Website%20or%20branding" aria-label="Book a call about a Premium website">Book a call</a>
+        </article>
+      </div>
+      <p class="plans-note">Optional care plan: hosting, updates and small edits for $99/mo. Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span> Need branding too? <a href="bundles.html#look-the-part">Look the Part</a> bundles it with a Standard site and saves you ${{site.bwSave}}.</p>
     </div>
   </section>
 

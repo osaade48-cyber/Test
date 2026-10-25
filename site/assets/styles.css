@@ -1657,3 +1657,12 @@ main { position: relative; }
   .bcard, .pick { transition: none; }
 }
 .bcards.has-pick .bcard--hot:not(.is-picked) { opacity: .6; }
+.bcard__save { margin: -8px 0 18px; padding: 8px 12px; border-radius: 10px; background: rgba(59,178,115,.13); color: #1E7A4C; font-size: 14px; font-weight: 700; line-height: 1.35; }
+.bcard--hot .bcard__save { background: rgba(59,178,115,.18); color: #6FE0A4; }
+.bcards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1040px; margin: 0 auto; }
+.bcards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin: 0 auto; }
+.bcards--3 .bcard__price, .bcards--2 .bcard__price { margin-bottom: 18px; }
+.checks--sm { margin: 0 0 22px; gap: 10px; font-size: 15px; flex: 1; }
+.checks--sm li { grid-template-columns: 22px 1fr; gap: 10px; }
+.checks--sm li::before { width: 22px; height: 22px; background-size: 13px; }
+@media (max-width: 900px) { .bcards--3, .bcards--2 { grid-template-columns: 1fr; max-width: 460px; } }
