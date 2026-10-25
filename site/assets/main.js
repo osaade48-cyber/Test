@@ -405,12 +405,30 @@
     h.classList.add('split');
   });
 
+  /* ---------- Bundles picker ---------- */
+  $$('.pick').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var scope = btn.closest('main') || document;
+      var cards = $('[data-bcards]', scope);
+      var on = btn.getAttribute('aria-pressed') !== 'true';
+      $$('.pick', scope).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      $$('.bcard', scope).forEach(function (c) { c.classList.remove('is-picked'); });
+      if (cards) cards.classList.toggle('has-pick', on);
+      if (!on) return;
+      btn.setAttribute('aria-pressed', 'true');
+      var card = $('[data-bundle="' + btn.getAttribute('data-pick') + '"]', scope);
+      if (!card) return;
+      card.classList.add('is-picked');
+      card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: window.innerWidth < 1081 ? 'start' : 'center' });
+    });
+  });
+
   /* ---------- Reveal on scroll ---------- */
   var REVEAL = ['.section-head > *', '.page-hero__inner > p', '.hero__copy > p', '.hero__copy > .btn-row', '.phone-wrap',
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row', '.pick', '.bcard', '.mx-wrap'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -821,8 +839,8 @@
   CP.pileup = {
     reset: function (r) {
       $('[data-list]', r).innerHTML = ''; $('[data-time]', r).textContent = '7:00'; $('[data-missed]', r).textContent = '0';
-      var tg = $('[data-toggle]', r); tg.setAttribute('aria-pressed', 'false'); tg.classList.remove('is-ready');
-      $('[data-after]', r).classList.remove('is-in'); r._switched = false;
+      var tg = $('[data-toggle]', r); tg.setAttribute('aria-pressed', 'false'); tg.classList.remove('is-ready'); $('[data-toggle-label]', r).textContent = 'Turn on your AI receptionist';
+      $('[data-after]', r).classList.remove('is-in'); r._switched = false; r._userToggled = false;
     },
     add: function (r, c) {
       var n = document.createElement('div'); n.className = 'n2';
@@ -832,13 +850,23 @@
     },
     switchOn: async function (r, tok) {
       if (r._switched) return; r._switched = true;
-      var tg = $('[data-toggle]', r); tg.classList.remove('is-ready'); tg.setAttribute('aria-pressed', 'true');
+      var tg = $('[data-toggle]', r); tg.classList.remove('is-ready'); tg.setAttribute('aria-pressed', 'true'); $('[data-toggle-label]', r).textContent = 'AI receptionist on. Tap to turn off';
       var ns = $$('.n2', r);
-      for (var i = 0; i < ns.length; i++) {
-        await sleep(260, tok);
-        ns[i].classList.add('is-ok'); $('.n2__txt b', ns[i]).textContent = ns[i]._ok[3]; $('.n2__txt span', ns[i]).textContent = ns[i]._ok[4];
-      }
+      try {
+        for (var i = 0; i < ns.length; i++) {
+          await sleep(260, tok);
+          if (!r._switched) return;
+          ns[i].classList.add('is-ok'); $('.n2__txt b', ns[i]).textContent = ns[i]._ok[3]; $('.n2__txt span', ns[i]).textContent = ns[i]._ok[4];
+        }
+      } catch (e) { return; }
       $('[data-missed]', r).textContent = '0'; $('[data-after]', r).classList.add('is-in');
+    },
+    switchOff: function (r) {
+      r._switched = false;
+      $('[data-toggle]', r).setAttribute('aria-pressed', 'false'); $('[data-toggle-label]', r).textContent = 'Turn on your AI receptionist';
+      $$('.n2', r).forEach(function (n) { n.classList.remove('is-ok'); $('.n2__txt b', n).textContent = n._ok[1]; $('.n2__txt span', n).textContent = n._ok[2]; });
+      $('[data-missed]', r).textContent = $$('.n2', r).length;
+      $('[data-after]', r).classList.remove('is-in');
     },
     play: async function (r, tok) {
       var time = $('[data-time]', r), missed = $('[data-missed]', r), k = 0;
@@ -853,9 +881,22 @@
       }
       $('[data-toggle]', r).classList.add('is-ready');
       await sleep(4500, tok);
-      await CP.pileup.switchOn(r, tok);
+      if (!r._userToggled) await CP.pileup.switchOn(r, tok);
     },
-    init: function (r, run) { $('[data-toggle]', r).addEventListener('click', function () { if ($$('.n2', r).length) CP.pileup.switchOn(r, run.tok); }); },
+    init: function (r, run) {
+      $('[data-toggle]', r).addEventListener('click', function () {
+        r._userToggled = true;
+        var have = $$('.n2', r).length;
+        if (have < CALLS.length) {
+          // Clicked before the day finished: stop the clock and show the full day.
+          run.tok.dead = true;
+          CALLS.slice(have).forEach(function (c) { CP.pileup.add(r, c); });
+          $('[data-time]', r).textContent = '17:00';
+          $('[data-toggle]', r).classList.remove('is-ready');
+        }
+        if (r._switched) CP.pileup.switchOff(r); else CP.pileup.switchOn(r, { dead: false });
+      });
+    },
     still: function (r) { CALLS.forEach(function (c) { CP.pileup.add(r, c); }); $('[data-time]', r).textContent = '17:00'; CP.pileup.switchOn(r, { dead: false }); }
   };
 
@@ -1002,10 +1043,23 @@
     still: function () {}
   };
 
-  // Compare sliders (websites before/after, branding)
+  // Compare sliders (websites before/after, branding): drag anywhere with mouse or finger,
+  // or focus the slider and use the arrow keys.
   $$('[data-cmp]').forEach(function (c) {
-    var range = $('.cmp__range', c);
-    range.addEventListener('input', function () { c.style.setProperty('--x', range.value + '%'); c._touched = true; });
+    var range = $('.cmp__range', c), dragging = false;
+    var setX = function (v) { v = Math.max(0, Math.min(100, v)); range.value = v; c.style.setProperty('--x', v + '%'); };
+    var fromEvent = function (e) { var b = c.getBoundingClientRect(); setX((e.clientX - b.left) / b.width * 100); };
+    c.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      dragging = true; c._touched = true; c.classList.add('is-dragging');
+      try { c.setPointerCapture(e.pointerId); } catch (err) {}
+      fromEvent(e); e.preventDefault();
+    });
+    c.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
+    var stop = function () { dragging = false; c.classList.remove('is-dragging'); };
+    c.addEventListener('pointerup', stop);
+    c.addEventListener('pointercancel', stop);
+    range.addEventListener('input', function () { c._touched = true; setX(+range.value); });
   });
   var sweep = async function (c) {
     if (reduceMotion || c._touched) return;

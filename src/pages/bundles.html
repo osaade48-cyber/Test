@@ -1,6 +1,6 @@
 ---
 title: Bundles | TradeBooked
-description: TradeBooked bundles for Aussie tradies: Brand & Website, Get Found, Never Miss a Job and Booked Out. Or build your own plan.
+description: TradeBooked bundles for Aussie tradies: Brand & Website, Get Found, Never Miss a Job and Booked Out. See exactly what's included, or build your own plan.
 ---
 <main id="main">
 
@@ -8,72 +8,107 @@ description: TradeBooked bundles for Aussie tradies: Brand & Website, Get Found,
     <div class="container">
       <div class="page-hero__inner">
         <p class="eyebrow">Bundles</p>
-        <h1 class="h-xl">Pick a bundle. <span class="accent">Or build your own.</span></h1>
-        <p class="lede">Each bundle fixes one big problem. Take one, combine two, or mix and match services on a quick call.</p>
+        <h1 class="h-xl">Fix your biggest problem first. <span class="accent">Add more later.</span></h1>
+        <p class="lede">Each bundle is a set of our services that solves one problem. Pick the one that sounds like you.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--white" aria-label="Bundles">
+  <section class="section section--deep section--tight" aria-labelledby="pick-title">
     <div class="container">
-      <div class="bundles">
+      <h2 class="pick-title" id="pick-title">What's your biggest problem right now?</h2>
+      <div class="picks">
+        <button class="pick" type="button" data-pick="brand-website" aria-pressed="false"><span class="pick__q">"We look unprofessional"</span><span class="pick__a">→ Brand &amp; Website</span></button>
+        <button class="pick" type="button" data-pick="get-found" aria-pressed="false"><span class="pick__q">"Nobody finds us on Google"</span><span class="pick__a">→ Get Found</span></button>
+        <button class="pick" type="button" data-pick="never-miss" aria-pressed="false"><span class="pick__q">"We miss too many calls"</span><span class="pick__a">→ Never Miss a Job</span></button>
+        <button class="pick" type="button" data-pick="booked-out" aria-pressed="false"><span class="pick__q">"We need more work, now"</span><span class="pick__a">→ Booked Out</span></button>
+      </div>
+    </div>
+  </section>
 
-        <article class="bundle" id="brand-website">
-          <span class="bundle__ico" style="--c:#8B5CF6"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.6 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg></span>
-          <p class="bundle__for">"We look unprofessional"</p>
-          <h2 class="bundle__name">Brand &amp; Website</h2>
-          <p class="bundle__price">${{site.bwPrice}}<small> one-off</small></p>
-          <p class="bundle__setup">Then $99/mo care plan, first 3 months free</p>
-          <ul class="bundle__list"><li><a href="branding.html">Logo, colours and brand guide</a></li><li><a href="branding.html">Ute or van and uniform designs</a></li><li><a href="websites.html">Standard website, 6 to 10 pages</a></li><li><a href="seo.html">Set up for Google from day one</a></li><li>3 months of hosting and care included</li></ul>
+  <section class="section section--white" aria-label="The bundles">
+    <div class="container">
+      <div class="bcards" data-bcards>
+        <article class="bcard" id="brand-website" data-bundle="brand-website">
+          
+          <p class="bcard__prob">"We look unprofessional"</p>
+          <h2 class="bcard__name">Brand &amp; Website</h2>
+          <p class="bcard__line">A new look and a website that wins work.</p>
+          <p class="bcard__price">${{site.bwPrice}}<small> one-off</small></p>
+          <p class="bcard__setup">Then $99/mo care plan · first 3 months free</p>
+          <p class="bcard__inc-h">What's included</p>
+          <ul class="inc">
+            <li><a href="branding.html"><span class="inc__ico" style="--c:#8B5CF6"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.6 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg></span><span><b>Branding</b><small>Logo, colours, brand guide, ute and uniform designs</small></span></a></li>
+            <li><a href="websites.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg></span><span><b>Website</b><small>A 6 to 10 page website, built to be found on Google</small></span></a></li>
+          </ul>
+          <p class="bcard__good"><b>Best for:</b> New businesses, or anyone whose logo and website are holding them back.</p>
           <a class="btn btn--ghost" href="book.html?plan=Brand%20%26%20Website">Choose Brand &amp; Website</a>
         </article>
-
-        <article class="bundle" id="get-found">
-          <span class="bundle__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-          <p class="bundle__for">"Nobody finds us on Google"</p>
-          <h2 class="bundle__name">Get Found</h2>
-          <p class="bundle__price">${{site.gfPrice}}<small> /month</small></p>
-          <p class="bundle__setup">+ ${{site.gfSetup}} setup · 6-month minimum</p>
-          <ul class="bundle__list"><li><a href="seo.html">SEO: service pages and monthly content</a></li><li><a href="seo.html">Google Business Profile managed</a></li><li><a href="crm.html">Automatic review requests</a></li><li>Website hosting and care</li><li>Monthly report on calls from Google</li></ul>
+        <article class="bcard" id="get-found" data-bundle="get-found">
+          
+          <p class="bcard__prob">"Nobody finds us on Google"</p>
+          <h2 class="bcard__name">Get Found</h2>
+          <p class="bcard__line">Show up when locals search, and keep the reviews coming.</p>
+          <p class="bcard__price">${{site.gfPrice}}<small> /month</small></p>
+          <p class="bcard__setup">+ ${{site.gfSetup}} setup · 6-month minimum</p>
+          <p class="bcard__inc-h">What's included</p>
+          <ul class="inc">
+            <li><a href="seo.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span><b>SEO and Google profile</b><small>Google profile managed, service pages, monthly content</small></span></a></li>
+            <li><a href="crm.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></span><span><b>CRM and follow-ups</b><small>Automatic review requests after every job</small></span></a></li>
+            <li><a href="websites.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg></span><span><b>Website</b><small>Website hosting and care</small></span></a></li>
+          </ul>
+          <p class="bcard__good"><b>Best for:</b> Tradies with a decent website who want free leads from Google.</p>
           <a class="btn btn--ghost" href="book.html?plan=Get%20Found">Choose Get Found</a>
         </article>
-
-        <article class="bundle" id="never-miss">
-          <span class="bundle__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
-          <p class="bundle__for">"We miss too many calls"</p>
-          <h2 class="bundle__name">Never Miss a Job</h2>
-          <p class="bundle__price">${{site.nmjPrice}}<small> /month</small></p>
-          <p class="bundle__setup">+ ${{site.nmjSetup}} setup</p>
-          <ul class="bundle__list"><li><a href="ai-receptionist.html">AI receptionist answers missed calls</a></li><li><a href="ai-receptionist.html">Texts people who hang up</a></li><li><a href="ai-chatbot.html">AI website chatbot</a></li><li><a href="crm.html">CRM with phone app</a></li><li><a href="crm.html">Quote, review and invoice follow-ups</a></li></ul>
+        <article class="bcard" id="never-miss" data-bundle="never-miss">
+          
+          <p class="bcard__prob">"We miss too many calls"</p>
+          <h2 class="bcard__name">Never Miss a Job</h2>
+          <p class="bcard__line">Every call and website visitor answered and booked.</p>
+          <p class="bcard__price">${{site.nmjPrice}}<small> /month</small></p>
+          <p class="bcard__setup">+ ${{site.nmjSetup}} setup</p>
+          <p class="bcard__inc-h">What's included</p>
+          <ul class="inc">
+            <li><a href="ai-receptionist.html"><span class="inc__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><b>AI receptionist</b><small>Answers missed calls 24/7 and books jobs</small></span></a></li>
+            <li><a href="ai-chatbot.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span><span><b>AI website chatbot</b><small>Answers questions on your website</small></span></a></li>
+            <li><a href="crm.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></span><span><b>CRM and follow-ups</b><small>Quote follow-ups, reviews and invoice reminders</small></span></a></li>
+          </ul>
+          <p class="bcard__good"><b>Best for:</b> Busy tradies already getting enquiries but missing too many.</p>
           <a class="btn btn--ghost" href="book.html?plan=Never%20Miss%20a%20Job">Choose Never Miss a Job</a>
         </article>
-
-        <article class="bundle bundle--hot" id="booked-out">
-          <span class="bundle__badge">Most popular</span>
-          <span class="bundle__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
-          <p class="bundle__for">"We need more work, now"</p>
-          <h2 class="bundle__name">Booked Out</h2>
-          <p class="bundle__price">${{site.boPrice}}<small> /month</small></p>
-          <p class="bundle__setup">+ ${{site.boSetup}} setup · + ad spend (min ${{site.minAdSpend}}/day) · 3-month minimum</p>
-          <ul class="bundle__list"><li><a href="meta-ads.html">Meta ads made and managed</a></li><li><a href="ai-lead-caller.html">AI calls every lead within a minute</a></li><li><a href="ai-receptionist.html">AI receptionist answers missed calls</a></li><li><a href="ai-lead-caller.html">Quote confirmations and reminders</a></li><li><a href="crm.html">CRM and follow-ups</a></li></ul>
+        <article class="bcard bcard--hot" id="booked-out" data-bundle="booked-out">
+          <span class="bcard__badge">Most popular</span>
+          <p class="bcard__prob">"We need more work, now"</p>
+          <h2 class="bcard__name">Booked Out</h2>
+          <p class="bcard__line">We bring in the leads and book them in for you.</p>
+          <p class="bcard__price">${{site.boPrice}}<small> /month</small></p>
+          <p class="bcard__setup">+ ${{site.boSetup}} setup · + ad spend (min ${{site.minAdSpend}}/day) · 3-month minimum</p>
+          <p class="bcard__inc-h">What's included</p>
+          <ul class="inc">
+            <li><a href="meta-ads.html"><span class="inc__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span><span><b>Meta ads</b><small>Facebook and Instagram ads, made and managed</small></span></a></li>
+            <li><a href="ai-lead-caller.html"><span class="inc__ico" style="--c:#E8A500"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span><b>AI lead caller</b><small>Calls every new lead within a minute</small></span></a></li>
+            <li><a href="ai-receptionist.html"><span class="inc__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><b>AI receptionist</b><small>Answers your missed calls too</small></span></a></li>
+            <li><a href="crm.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></span><span><b>CRM and follow-ups</b><small>Confirmations, reminders and follow-ups</small></span></a></li>
+          </ul>
+          <p class="bcard__good"><b>Best for:</b> Tradies who want a steady flow of new jobs.</p>
           <a class="btn btn--primary" href="book.html?plan=Booked%20Out">Choose Booked Out</a>
         </article>
-
       </div>
-      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span> Ad spend is paid to Meta or Google directly.</p>
+      <p class="plans-note">Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span> Take two bundles and get 10% off the second one.</p>
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="combo-title">
+  <section class="section section--paper" id="compare" aria-labelledby="mx-title">
     <div class="container">
       <div class="section-head section-head--center">
-        <h2 class="h-lg" id="combo-title">Better together.</h2>
-        <p class="lede">Take two bundles and get <b>10% off the second one</b>.</p>
+        <h2 class="h-lg" id="mx-title">Compare everything.</h2>
+        <p class="lede">Every service, and which bundle it comes in. Tap a service to see how it works.</p>
       </div>
-      <div class="combos">
-        <div class="combo"><p class="combo__pair"><span>Brand &amp; Website</span><i>+</i><span>Get Found</span></p><p>A new look that also gets found on Google. The best long-term combo.</p></div>
-        <div class="combo"><p class="combo__pair"><span>Booked Out</span><i>+</i><span>Get Found</span></p><p>Ads bring leads now, SEO brings free leads later. Own your area.</p></div>
-        <div class="combo"><p class="combo__pair"><span>Brand &amp; Website</span><i>+</i><span>Booked Out</span></p><p>Launch a fresh brand and fill the calendar straight away.</p></div>
+      <div class="mx-wrap">
+        <table class="mx">
+          <thead><tr><th scope="col"><span class="sr-only">Service</span></th><th scope="col">Brand &amp; Website</th><th scope="col">Get Found</th><th scope="col">Never Miss a Job</th><th scope="col" class="is-hot">Booked Out</th></tr></thead>
+          <tbody><tr class="mx-group"><th colspan="5" scope="colgroup">Look good, get found</th></tr><tr><th scope="row"><a href="branding.html"><span class="inc__ico" style="--c:#8B5CF6"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.6 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg></span>Branding</a></th><td><span class="mx-yes" aria-label="Included">✓</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-no" aria-label="Not included">–</span></td></tr><tr><th scope="row"><a href="websites.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg></span>Website</a></th><td><span class="mx-yes" aria-label="Included">✓</span></td><td><span class="mx-part">Hosting and care</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-no" aria-label="Not included">–</span></td></tr><tr><th scope="row"><a href="seo.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>SEO and Google profile</a></th><td><span class="mx-part">Basic setup</span></td><td><span class="mx-yes" aria-label="Included">✓</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-no" aria-label="Not included">–</span></td></tr><tr class="mx-group"><th colspan="5" scope="colgroup">Get leads</th></tr><tr><th scope="row"><a href="meta-ads.html"><span class="inc__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span>Meta ads</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-yes" aria-label="Included">✓</span></td></tr><tr><th scope="row"><a href="google-ads.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 12h8M12 3v18"/></svg></span>Google Ads</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-no" aria-label="Not included">–</span></td></tr><tr class="mx-group"><th colspan="5" scope="colgroup">Get booked</th></tr><tr><th scope="row"><a href="ai-receptionist.html"><span class="inc__ico" style="--c:#F26A1B"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>AI receptionist</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-yes" aria-label="Included">✓</span></td><td class="is-hot"><span class="mx-yes" aria-label="Included">✓</span></td></tr><tr><th scope="row"><a href="ai-lead-caller.html"><span class="inc__ico" style="--c:#E8A500"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>AI lead caller</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td class="is-hot"><span class="mx-yes" aria-label="Included">✓</span></td></tr><tr><th scope="row"><a href="ai-chatbot.html"><span class="inc__ico" style="--c:#2F80ED"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span>AI website chatbot</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-yes" aria-label="Included">✓</span></td><td class="is-hot"><span class="mx-no" aria-label="Not included">–</span></td></tr><tr><th scope="row"><a href="crm.html"><span class="inc__ico" style="--c:#3BB273"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></span>CRM and follow-ups</a></th><td><span class="mx-no" aria-label="Not included">–</span></td><td><span class="mx-part">Review requests</span></td><td><span class="mx-yes" aria-label="Included">✓</span></td><td class="is-hot"><span class="mx-yes" aria-label="Included">✓</span></td></tr><tr class="mx-group"><th colspan="5" scope="colgroup">The fine print</th></tr><tr><th scope="row">Price</th><td>${{site.bwPrice}} one-off</td><td>${{site.gfPrice}}/mo</td><td>${{site.nmjPrice}}/mo</td><td class="is-hot">${{site.boPrice}}/mo</td></tr><tr><th scope="row">Setup</th><td>Included</td><td>${{site.gfSetup}}</td><td>${{site.nmjSetup}}</td><td class="is-hot">${{site.boSetup}}</td></tr><tr><th scope="row">Ad spend</th><td>–</td><td>–</td><td>–</td><td class="is-hot">Paid to Meta, min ${{site.minAdSpend}}/day</td></tr><tr><th scope="row">Minimum term</th><td>–</td><td>6 months</td><td><span class="ph">Confirm</span></td><td class="is-hot">3 months</td></tr></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -84,7 +119,7 @@ description: TradeBooked bundles for Aussie tradies: Brand & Website, Get Found,
         <div>
           <p class="eyebrow">Custom plan</p>
           <h2 class="h-lg" id="custom-title">Want something different?</h2>
-          <p class="custom__p">Pick any mix of services, like Google Ads with the AI receptionist, or the lot. We'll build your plan and price on a quick call.</p>
+          <p class="custom__p">Mix and match any services, like Google Ads with the AI receptionist, or the lot. We'll build your plan and price on a quick call.</p>
           <a class="btn btn--primary btn--lg" href="book.html?plan=Custom%20plan">Build my plan</a>
         </div>
         <div class="custom__chips">
@@ -97,7 +132,8 @@ description: TradeBooked bundles for Aussie tradies: Brand & Website, Get Found,
   <section class="section section--paper" aria-labelledby="bq-title">
     <div class="container container--narrow faq">
       <h2 class="h-md" id="bq-title" style="margin-bottom:8px">Questions about bundles</h2>
-      <details><summary>Is ad spend included?</summary><div><p>No. For Booked Out (and Google Ads) you pay Meta or Google directly, so you see exactly what's spent. Meta minimum is ${{site.minAdSpend}} a day.</p></div></details>
+      <details><summary>Can I combine bundles?</summary><div><p>Yes, and you get 10% off the second one. Popular combos are Brand &amp; Website with Get Found, and Booked Out with Get Found.</p></div></details>
+      <details><summary>Is ad spend included?</summary><div><p>No. For Booked Out you pay Meta directly, minimum ${{site.minAdSpend}} a day, so you see exactly what's spent.</p></div></details>
       <details><summary>Are there minimum terms?</summary><div><p>Booked Out has a 3-month minimum and Get Found has 6 months, because ads and SEO take time to work. Never Miss a Job: <span class="ph">your answer</span>.</p></div></details>
       <details><summary>Can I change bundles later?</summary><div><p><span class="ph">Your answer, e.g. "Yes, upgrade any time."</span></p></div></details>
       <details><summary>Do I need a website for Get Found?</summary><div><p>Yes. If yours is holding you back, pair it with Brand &amp; Website.</p></div></details>
