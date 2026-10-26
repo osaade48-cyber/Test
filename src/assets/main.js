@@ -170,6 +170,7 @@
       tickTimer();
       timer = setInterval(function () { if (alive()) tickTimer(); else stopTimer(); }, 1000);
       for (var i = 0; i < s.turns.length; i++) {
+        if (!alive()) { stopTimer(); return; }
         var t = s.turns[i];
         var body = self.bubble(t[0], t[1], s);
         var caret = document.createElement('span');
@@ -200,8 +201,18 @@
   var heroPhone = $('[data-call="hero"]');
   if (heroPhone) {
     var heroPlayer = new CallPlayer(heroPhone);
+    var started = false;
+    var heroLabel = $('[data-call-label]', heroPhone);
+    var heroChips = $$('[data-scenario]', heroPhone.parentNode);
+    heroChips.forEach(function (b) {
+      b.addEventListener('click', function () {
+        started = true;
+        heroChips.forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+        if (heroLabel) heroLabel.textContent = b.dataset.label;
+        heroPlayer.play(SCRIPTS[b.dataset.scenario], false);
+      });
+    });
     if ('IntersectionObserver' in window) {
-      var started = false;
       new IntersectionObserver(function (en) {
         if (en[0].isIntersecting && !started) { started = true; heroPlayer.play(SCRIPTS.hero, true); }
       }, { threshold: .2 }).observe(heroPhone);
@@ -213,7 +224,7 @@
   var demoPhone = $('[data-call="demo"]');
   if (demoPhone) {
     var demoPlayer = new CallPlayer(demoPhone);
-    var scenarioBtns = $$('[data-scenario]');
+    var scenarioBtns = $$('[data-scenario]', demoPhone.closest('section'));
     var startOverlay = $('.phone-start', demoPhone);
     var current = function () {
       return (scenarioBtns.filter(function (b) { return b.getAttribute('aria-checked') === 'true'; })[0] || scenarioBtns[0]).dataset.scenario;

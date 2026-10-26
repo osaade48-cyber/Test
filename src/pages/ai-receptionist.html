@@ -69,6 +69,34 @@ nav: services
     </div>
   </section>
 
+  <section class="section demo" id="try" aria-labelledby="try-title">
+    <div class="container">
+      <div class="demo__grid">
+        <div class="demo__copy">
+          <p class="eyebrow">Try it yourself</p>
+          <h2 class="h-lg" id="try-title">Talk to my AI receptionist.</h2>
+          <p class="lede">Ring it now and pretend you need a job done. It answers, asks the right questions and books you in.</p>
+          <a class="btn btn--primary btn--lg demo__call" href="tel:{{site.demoPhoneTel}}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> Call {{site.demoPhone}}</a>
+          <div class="demo__watch">
+            <p>Or tap a call to watch it play</p>
+            <div class="scenario-list" role="radiogroup" aria-label="Sample calls">
+              <button class="scenario" type="button" role="radio" data-scenario="quote" aria-checked="true">Quote request</button>
+              <button class="scenario" type="button" role="radio" data-scenario="emergency" aria-checked="false">Burst pipe, 9pm</button>
+              <button class="scenario" type="button" role="radio" data-scenario="existing" aria-checked="false">Moving a booking</button>
+            </div>
+          </div>
+        </div>
+        <div class="phone-wrap" data-call="demo">
+          <!-- include:phone -->
+          <button class="phone-start" type="button" data-play aria-label="Play sample call">
+            <span class="phone-start__btn"><svg viewBox="0 0 10 10" width="26" height="26" aria-hidden="true"><path d="M2.5 1l6.5 4-6.5 4z" fill="currentColor"/></svg></span>
+            <span>Tap to play a sample call</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--paper" id="pricing" aria-labelledby="get-title">
     <div class="container">
       <div class="section-head section-head--center">
@@ -79,7 +107,7 @@ nav: services
           <h3 class="bcard__name">AI receptionist</h3>
           <p class="bcard__line">Every call answered, day and night.</p>
           <p class="bcard__price"><small>from </small>${{site.recPrice}}<small> /month</small></p>
-          <p class="bcard__setup bcard__setup--tier">+ ${{site.recSetup}} setup · CRM included</p>
+          <p class="bcard__setup bcard__setup--tier">+ ${{site.recSetup}} setup · CRM included<br><b>Includes {{site.aiMinutes}} minutes a month</b></p>
           <ul class="checks checks--sm"><li>Answers missed and after-hours calls, 24/7</li><li>Books jobs into your calendar</li><li>Text summary after every call</li><li>Urgent calls flagged straight away</li><li>Texts people who hang up</li><li>Keeps your existing number</li></ul>
           <a class="btn btn--ghost" href="book.html?plan=Custom%20plan" aria-label="Book a call about AI receptionist">Book a call</a>
         </article>
@@ -123,7 +151,7 @@ nav: services
       <div class="bundle-in"><p class="bundle-in__h">Included in</p><div class="bundle-tags"><a class="bundle-tag" href="bundles.html#reception"><b>Reception</b><span>from ${{site.nmjPrice}}/mo</span></a><a class="bundle-tag" href="bundles.html#growth"><b>Growth</b><span>from ${{site.boPrice}}/mo</span></a></div><p class="bundle-in__or">Or add it to a <a href="bundles.html#custom">custom plan</a>.</p></div>
       <div class="faq" style="margin-top:48px">
         <h2 class="h-md" id="faq-title" style="margin-bottom:8px">Questions about AI receptionist</h2>
-        <details><summary>Will callers know it's AI?</summary><div><p>It sounds natural and talks like your office would. If someone asks, it's honest that it's your virtual receptionist.</p></div></details><details><summary>Can I hear it?</summary><div><p>Yes. <a href="how-it-works.html#demo">Try the demo</a> or ring {{site.demoPhone}}.</p></div></details>
+        <details><summary>What if I go over {{site.aiMinutes}} minutes?</summary><div><p>Most tradies don't. If you have a busy month, extra minutes are {{site.aiOverage}} each, added to your next bill. We'll text you when you're getting close. If you go over two months in a row, we'll move you to a plan with more minutes that works out cheaper.</p></div></details><details><summary>Will callers know it's AI?</summary><div><p>It sounds natural and talks like your office would. If someone asks, it's honest that it's your virtual receptionist.</p></div></details><details><summary>Can I hear it?</summary><div><p>Yes. <a href="how-it-works.html#demo">Try the demo</a> or ring {{site.demoPhone}}.</p></div></details>
       </div>
     </div>
   </section>

@@ -1680,3 +1680,18 @@ main { position: relative; }
 @media (max-width: 620px) { .bcard__setup { min-height: 0; } }
 .bcards--1 { grid-template-columns: minmax(0, 1fr); max-width: 440px; margin: 0 auto; }
 .checks--sm { align-content: start; }
+/* hero demo: interactive phone + call pill */
+.hero__demo { display: grid; justify-items: center; }
+.call-chips__h { margin: 22px 0 10px; font-size: 13.5px; color: var(--muted); }
+.call-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 380px; }
+.call-chips .scenario { min-height: 38px; padding: 7px 14px; font-size: 14px; }
+.trypill { display: inline-flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--fg); text-decoration: none; transition: border-color .2s, background-color .2s; }
+.trypill:hover { border-color: var(--orange); background: rgba(242,106,27,.1); }
+.trypill__ico { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ok, #3BB273); color: #fff; flex: none; animation: ping-ok 1.8s infinite; }
+.trypill small { display: block; font-size: 12.5px; color: var(--muted); }
+.trypill b { display: block; font-family: var(--display); font-size: 17px; letter-spacing: .01em; }
+/* receptionist page try section */
+.demo__copy .lede { margin: -8px 0 0; }
+.demo__watch { display: grid; gap: 12px; width: 100%; padding-top: 22px; border-top: 1px solid var(--line); }
+.demo__watch p { margin: 0; color: #CFCDCA; font-size: 15px; }
+@media (max-width: 900px) { .hero__demo { margin-top: 8px; } }

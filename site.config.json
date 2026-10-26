@@ -44,5 +44,7 @@
   "reviewsPrice": "100",
   "reviewsSetup": "150",
   "followPrice": "150",
-  "followSetup": "300"
+  "followSetup": "300",
+  "aiMinutes": "300",
+  "aiOverage": "50c"
 }

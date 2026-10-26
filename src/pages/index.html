@@ -16,10 +16,20 @@ nav: home
           <a class="btn btn--primary btn--lg" href="book.html">Book a chat</a>
           <a class="btn btn--ghost btn--lg" href="how-it-works.html">See how it works</a>
         </div>
+        <a class="trypill" href="tel:{{site.demoPhoneTel}}"><span class="trypill__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>Try it now. Call my AI receptionist</small><b>{{site.demoPhone}}</b></span></a>
       </div>
-      <div class="phone-wrap" data-call="hero">
-        <p class="phone-label"><span class="ping" aria-hidden="true"></span>AI calling a new lead</p>
-        <!-- include:phone -->
+      <div class="hero__demo" id="try">
+        <div class="phone-wrap" data-call="hero">
+          <p class="phone-label"><span class="ping" aria-hidden="true"></span><span data-call-label>AI calling a new lead</span></p>
+          <!-- include:phone -->
+        </div>
+        <p class="call-chips__h">Tap to watch another call</p>
+        <div class="call-chips" role="radiogroup" aria-label="Sample calls">
+          <button class="scenario" type="button" role="radio" data-scenario="hero" data-label="AI calling a new lead" aria-checked="true">New Facebook lead</button>
+          <button class="scenario" type="button" role="radio" data-scenario="quote" data-label="AI answering a quote request" aria-checked="false">Quote request</button>
+          <button class="scenario" type="button" role="radio" data-scenario="emergency" data-label="AI answering an urgent call" aria-checked="false">Burst pipe, 9pm</button>
+          <button class="scenario" type="button" role="radio" data-scenario="existing" data-label="AI moving a booking" aria-checked="false">Moving a booking</button>
+        </div>
       </div>
     </div>
   </section>
