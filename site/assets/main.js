@@ -327,7 +327,7 @@
       var best = null, bestGeneric = null;
       KB.intents.forEach(function (it) {
         var score = 0;
-        it.keys.forEach(function (k) { if (t.indexOf(' ' + k + ' ') > -1 || (k.length > 4 && t.indexOf(k) > -1)) score += k.length; });
+        it.keys.forEach(function (k) { if (t.indexOf(' ' + k + ' ') > -1 || (k.length > 4 && t.indexOf(k) > -1) || (k.length > 5 && k.indexOf(' ') < 0 && t.indexOf(' ' + k.slice(0, -1)) > -1)) score += k.length; });
         if (!score) return;
         if (GENERIC.indexOf(it.id) > -1) { if (!bestGeneric || score > bestGeneric.s) bestGeneric = { it: it, s: score }; }
         else if (!best || score > best.s) best = { it: it, s: score };
