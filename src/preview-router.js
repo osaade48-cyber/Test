@@ -19,7 +19,7 @@
     cta.hidden = page.dataset.cta === 'no';
     document.title = page.dataset.title;
     document.body.className = 'page-' + slug;
-    var SERVICES = ['services', 'websites', 'branding', 'seo', 'meta-ads', 'google-ads', 'approval-leads', 'ai-receptionist', 'ai-lead-caller', 'ai-chatbot', 'crm'];
+    var SERVICES = ['services', 'websites', 'branding', 'seo', 'meta-ads', 'google-ads', 'ai-job-finder', 'ai-receptionist', 'ai-lead-caller', 'ai-chatbot', 'crm'];
     var navSlug = SERVICES.indexOf(slug) > -1 ? 'services' : slug;
     document.querySelectorAll('#site-nav > a, #site-nav .nav__droplink').forEach(function (a) {
       if ((a.getAttribute('href') || '').replace('.html', '') === navSlug) a.setAttribute('aria-current', 'page');

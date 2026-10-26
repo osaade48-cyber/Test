@@ -1241,7 +1241,7 @@
     await to(85, 1100); await to(15, 1400); await to(50, 900);
   };
 
-  // 10. Council approval leads: approvals sorted by trade
+  // 10. AI job finder: approvals sorted by trade
   var APPROVALS = [
     ['14 Smith St, Kellyville', 'New two-storey home', 'Builder Landscaper Concreter Fencer Electrician Plumber Excavator'],
     ['8 Oak Ave, Castle Hill', 'Removal of two trees', ''],
