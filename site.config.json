@@ -46,5 +46,9 @@
   "followPrice": "150",
   "followSetup": "300",
   "aiMinutes": "300",
-  "aiOverage": "50c"
+  "aiOverage": "50c",
+  "hsPrice": "295",
+  "hsSetup": "300",
+  "hsLetters": "30",
+  "hsExtra": "3.50"
 }

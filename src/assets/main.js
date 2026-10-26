@@ -601,7 +601,7 @@
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row', '.pick', '.bcard'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row', '.pick', '.bcard', '.hs-band__copy > *', '.addon'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
@@ -1239,6 +1239,68 @@
     var range = $('.cmp__range', c), tok = { dead: false };
     var to = function (v, ms) { return new Promise(function (res) { var a = +range.value, t0 = performance.now(); (function f(now) { if (c._touched) return res(); var p = Math.min(1, (now - t0) / ms), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; range.value = a + (v - a) * e; c.style.setProperty('--x', range.value + '%'); p < 1 ? requestAnimationFrame(f) : res(); })(t0); }); };
     await to(85, 1100); await to(15, 1400); await to(50, 900);
+  };
+
+  // 10. Headstart: approvals sorted by trade
+  var APPROVALS = [
+    ['14 Smith St, Kellyville', 'New two-storey home', 'Builder Landscaper Concreter Fencer Electrician Plumber Excavator'],
+    ['8 Oak Ave, Castle Hill', 'Removal of two trees', ''],
+    ['31 Hill Cres, Rouse Hill', 'Granny flat', 'Builder Landscaper Concreter Electrician Plumber Excavator'],
+    ['5 Main St, Norwest', 'Shop signage', ''],
+    ['22 Park Rd, Baulkham Hills', 'In-ground pool and retaining walls', 'Landscaper Concreter Pool builder Fencer Electrician Excavator'],
+    ['9 River Rd, Beaumont Hills', 'Rear extension and deck', 'Builder Concreter Electrician Plumber'],
+    ['40 Ridge Way, Kellyville', 'Four-lot subdivision', 'Builder Concreter Excavator Plumber'],
+    ['17 Bay St, Castle Hill', 'Office fit-out', '']
+  ];
+  var NOUN = { 'Builder': 'builders', 'Landscaper': 'landscapers', 'Concreter': 'concreters', 'Pool builder': 'pool builders', 'Fencer': 'fencers', 'Electrician': 'electricians', 'Plumber': 'plumbers', 'Excavator': 'excavators' };
+  CP.approvals = {
+    trade: function (r) { var b = $('.hs-trade[aria-checked="true"]', r); return b ? b.dataset.trade : 'Builder'; },
+    fits: function (row, t) { return (' ' + row[2] + ' ').indexOf(' ' + t + ' ') > -1 || (t === 'Pool builder' && row[2].indexOf('Pool builder') > -1); },
+    sort: function (r) {
+      var t = CP.approvals.trade(r), items = $$('.hs-item', r), match = 0, last = null;
+      items.forEach(function (li) {
+        var ok = CP.approvals.fits(APPROVALS[+li.dataset.i], t);
+        li.classList.toggle('is-match', ok); li.classList.toggle('is-skip', !ok);
+        $('.hs-item__tag', li).textContent = ok ? 'Match' : 'Not for you';
+        if (ok) { match++; last = APPROVALS[+li.dataset.i]; }
+      });
+      $('[data-hs-found]', r).textContent = items.length;
+      $('[data-hs-match]', r).textContent = match;
+      $('[data-hs-trade]', r).textContent = t.toLowerCase();
+      var letter = $('[data-hs-letter]', r);
+      if (last) {
+        $('[data-hs-to]', r).textContent = 'To the owner, ' + last[0];
+        $('[data-hs-body]', r).textContent = 'Congratulations on your approval for the ' + last[1].toLowerCase() + '. We’re local ' + NOUN[t] + ' and we’d love to quote your job. Call us or scan the code to book a time.';
+        letter.classList.remove('is-sent'); void letter.offsetWidth; letter.classList.add('is-sent');
+      } else {
+        $('[data-hs-to]', r).textContent = 'To the owner';
+        $('[data-hs-body]', r).textContent = 'Your letters appear here.';
+        letter.classList.remove('is-sent');
+      }
+    },
+    add: function (r, i) {
+      var row = APPROVALS[i], li = document.createElement('li');
+      li.className = 'hs-item'; li.dataset.i = i;
+      li.innerHTML = '<div><b></b><span></span></div><em class="hs-item__tag"></em>';
+      $('b', li).textContent = row[1]; $('span', li).textContent = row[0];
+      $('[data-hs-list]', r).appendChild(li);
+    },
+    init: function (r) {
+      $$('.hs-trade', r).forEach(function (b) {
+        b.addEventListener('click', function () {
+          $$('.hs-trade', r).forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+          CP.approvals.sort(r);
+        });
+      });
+    },
+    reset: function (r) { $('[data-hs-list]', r).innerHTML = ''; CP.approvals.sort(r); },
+    play: async function (r, tok) {
+      for (var i = 0; i < APPROVALS.length; i++) {
+        await sleep(i ? 750 : 300, tok);
+        CP.approvals.add(r, i); CP.approvals.sort(r);
+      }
+    },
+    still: function (r) { APPROVALS.forEach(function (x, i) { CP.approvals.add(r, i); }); CP.approvals.sort(r); }
   };
 
   // Runner: one run per centrepiece; a new run cancels the old one.

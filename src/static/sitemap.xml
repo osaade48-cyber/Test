@@ -9,6 +9,7 @@
   <url><loc>{{site.siteUrl}}/seo</loc></url>
   <url><loc>{{site.siteUrl}}/meta-ads</loc></url>
   <url><loc>{{site.siteUrl}}/google-ads</loc></url>
+  <url><loc>{{site.siteUrl}}/headstart</loc></url>
   <url><loc>{{site.siteUrl}}/ai-receptionist</loc></url>
   <url><loc>{{site.siteUrl}}/ai-lead-caller</loc></url>
   <url><loc>{{site.siteUrl}}/ai-chatbot</loc></url>
