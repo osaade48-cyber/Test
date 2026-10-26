@@ -51,6 +51,14 @@ Right now the form goes straight to the thanks page and **the enquiry isn't sent
 2. Copy the endpoint URL it gives you (looks like `https://formspree.io/f/abcd1234`).
 3. Paste it into `formEndpoint` in `site.config.json` and run `node build.js`.
 
+### The website chatbot
+
+The chat bubble in the bottom corner of every page is in `src/partials/footer.html`.
+
+- **Answers:** the `tb-chat-kb` block at the bottom of that file. Each topic has `keys` (words that trigger it), an `answer` and follow-up `chips`. Prices come from `site.config.json`, so they stay up to date.
+- **Call-back requests:** it asks for name, number and what they're after, then sends them to `formEndpoint` (the same one as the Book a call form). Until that's connected, the requests aren't sent anywhere.
+- **Your real AI chatbot:** this one answers from a fixed list of topics. Once your GoHighLevel chat widget is set up, you can swap it in: delete the `tbchat` block and `tb-chat-kb` script from the footer and paste GoHighLevel's widget code in their place.
+
 ### The statistics
 
 The home page stats were checked before use:

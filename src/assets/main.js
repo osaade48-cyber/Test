@@ -279,6 +279,136 @@
     });
   });
 
+  /* ---------- Site chatbot ----------
+     Answers from the knowledge base in the footer (#tb-chat-kb) and collects call-back requests.
+     Sends leads to formEndpoint when it's set. */
+  var chat = $('[data-chat]');
+  var kbEl = document.getElementById('tb-chat-kb');
+  if (chat && kbEl) {
+    var KB = JSON.parse(kbEl.textContent);
+    var panel = $('.tbchat__panel', chat), log = $('.tbchat__log', chat), chipsEl = $('.tbchat__chips', chat);
+    var form = $('.tbchat__form', chat), input = form.elements.msg, toggle = $('.tbchat__btn', chat), teaser = $('.tbchat__teaser', chat);
+    var saved = store.get('tb_chat') || { msgs: [], lead: null };
+    var flow = null;
+    var GENERIC = ['price', 'bundles', 'services', 'greet', 'thanks'];
+    var save = function () { saved.msgs = saved.msgs.slice(-40); store.set('tb_chat', saved); };
+    var scrollDown = function () { log.scrollTop = log.scrollHeight; };
+    var addMsg = function (who, html, keep) {
+      var m = document.createElement('div');
+      m.className = 'tbmsg tbmsg--' + who;
+      if (who === 'bot') m.innerHTML = html; else m.textContent = html;
+      log.appendChild(m);
+      scrollDown();
+      if (keep !== false) { saved.msgs.push([who, html]); save(); }
+    };
+    var setChips = function (list) {
+      chipsEl.innerHTML = '';
+      (list || []).forEach(function (t) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tbchip'; b.textContent = t;
+        b.addEventListener('click', function () { send(t); });
+        chipsEl.appendChild(b);
+      });
+    };
+    var botSay = function (html, chips) {
+      setChips([]);
+      var dots = document.createElement('div');
+      dots.className = 'tbmsg tbmsg--bot tbmsg--typing';
+      dots.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(dots); scrollDown();
+      setTimeout(function () {
+        dots.remove();
+        addMsg('bot', html);
+        setChips(chips);
+      }, reduceMotion ? 0 : 450 + Math.min(html.length * 4, 700));
+    };
+    var match = function (text) {
+      var t = ' ' + text.toLowerCase().replace(/[^a-z0-9' ]+/g, ' ') + ' ';
+      var best = null, bestGeneric = null;
+      KB.intents.forEach(function (it) {
+        var score = 0;
+        it.keys.forEach(function (k) { if (t.indexOf(' ' + k + ' ') > -1 || (k.length > 4 && t.indexOf(k) > -1)) score += k.length; });
+        if (!score) return;
+        if (GENERIC.indexOf(it.id) > -1) { if (!bestGeneric || score > bestGeneric.s) bestGeneric = { it: it, s: score }; }
+        else if (!best || score > best.s) best = { it: it, s: score };
+      });
+      return (best || bestGeneric || {}).it;
+    };
+    var sendLead = function (lead) {
+      saved.lead = lead; save();
+      store.set('tb_lead', { name: lead.name, time: '' });
+      var endpoint = chat.dataset.endpoint;
+      if (!endpoint) return;
+      var fd = new FormData();
+      fd.append('name', lead.name); fd.append('phone', lead.phone); fd.append('plan', lead.plan);
+      fd.append('source', 'Website chatbot');
+      fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } }).catch(function () {});
+    };
+    var leadStep = function (text) {
+      if (flow.step === 'name') {
+        var name = text.trim().split(/\s+/)[0].replace(/[^A-Za-z'-]/g, '');
+        if (!name) { botSay('Sorry, what was your first name?'); return; }
+        flow.name = name.charAt(0).toUpperCase() + name.slice(1);
+        flow.step = 'phone';
+        botSay('Nice to meet you, ' + flow.name + '. What’s the best number to call you on?');
+      } else if (flow.step === 'phone') {
+        if (text.replace(/\D/g, '').length < 8) { botSay('That number looks a bit short. Can you check it for me?'); return; }
+        flow.phone = text.trim();
+        flow.step = 'plan';
+        botSay('Got it. And what are you most interested in?', KB.plans);
+      } else if (flow.step === 'plan') {
+        flow.plan = text.trim();
+        var lead = { name: flow.name, phone: flow.phone, plan: flow.plan };
+        flow = null;
+        sendLead(lead);
+        var q = KB.plans.indexOf(lead.plan) > -1 && lead.plan !== 'Not sure yet' ? lead.plan : 'Not sure';
+        botSay('Legend, ' + lead.name + '. We’ll call you on ' + lead.phone.replace(/</g, '') + ' within one business day. Want to lock in a time now? <a href="book.html?plan=' + encodeURIComponent(q) + '">Pick a time</a>', ['What do you offer?', 'How much does it cost?']);
+      }
+    };
+    var send = function (text) {
+      text = (text || '').trim();
+      if (!text) return;
+      addMsg('user', text);
+      if (flow) { leadStep(text); return; }
+      var it = KB.intents.filter(function (x) { return x.id === KB.chipMap[text]; })[0] || match(text);
+      if (!it) { botSay(KB.fallback, KB.fallbackChips); return; }
+      if (it.flow === 'lead') {
+        if (saved.lead) { botSay('You’re already on the list, ' + saved.lead.name + '. We’ll call you on ' + saved.lead.phone.replace(/</g, '') + ' soon. Anything else I can help with?', ['What do you offer?', 'How much does it cost?']); return; }
+        flow = { step: 'name' };
+        botSay(it.answer + ' What’s your first name?');
+        return;
+      }
+      botSay(it.answer, it.chips);
+    };
+    var open = function (on) {
+      panel.hidden = !on;
+      chat.classList.toggle('is-open', on);
+      toggle.setAttribute('aria-expanded', String(on));
+      toggle.setAttribute('aria-label', on ? 'Close chat' : 'Chat with us');
+      teaser.hidden = true;
+      if (on) {
+        store.set('tb_chat_seen', true);
+        if (!log.children.length) {
+          if (saved.msgs.length) { saved.msgs.forEach(function (m) { addMsg(m[0], m[1], false); }); setChips(KB.start); }
+          else botSay(KB.greeting, KB.start);
+        }
+        setTimeout(function () { scrollDown(); if (window.matchMedia('(pointer: fine)').matches) input.focus(); }, 60);
+      }
+    };
+    toggle.addEventListener('click', function () { open(panel.hidden); });
+    $('.tbchat__x', chat).addEventListener('click', function () { open(false); toggle.focus(); });
+    $('.tbchat__teaser-open', chat).addEventListener('click', function () { open(true); });
+    $('.tbchat__teaser-x', chat).addEventListener('click', function () { teaser.hidden = true; store.set('tb_chat_seen', true); });
+    form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); input.value = ''; });
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { open(false); toggle.focus(); } });
+    log.addEventListener('click', function (e) {
+      if (e.target.closest('a') && window.innerWidth < 600) open(false);
+    });
+    if (!store.get('tb_chat_seen')) {
+      setTimeout(function () { if (panel.hidden && !store.get('tb_chat_seen')) teaser.hidden = false; }, 9000);
+    }
+  }
+
   /* ---------- Range fill ---------- */
   function paintRange(r) {
     var pct = (r.value - r.min) / (r.max - r.min) * 100;
