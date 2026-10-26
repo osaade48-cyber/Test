@@ -1808,3 +1808,4 @@ main { position: relative; }
 }
 @media (prefers-reduced-motion: reduce) { .hs-item { animation: none; } .hs-letter.is-sent .hs-letter__stamp { animation: none; opacity: 1; transform: rotate(-8deg); } }
 .hs { overflow-x: clip; }
+.hs-nofee { color: #1E7A4C; } .bcard--hot .hs-nofee { color: #6FE0A4; }
