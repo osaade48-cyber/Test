@@ -61,10 +61,12 @@ The chat bubble in the bottom corner of every page is in `src/partials/footer.ht
 
 ### The statistics
 
-The home page stats were checked before use:
+The home page "Where tradies lose jobs" section uses these (keep the source lines on the page if you edit them):
 
-- **62% unanswered:** 411 Locals call study, Jan 2016 (85 US businesses). Counts calls that went to voicemail as unanswered.
-- **78% have given up on a business / 1 in 5 call a competitor straight away:** CallRail survey of 1,000 US consumers, 2025. Found via secondary reports; link the original CallRail report if you can find it.
+- **~88% of searches on Google:** StatCounter, Australia search engine share (2025–26)
+- **53% leave slow mobile sites:** Google, "The Need for Mobile Speed" (2016)
+- **62% of calls unanswered:** 411 Locals call study, Jan 2016 (85 US businesses). Counts calls that went to voicemail as unanswered.
+- **97% read reviews:** BrightLocal Local Consumer Review Survey (2026)
 
 Service pages use these sources (keep the source lines on the page if you edit them):
 

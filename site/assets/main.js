@@ -449,6 +449,30 @@
     else cxAuto();
   }
 
+  /* ---------- Home: where tradies lose jobs ---------- */
+  var lk = $('[data-lk]');
+  if (lk) {
+    var lkItems = $$('.lk-item', lk), lkBar = $('.lk-meter__bar i', lk);
+    var lkFill = function (n) { lkBar.style.width = (20 + n * 20) + '%'; };
+    var lkCount = function () {
+      $$('[data-lk-n]', lk).forEach(function (b) {
+        var to = +b.dataset.lkN, pre = b.dataset.pre || '', t0 = performance.now();
+        (function f(now) { var p = Math.min(1, (now - t0) / 1100); b.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); })(t0);
+      });
+    };
+    var runLk = function () {
+      if (reduceMotion) {
+        $$('[data-lk-n]', lk).forEach(function (b) { b.textContent = (b.dataset.pre || '') + b.dataset.lkN; });
+        lkItems.forEach(function (it) { it.classList.add('is-fixed'); }); lkFill(4); lk.classList.add('is-run', 'is-done'); return;
+      }
+      lk.classList.add('is-run'); lkFill(0); lkCount();
+      lkItems.forEach(function (it, i) { setTimeout(function () { it.classList.add('is-fixed'); lkFill(i + 1); }, 2600 + i * 900); });
+      setTimeout(function () { lk.classList.add('is-done'); }, 2600 + lkItems.length * 900);
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en, ob) { if (en[0].isIntersecting) { ob.disconnect(); runLk(); } }, { threshold: .35 }).observe(lk);
+    else runLk();
+  }
+
   /* ---------- Range fill ---------- */
   function paintRange(r) {
     var pct = (r.value - r.min) / (r.max - r.min) * 100;
