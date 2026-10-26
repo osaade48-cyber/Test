@@ -6,7 +6,7 @@ import { RequireAuth } from "@/components/auth/SignIn";
 import { useAsync } from "@/hooks/useAsync";
 import { useSession } from "@/hooks/useSession";
 import { acceptOffer, counterOffer, declineOffer, getConversations, getThread, sendMessage, type ConversationThread } from "@/services/messages";
-import { createBuyNowOrder } from "@/services/orders";
+import { checkoutPath } from "@/services/checkout";
 import { AsyncView, EmptyState, ErrorState, RowSkeleton } from "@/components/ui/states";
 import { Avatar, Badge, Skeleton } from "@/components/ui/primitives";
 import { Button, IconButton } from "@/components/ui/Button";
@@ -193,8 +193,7 @@ function OfferCard({ offer, thread, mine }: { offer: Offer; thread: Conversation
   const checkout = async () => {
     const l = thread.listing;
     const method = availableMethods([l])[0];
-    const order = await createBuyNowOrder(l.id, method, offer.amount);
-    nav(`/checkout?orders=${order.id}`);
+    nav(checkoutPath({ kind: "buy_now", listingId: l.id, method, offerPrice: offer.amount }));
   };
 
   const act = async (fn: () => Promise<unknown>, msg: string) => {

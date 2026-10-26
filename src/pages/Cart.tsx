@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Info, MapPin, Package, Trash2, Truck, Users } from "lucide-react";
 import type { DeliveryMethod, SellerBundle } from "@/types/models";
 import { RequireAuth } from "@/components/auth/SignIn";
 import { useAsync } from "@/hooks/useAsync";
 import { getCart, removeFromCart, setDeliveryMethod } from "@/services/cart";
-import { createOrdersFromCart } from "@/services/orders";
+import { checkoutPath } from "@/services/checkout";
 import { AsyncView, EmptyState, RowSkeleton } from "@/components/ui/states";
 import { Avatar, Notice } from "@/components/ui/primitives";
 import { Button, ButtonLink, IconButton } from "@/components/ui/Button";
@@ -29,20 +28,8 @@ export default function Cart() {
 function CartInner() {
   const state = useAsync(getCart, [], ["cart", "listings"]);
   const nav = useNavigate();
-  const toast = useToast();
-  const [busy, setBusy] = useState(false);
-
-  const checkout = async (sellerIds?: string[]) => {
-    setBusy(true);
-    try {
-      const orders = await createOrdersFromCart(sellerIds);
-      nav(`/checkout?orders=${orders.map((o) => o.id).join(",")}`);
-    } catch (e) {
-      toast((e as Error).message, "error");
-    } finally {
-      setBusy(false);
-    }
-  };
+  // Nothing is created until the buyer pays on the checkout page.
+  const checkout = (sellerIds?: string[]) => nav(checkoutPath({ kind: "cart", sellerIds }));
 
   return (
     <div className="page max-w-3xl">
@@ -68,7 +55,7 @@ function CartInner() {
               <>
                 <div className="space-y-4">
                   {bundles.map((b) => (
-                    <BundleCard key={b.seller.id} bundle={b} onCheckout={() => checkout([b.seller.id])} busy={busy} />
+                    <BundleCard key={b.seller.id} bundle={b} onCheckout={() => checkout([b.seller.id])} />
                   ))}
                 </div>
                 <div className="card mt-6 p-4">
@@ -77,7 +64,7 @@ function CartInner() {
                     <span>{unknown ? `${formatMoney(grand)} + shipping` : formatMoney(grand)}</span>
                   </div>
                   <p className="mt-1 text-caption text-muted">Includes postage and buyer protection. Each seller is a separate order.</p>
-                  <Button className="mt-4" size="lg" full loading={busy} onClick={() => checkout()}>
+                  <Button className="mt-4" size="lg" full onClick={() => checkout()}>
                     Check out all — {unknown ? `${formatMoney(grand)} + shipping` : formatMoney(grand)}
                   </Button>
                 </div>
@@ -94,7 +81,7 @@ function CartInner() {
   );
 }
 
-function BundleCard({ bundle: b, onCheckout, busy }: { bundle: SellerBundle; onCheckout: () => void; busy: boolean }) {
+function BundleCard({ bundle: b, onCheckout }: { bundle: SellerBundle; onCheckout: () => void }) {
   const toast = useToast();
   const first = b.seller.name.split(" ")[0];
   return (
@@ -178,7 +165,7 @@ function BundleCard({ bundle: b, onCheckout, busy }: { bundle: SellerBundle; onC
           <div className="flex justify-between"><dt className="text-muted">Buyer protection</dt><dd>{formatMoney(b.pricing.buyerFee)}</dd></div>
           <div className="flex justify-between border-t border-line pt-2 font-semibold"><dt>Subtotal</dt><dd>{totalLabel(b.pricing)}</dd></div>
         </dl>
-        <Button className="mt-3" variant="secondary" full disabled={!b.availableMethods.length || busy} onClick={onCheckout}>
+        <Button className="mt-3" variant="secondary" full disabled={!b.availableMethods.length} onClick={onCheckout}>
           Check out {first}'s items only
         </Button>
       </div>

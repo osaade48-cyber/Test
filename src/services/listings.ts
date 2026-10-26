@@ -3,7 +3,7 @@
  *   searchListings → GET /listings?…   getListing → GET /listings/:id
  */
 import type { CategoryId, Listing, ListingDraft, ListingQuery, ListingStatus, User } from "@/types/models";
-import { haversineKm, isLargeItem } from "@/lib/pricing";
+import { haversineKm, isLargeItem, isTooFarForPickup } from "@/lib/pricing";
 import { validateForPublish } from "@/lib/listingValidation";
 import { FREE_SHIPPING_THRESHOLD, BOOST_DURATION_DAYS } from "@/config/business";
 import { uid } from "@/lib/id";
@@ -41,7 +41,7 @@ function matches(l: ListingWithMeta, q: ListingQuery): boolean {
   if (q.maxPrice != null && l.price > q.maxPrice) return false;
   if (q.radiusKm != null && l.distanceKm != null && l.distanceKm > q.radiusKm) return false;
   if (q.delivery === "post" && !(l.delivery.post || l.delivery.largeCalculated)) return false;
-  if (q.delivery === "pickup" && !(l.delivery.pickup || l.delivery.meetup)) return false;
+  if (q.delivery === "pickup" && (!(l.delivery.pickup || l.delivery.meetup) || isTooFarForPickup(l.distanceKm))) return false;
   if (q.freeShipping && !(l.delivery.post && !isLargeItem(l) && l.price >= FREE_SHIPPING_THRESHOLD)) return false;
   if (q.q) {
     const hay = `${l.title} ${l.brand} ${l.model ?? ""} ${l.description} ${l.size ? `size ${l.size}` : ""}`.toLowerCase();

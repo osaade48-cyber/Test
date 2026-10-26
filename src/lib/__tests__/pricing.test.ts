@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { availableMethods, buyerFee, priceOrder, totalLabel } from "../pricing";
+import { availableMethods, buyerFee, cardShippingTag, defaultMethod, priceOrder, totalLabel } from "../pricing";
 import type { Listing } from "@/types/models";
 
 const base = (over: Partial<Listing>): Listing & { effectivePrice: number } => {
@@ -65,4 +65,17 @@ describe("large item defaults", () => {
     const pram = base({ category: "prams", delivery: { largeCalculated: true, pickup: true, meetup: false } });
     expect(availableMethods([pram])[0]).toBe("pickup");
   });
+});
+
+describe("far-away pickups", () => {
+  const pram = () => base({ category: "prams", delivery: { largeCalculated: true, pickup: true, meetup: false } });
+  it("defaults to pickup when close", () => expect(defaultMethod(availableMethods([pram()]), 10)).toBe("pickup"));
+  it("defaults to courier when pickup is too far", () => expect(defaultMethod(availableMethods([pram()]), 700)).toBe("large_calculated"));
+  it("keeps pickup when it's the only option", () => {
+    const bike = base({ delivery: { pickup: true, meetup: true } });
+    expect(defaultMethod(availableMethods([bike]), 700)).toBe("pickup");
+    expect(cardShippingTag(bike, 700)).toEqual({ kind: "far", label: "Pickup only · 700 km" });
+    expect(cardShippingTag(bike, 12).kind).toBe("pickup");
+  });
+  it("shows postage instead of a far pickup", () => expect(cardShippingTag(base({ price: 20 }), 700).label).toBe("+ postage"));
 });

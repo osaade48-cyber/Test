@@ -23,7 +23,7 @@ import { useAsync, useTopicValue } from "@/hooks/useAsync";
 import { useSession } from "@/hooks/useSession";
 import { getListing, recordView, searchListings } from "@/services/listings";
 import { addToCart, inCartSync } from "@/services/cart";
-import { createBuyNowOrder } from "@/services/orders";
+import { checkoutPath } from "@/services/checkout";
 import { getAcceptedOfferPrice, makeOffer, openConversation } from "@/services/messages";
 import { reportListing } from "@/services/admin";
 import { ListingImage } from "@/components/listing/ListingImage";
@@ -38,7 +38,7 @@ import { useAuthGuard } from "@/components/auth/SignIn";
 import { ageLabel, categoryById, conditionLabel, CONDITIONS } from "@/config/taxonomy";
 import { FEATURES, OFFER_EXPIRY_HOURS } from "@/config/business";
 import { PAYOUT_RULE_MEETUP, PAYOUT_RULE_POST } from "@/config/copy";
-import { availableMethods, haversineKm, isLargeItem, METHOD_LABEL, priceOrder, totalLabel } from "@/lib/pricing";
+import { availableMethods, defaultMethod, haversineKm, isLargeItem, isTooFarForPickup, METHOD_LABEL, priceOrder, totalLabel } from "@/lib/pricing";
 import { formatDate, formatMoney, formatRelative } from "@/lib/format";
 import { isExpired } from "@/lib/safety";
 import { cn } from "@/lib/cn";
@@ -84,7 +84,7 @@ export default function ListingPage() {
 
   const l = state.data;
   const methods = useMemo(() => (l ? availableMethods([l]) : []), [l]);
-  const chosen = method && methods.includes(method) ? method : methods[0];
+  const chosen = method && methods.includes(method) ? method : defaultMethod(methods, l && user ? haversineKm(user.location, l.location) : null);
   const price = offerPrice.data ?? l?.price ?? 0;
   const distanceKm = l && user ? haversineKm(user.location, l.location) : undefined;
   const pricing = l && chosen ? priceOrder([{ ...l, effectivePrice: price }], chosen, { distanceKm, sellerSuburb: l.location.suburb }) : null;
@@ -106,8 +106,7 @@ export default function ListingPage() {
       if (!chosen) return;
       setBusy("buy");
       try {
-        const order = await createBuyNowOrder(l.id, chosen, offerPrice.data ?? undefined);
-        nav(`/checkout?orders=${order.id}`);
+        nav(checkoutPath({ kind: "buy_now", listingId: l.id, method: chosen, offerPrice: offerPrice.data ?? undefined }));
       } catch (e) {
         toast((e as Error).message, "error");
       } finally {
@@ -244,7 +243,7 @@ export default function ListingPage() {
                         <span className="block font-medium">
                           {m === "pickup" ? `Pickup in ${l.location.suburb}` : METHOD_LABEL[m]}
                         </span>
-                        <span className="block text-caption text-muted">{m === "pickup" || m === "meetup" ? "No postage · QR code handover" : p.postageLabel}</span>
+                        <span className="block text-caption text-muted">{m === "pickup" || m === "meetup" ? (isTooFarForPickup(distanceKm) ? `No postage · ${Math.round(distanceKm!)} km away` : "No postage · QR code handover") : p.postageLabel}</span>
                       </span>
                       {chosen === m && <Check className="h-5 w-5 text-ink" aria-hidden />}
                     </label>
@@ -402,7 +401,7 @@ export default function ListingPage() {
 
       {/* Mobile sticky bar with the honest total */}
       {!isOwn && !unavailable && (
-        <div className="fixed inset-x-0 bottom-[calc(64px+env(safe-area-inset-bottom))] z-30 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
           <div className="flex items-center gap-2">
             <div className="min-w-0 flex-1">
               <p className="text-caption text-muted">Total incl. {chosen === "pickup" || chosen === "meetup" ? "protection" : "postage & protection"}</p>

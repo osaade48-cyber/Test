@@ -201,7 +201,12 @@ function BottomNav() {
   );
 }
 
+/** Pages with their own sticky action bar hide the mobile bottom menu. */
+const FOCUSED_PAGES = /^\/(listing|checkout)(\/|$)/;
+
 export function AppShell({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  const focused = FOCUSED_PAGES.test(pathname);
   return (
     <div className="flex min-h-screen">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-on-ink">
@@ -221,13 +226,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Logo />
           <HeaderActions />
         </header>
-        <main id="main" className="flex-1 pb-24 lg:pb-0">
+        <main id="main" className={cn("flex-1 lg:pb-0", !focused && "pb-24")}>
           {children}
         </main>
         <Footer />
-        <div className="h-[72px] lg:hidden" aria-hidden />
+        {!focused && <div className="h-[72px] lg:hidden" aria-hidden />}
       </div>
-      <BottomNav />
+      {!focused && <BottomNav />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { CategoryIcon } from "@/components/icons/CategoryIcon";
 import { SearchBox } from "@/components/layout/AppShell";
 import { useAuthGuard } from "@/components/auth/SignIn";
 import { AGE_GROUPS, CATEGORIES, CONDITIONS, GENDERS, ageLabel, categoryById, conditionLabel } from "@/config/taxonomy";
-import { FEATURES, FREE_SHIPPING_THRESHOLD } from "@/config/business";
+import { FEATURES, FREE_SHIPPING_THRESHOLD, MAX_PICKUP_DISTANCE_KM } from "@/config/business";
 import { formatMoney } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
@@ -91,7 +91,7 @@ export default function Browse() {
       clear: { minPrice: undefined, maxPrice: undefined },
     },
     query.radiusKm != null && { key: "r", label: `Within ${query.radiusKm} km`, clear: { radiusKm: undefined } },
-    query.delivery && { key: "d", label: query.delivery === "post" ? "Can be posted" : "Pickup or meetup", clear: { delivery: undefined } },
+    query.delivery && { key: "d", label: query.delivery === "post" ? "Can be posted" : `Pickup within ${MAX_PICKUP_DISTANCE_KM} km`, clear: { delivery: undefined } },
     query.freeShipping && { key: "f", label: "Free post", clear: { freeShipping: undefined } },
   ].filter(Boolean) as { key: string; label: string; clear: Partial<ListingQuery> }[];
 
@@ -291,7 +291,7 @@ function FilterDrawer({ open, onClose, query, onApply, resultCount }: { open: bo
           Can be posted
         </Chip>
         <Chip active={query.delivery === "pickup"} onClick={() => set({ delivery: query.delivery === "pickup" ? undefined : "pickup" })}>
-          Pickup or meetup
+          Pickup or meetup (within {MAX_PICKUP_DISTANCE_KM} km)
         </Chip>
         <Chip active={!!query.freeShipping} onClick={() => set({ freeShipping: query.freeShipping ? undefined : true })}>
           Free post ({formatMoney(FREE_SHIPPING_THRESHOLD, { whole: true })}+)

@@ -49,8 +49,8 @@ export function HeartButton({ listingId, className, variant = "overlay" }: { lis
   );
 }
 
-export function ShippingTag({ listing, className }: { listing: Listing; className?: string }) {
-  const tag = cardShippingTag(listing);
+export function ShippingTag({ listing, distanceKm, className }: { listing: Listing; distanceKm?: number | null; className?: string }) {
+  const tag = cardShippingTag(listing, distanceKm);
   if (tag.kind === "free")
     return (
       <span className={cn("inline-flex items-center gap-1 text-caption font-semibold text-success", className)}>
@@ -61,6 +61,12 @@ export function ShippingTag({ listing, className }: { listing: Listing; classNam
     return (
       <span className={cn("inline-flex items-center gap-1 text-caption font-medium text-ink", className)}>
         <MapPin className="h-3.5 w-3.5 text-brand" aria-hidden /> {tag.label}
+      </span>
+    );
+  if (tag.kind === "far")
+    return (
+      <span className={cn("inline-flex items-center gap-1 text-caption text-warn", className)}>
+        <MapPin className="h-3.5 w-3.5" aria-hidden /> {tag.label}
       </span>
     );
   return <span className={cn("text-caption text-muted", className)}>{tag.label}</span>;

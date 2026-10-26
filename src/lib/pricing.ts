@@ -10,6 +10,7 @@ import {
   LARGE_ITEM_CATEGORIES,
   LARGE_ITEM_COURIER_BASE,
   LARGE_ITEM_COURIER_PER_KM,
+  MAX_PICKUP_DISTANCE_KM,
   SATCHELS,
 } from "@/config/business";
 import type { DeliveryMethod, Listing, Location, OrderPricing, SatchelSize } from "@/types/models";
@@ -150,10 +151,28 @@ export function totalLabel(p: OrderPricing): string {
   return p.postage == null ? `${formatMoney(p.total)} + shipping` : formatMoney(p.total);
 }
 
-/** Price shown on a card where the buyer hasn't chosen delivery yet. */
-export function cardShippingTag(l: Listing): { kind: "free" | "pickup" | "postage" | "courier"; label: string } {
+export const isTooFarForPickup = (distanceKm?: number | null) => distanceKm != null && distanceKm > MAX_PICKUP_DISTANCE_KM;
+
+/**
+ * The delivery method to pre-select: the first available, except that a
+ * pickup/meetup too far away gives way to post or courier when offered.
+ */
+export function defaultMethod(methods: DeliveryMethod[], distanceKm?: number | null): DeliveryMethod | undefined {
+  if (isTooFarForPickup(distanceKm)) {
+    const shipped = methods.find((m) => m === "post" || m === "large_calculated");
+    if (shipped) return shipped;
+  }
+  return methods[0];
+}
+
+/** Delivery tag on a card where the buyer hasn't chosen delivery yet. */
+export function cardShippingTag(l: Listing, distanceKm?: number | null): { kind: "free" | "pickup" | "postage" | "courier" | "far"; label: string } {
+  const handover = l.delivery.pickup || l.delivery.meetup;
+  const far = isTooFarForPickup(distanceKm);
   if (!isLargeItem(l) && l.delivery.post && l.price >= FREE_SHIPPING_THRESHOLD) return { kind: "free", label: "Free post" };
-  if (l.delivery.pickup || l.delivery.meetup) return { kind: "pickup", label: l.delivery.pickup ? "Pickup" : "Meetup" };
-  if (isLargeItem(l)) return { kind: "courier", label: "+ shipping" };
-  return { kind: "postage", label: "+ postage" };
+  if (handover && !far) return { kind: "pickup", label: l.delivery.pickup ? "Pickup" : "Meetup" };
+  if (isLargeItem(l) ? l.delivery.largeCalculated : l.delivery.post) {
+    return isLargeItem(l) ? { kind: "courier", label: "+ shipping" } : { kind: "postage", label: "+ postage" };
+  }
+  return { kind: "far", label: `Pickup only · ${Math.round(distanceKm ?? 0)} km` };
 }

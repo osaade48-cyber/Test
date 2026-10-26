@@ -21,6 +21,9 @@ export const SELLER_FEE_PERCENT = 0; // sellers pay nothing
 /** Per seller, item prices only. At or above this the seller covers postage. */
 export const FREE_SHIPPING_THRESHOLD = 75.0;
 
+/** Beyond this distance, pickup/meetup is treated as impractical: cards say so and post becomes the default. */
+export const MAX_PICKUP_DISTANCE_KM = 50;
+
 /** Categories that are always "large items": pickup, meetup or calculated shipping only. */
 export const LARGE_ITEM_CATEGORIES: CategoryId[] = ["prams", "nursery", "high-chairs"];
 

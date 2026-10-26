@@ -3,7 +3,7 @@
  * TODO(api): persist server-side so the cart follows the user across devices.
  */
 import type { DeliveryMethod, SellerBundle } from "@/types/models";
-import { availableMethods, haversineKm, priceOrder } from "@/lib/pricing";
+import { availableMethods, defaultMethod, haversineKm, priceOrder } from "@/lib/pricing";
 import { db, latency, nowIso, persist, ServiceError } from "./mock/db";
 import { currentUserId, requireUserId } from "./auth";
 import { emit } from "./events";
@@ -32,8 +32,8 @@ export function buildBundles(items = db.cart.items, deliveryBySeller = db.cart.d
     const seller = db.users.find((u) => u.id === sellerId)!;
     const methods = availableMethods(listings);
     const chosen = deliveryBySeller[sellerId];
-    const method: DeliveryMethod = chosen && methods.includes(chosen) ? chosen : methods[0] ?? "pickup";
     const distanceKm = buyer ? haversineKm(buyer.location, seller.location) : undefined;
+    const method: DeliveryMethod = chosen && methods.includes(chosen) ? chosen : defaultMethod(methods, distanceKm) ?? "pickup";
     return {
       seller,
       listings,

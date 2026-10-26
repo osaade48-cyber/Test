@@ -39,7 +39,7 @@ export function ListingCard({ listing, className, compact }: { listing: ListingW
         <h3 className="line-clamp-2 font-sans text-body font-medium leading-snug text-ink">{listing.title}</h3>
         <div className="mt-auto flex flex-wrap items-baseline justify-between gap-x-2 pt-1">
           <PriceLine listing={listing} className="text-h3" />
-          {!compact && <ShippingTag listing={listing} className="whitespace-nowrap" />}
+          {!compact && <ShippingTag listing={listing} distanceKm={listing.distanceKm} className="whitespace-nowrap" />}
         </div>
         {!compact && (
           <>

@@ -3,14 +3,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreditCard, Lock, ShieldCheck } from "lucide-react";
 import { RequireAuth } from "@/components/auth/SignIn";
 import { useAsync } from "@/hooks/useAsync";
-import { cancelOrder, getOrder } from "@/services/orders";
-import { payForOrders } from "@/services/payments";
+import { getCheckoutQuote, placeOrder, specFromParams } from "@/services/checkout";
 import { ErrorState, RowSkeleton, EmptyState } from "@/components/ui/states";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Notice } from "@/components/ui/primitives";
 import { useToast } from "@/components/ui/overlay";
 import { ListingImage } from "@/components/listing/ListingImage";
-import { METHOD_LABEL, round2 } from "@/lib/pricing";
+import { METHOD_LABEL, round2, totalLabel } from "@/lib/pricing";
 import { formatMoney } from "@/lib/format";
 import { isHandoverMethod } from "@/lib/orderState";
 import { BUYER_FEE_RULE, PAYOUT_RULE_MEETUP, PAYOUT_RULE_POST } from "@/config/copy";
@@ -25,35 +24,35 @@ export default function Checkout() {
 
 function CheckoutInner() {
   const [sp] = useSearchParams();
-  const ids = (sp.get("orders") ?? "").split(",").filter(Boolean);
+  const spec = specFromParams(sp);
   const nav = useNavigate();
   const toast = useToast();
   const [paying, setPaying] = useState(false);
-  const state = useAsync(() => Promise.all(ids.map(getOrder)), [ids.join(",")]);
+  const state = useAsync(() => getCheckoutQuote(spec), [sp.toString()]);
 
   if (state.error) return <div className="page"><ErrorState error={state.error} onRetry={state.reload} /></div>;
   if (!state.data) return <div className="page max-w-2xl"><RowSkeleton count={2} /></div>;
 
-  const orders = state.data.filter((o) => o.status === "pending_payment");
-  if (!orders.length) {
+  const bundles = state.data;
+  if (!bundles.length) {
     return (
       <div className="page">
-        <EmptyState illustration="bag" title="Nothing to pay for" body="These orders are already paid or were cancelled." action={<ButtonLink to="/orders">View orders</ButtonLink>} />
+        <EmptyState illustration="bag" title="Nothing to pay for" body="Your bundle is empty, or these items have sold." action={<ButtonLink to="/browse">Browse listings</ButtonLink>} />
       </div>
     );
   }
 
-  // Large-item courier quotes are calculated when the order is created, so every total here is final.
-  const total = round2(orders.reduce((s, o) => s + o.pricing.total, 0));
-  const anyHandover = orders.some((o) => isHandoverMethod(o.method));
-  const anyPost = orders.some((o) => !isHandoverMethod(o.method));
+  const total = round2(bundles.reduce((s, b) => s + b.pricing.total, 0));
+  const unknown = bundles.some((b) => b.pricing.postage == null);
+  const anyHandover = bundles.some((b) => isHandoverMethod(b.method));
+  const anyPost = bundles.some((b) => !isHandoverMethod(b.method));
 
   const pay = async () => {
     setPaying(true);
     try {
-      const res = await payForOrders(orders.map((o) => o.id)); // TODO(stripe): confirm PaymentIntent
+      const res = await placeOrder(spec); // TODO(stripe): confirm PaymentIntent
       toast("Payment held securely");
-      nav(res.orderIds.length === 1 ? `/orders/${res.orderIds[0]}` : "/orders");
+      nav(res.orderIds.length === 1 ? `/orders/${res.orderIds[0]}` : "/orders", { replace: true });
     } catch (e) {
       toast((e as Error).message, "error");
     } finally {
@@ -65,27 +64,30 @@ function CheckoutInner() {
     <div className="page max-w-2xl">
       <h1 className="text-h1">Checkout</h1>
       <div className="mt-4 space-y-4">
-        {orders.map((o) => (
-          <section key={o.id} className="card p-4" aria-label={`Order from ${o.seller.name}`}>
+        {bundles.map((b) => (
+          <section key={b.seller.id} className="card p-4" aria-label={`Items from ${b.seller.name}`}>
             <p className="text-caption text-muted">
-              From {o.seller.name.split(" ")[0]} · {o.method === "pickup" ? `Pickup in ${o.seller.location.suburb}` : METHOD_LABEL[o.method]}
+              From {b.seller.name.split(" ")[0]} · {b.method === "pickup" ? `Pickup in ${b.seller.location.suburb}` : METHOD_LABEL[b.method]}
             </p>
             <ul className="mt-2 space-y-2">
-              {o.items.map((it) => (
-                <li key={it.listingId} className="flex items-center gap-3">
+              {b.listings.map((l) => (
+                <li key={l.id} className="flex items-center gap-3">
                   <span className="h-14 w-14 shrink-0 overflow-hidden rounded-md bg-surface-2">
-                    <ListingImage photo={it.photo} iconSize={24} />
+                    <ListingImage photo={l.photos[0]} iconSize={24} />
                   </span>
-                  <span className="min-w-0 flex-1 truncate">{it.title}</span>
-                  <span>{formatMoney(it.price)}</span>
+                  <span className="min-w-0 flex-1 truncate">{l.title}</span>
+                  <span>{formatMoney(l.effectivePrice)}</span>
                 </li>
               ))}
             </ul>
             <dl className="mt-3 space-y-1 border-t border-line pt-3 text-body">
-              <div className="flex justify-between"><dt className="text-muted">Items</dt><dd>{formatMoney(o.pricing.itemSubtotal)}</dd></div>
-              <div className="flex justify-between"><dt className="text-muted">{o.pricing.postageLabel}</dt><dd>{o.pricing.postage ? formatMoney(o.pricing.postage) : "Free"}</dd></div>
-              <div className="flex justify-between"><dt className="text-muted">Buyer protection</dt><dd>{formatMoney(o.pricing.buyerFee)}</dd></div>
-              <div className="flex justify-between font-semibold"><dt>Order total</dt><dd>{formatMoney(o.pricing.total)}</dd></div>
+              <div className="flex justify-between"><dt className="text-muted">Items</dt><dd>{formatMoney(b.pricing.itemSubtotal)}</dd></div>
+              <div className="flex justify-between">
+                <dt className="text-muted">{b.pricing.postageLabel}</dt>
+                <dd>{b.pricing.postage == null ? "Quoted at payment" : b.pricing.postage ? formatMoney(b.pricing.postage) : "Free"}</dd>
+              </div>
+              <div className="flex justify-between"><dt className="text-muted">Buyer protection</dt><dd>{formatMoney(b.pricing.buyerFee)}</dd></div>
+              <div className="flex justify-between font-semibold"><dt>Order total</dt><dd>{totalLabel(b.pricing)}</dd></div>
             </dl>
           </section>
         ))}
@@ -106,19 +108,12 @@ function CheckoutInner() {
         <span className="mt-1 block">{BUYER_FEE_RULE}</span>
       </Notice>
 
-      <div className="sticky bottom-[calc(72px+env(safe-area-inset-bottom))] mt-6 space-y-2 border-t border-line bg-bg/95 py-3 backdrop-blur lg:bottom-0">
+      <div className="sticky bottom-0 mt-6 space-y-2 border-t border-line bg-bg/95 py-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur">
         <Button size="lg" full loading={paying} onClick={pay}>
-          Pay {formatMoney(total)}
+          Pay {unknown ? `${formatMoney(total)} + shipping` : formatMoney(total)}
         </Button>
-        <Button
-          variant="ghost"
-          full
-          onClick={async () => {
-            await Promise.all(orders.map((o) => cancelOrder(o.id, "changed_mind")));
-            nav(-1);
-          }}
-        >
-          Cancel
+        <Button variant="ghost" full onClick={() => nav(-1)}>
+          Back
         </Button>
       </div>
     </div>
