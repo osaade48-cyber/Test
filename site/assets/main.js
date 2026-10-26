@@ -248,6 +248,37 @@
     demoPlayer.status.textContent = 'Sample call';
   }
 
+  /* ---------- Phone links ----------
+     tel: links only work on a phone, outside an iframe, once the real number is set.
+     Everywhere else, show a tip instead of a blank error page. */
+  var canDial = window.matchMedia('(pointer: coarse)').matches && window.self === window.top;
+  var tip = null, tipTimer = null;
+  var showTip = function (html) {
+    if (!tip) { tip = document.createElement('div'); tip.className = 'calltip'; tip.setAttribute('role', 'status'); document.body.appendChild(tip); }
+    tip.innerHTML = html;
+    tip.classList.add('is-in');
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(function () { tip.classList.remove('is-in'); }, 5000);
+  };
+  $$('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var num = (a.textContent.match(/\(?\d{2}\)?[\s\dX]{6,}/i) || [''])[0].trim();
+      var placeholder = /x/i.test(num) || /^tel:\+?61?2?0+$/.test(a.getAttribute('href'));
+      if (canDial && !placeholder) return;
+      e.preventDefault();
+      if (placeholder) {
+        showTip('<b>The demo line isn\u2019t live yet.</b> Tap a sample call to watch the AI in action.');
+        var chips = $('.call-chips') || $('.scenario-list');
+        if (chips) {
+          chips.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+          chips.classList.remove('is-nudge'); void chips.offsetWidth; chips.classList.add('is-nudge');
+        }
+      } else {
+        showTip('Call <b>' + num + '</b> from your phone to talk to the AI receptionist.');
+      }
+    });
+  });
+
   /* ---------- Range fill ---------- */
   function paintRange(r) {
     var pct = (r.value - r.min) / (r.max - r.min) * 100;

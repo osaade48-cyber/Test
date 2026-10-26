@@ -1695,3 +1695,9 @@ main { position: relative; }
 .demo__watch { display: grid; gap: 12px; width: 100%; padding-top: 22px; border-top: 1px solid var(--line); }
 .demo__watch p { margin: 0; color: #CFCDCA; font-size: 15px; }
 @media (max-width: 900px) { .hero__demo { margin-top: 8px; } }
+.calltip { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); z-index: 90; width: min(420px, calc(100% - 32px)); padding: 14px 18px; border-radius: 14px; background: var(--char-2); color: var(--fg); border: 1px solid var(--orange); box-shadow: 0 20px 40px -18px rgba(0,0,0,.7); font-size: 15px; line-height: 1.45; text-align: center; opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity .25s, transform .25s; }
+.calltip.is-in { opacity: 1; transform: translate(-50%, 0); }
+@media (max-width: 900px) { .calltip { bottom: calc(92px + env(safe-area-inset-bottom)); } }
+.is-nudge .scenario { animation: nudge .9s ease 2; }
+@keyframes nudge { 0%, 100% { border-color: var(--line); } 50% { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(242,106,27,.2); } }
+@media (prefers-reduced-motion: reduce) { .is-nudge .scenario { animation: none; } }
