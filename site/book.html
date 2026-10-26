@@ -88,17 +88,40 @@
             </div>
           </div>
 
-          <fieldset class="field">
+          <fieldset class="field picker" data-picker>
             <legend>What are you interested in?</legend>
-            <div class="chips">
-              <label><input type="radio" name="plan" value="Growth" checked><span>Growth</span></label>
-              <label><input type="radio" name="plan" value="Reception"><span>Reception</span></label>
-              <label><input type="radio" name="plan" value="Visibility"><span>Visibility</span></label>
-              <label><input type="radio" name="plan" value="Foundation"><span>Foundation</span></label>
-              <label><input type="radio" name="plan" value="Website or branding"><span>Just a website or branding</span></label>
-              <label><input type="radio" name="plan" value="Custom plan"><span>Custom plan</span></label>
-              <label><input type="radio" name="plan" value="Not sure"><span>Not sure yet</span></label>
+            <div class="seg" role="radiogroup" aria-label="How do you want to start?">
+              <label><input type="radio" name="start" value="bundle" checked><span><b>A bundle</b><small>Save up to 25%</small></span></label>
+              <label><input type="radio" name="start" value="services"><span><b>Pick services</b><small>Choose exactly what you want</small></span></label>
+              <label><input type="radio" name="start" value="unsure"><span><b>Not sure yet</b><small>We'll help you choose</small></span></label>
             </div>
+
+            <div class="picker__panel" data-panel="bundle">
+              <p class="picker__note">Bundles are sets of our services at a lower price than buying each one separately.</p>
+              <div class="opt-cards">
+                <label class="opt-card opt-card--hot"><input type="radio" name="plan" value="Growth" checked><span class="opt-card__box"><em class="opt-card__badge">Most popular</em><b>Growth</b><small>Meta and Google ads, AI lead caller, AI receptionist and CRM</small><span class="opt-card__foot"><span>from $1,830/mo</span><i>Save 25%</i></span></span></label>
+                <label class="opt-card"><input type="radio" name="plan" value="Foundation"><span class="opt-card__box"><b>Foundation</b><small>Branding, a website and an AI chatbot</small><span class="opt-card__foot"><span>from $2,320 one-off</span><i>Save 20%</i></span></span></label>
+                <label class="opt-card"><input type="radio" name="plan" value="Visibility"><span class="opt-card__box"><b>Visibility</b><small>SEO and Google profile, review requests and website care</small><span class="opt-card__foot"><span>from $845/mo</span><i>Save 15%</i></span></span></label>
+                <label class="opt-card"><input type="radio" name="plan" value="Reception"><span class="opt-card__box"><b>Reception</b><small>AI receptionist, AI chatbot and follow-ups</small><span class="opt-card__foot"><span>from $550/mo</span><i>Save 15%</i></span></span></label>
+              </div>
+            </div>
+
+            <div class="picker__panel" data-panel="services">
+              <button class="picker__more" type="button" data-more aria-expanded="false">+ Add separate services to your bundle <span>(optional)</span></button>
+              <p class="picker__note" data-svc-note>Separate services. Tick as many as you like.</p>
+              <div class="svc-picks">
+                <div class="svc-picks__group"><p class="svc-picks__h">Presence</p><label class="svc-pick"><input type="checkbox" name="services" value="Website" data-svc="websites"><span><b>Website</b><small>from $1,800</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="Branding" data-svc="branding"><span><b>Branding</b><small>from $350</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="SEO and Google profile" data-svc="seo"><span><b>SEO and Google profile</b><small>from $795/mo</small></span></label></div>
+                <div class="svc-picks__group"><p class="svc-picks__h">Advertising</p><label class="svc-pick"><input type="checkbox" name="services" value="Meta ads" data-svc="meta-ads"><span><b>Meta ads</b><small>from $795/mo</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="Google Ads" data-svc="google-ads"><span><b>Google Ads</b><small>from $795/mo</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="AI job finder" data-svc="ai-job-finder"><span><b>AI job finder <em class="new-tag">New</em></b><small>from $295/mo</small></span></label></div>
+                <div class="svc-picks__group"><p class="svc-picks__h">Automation</p><label class="svc-pick"><input type="checkbox" name="services" value="AI receptionist" data-svc="ai-receptionist"><span><b>AI receptionist</b><small>from $350/mo</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="AI lead caller" data-svc="ai-lead-caller"><span><b>AI lead caller</b><small>from $350/mo</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="AI website chatbot" data-svc="ai-chatbot"><span><b>AI website chatbot</b><small>from $150/mo</small></span></label><label class="svc-pick"><input type="checkbox" name="services" value="CRM and follow-ups" data-svc="crm"><span><b>CRM and follow-ups</b><small>from $100/mo</small></span></label></div>
+              </div>
+            </div>
+
+            <div class="picker__panel" data-panel="unsure" hidden>
+              <p class="picker__note">No worries. Tell us a bit about your business below and we'll work out what suits you on the call.</p>
+            </div>
+
+            <p class="picker__sum" data-pick-sum></p>
+            <p class="field__error" aria-live="polite"></p>
           </fieldset>
 
           <fieldset class="field">

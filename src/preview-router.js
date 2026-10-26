@@ -26,8 +26,7 @@
       else a.removeAttribute('aria-current');
     });
     if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
-    var plan = query && new URLSearchParams(query).get('plan');
-    document.querySelectorAll('#book-form [name="plan"]').forEach(function (r) { if (plan && r.value === plan) r.checked = true; });
+    if (slug === 'book' && query && window.TB_fillBook) window.TB_fillBook(query);
     if (slug === 'thanks' && window.TB_fillThanks) window.TB_fillThanks();
     if (slug === 'book' && window.TB_fillCarry) window.TB_fillCarry();
     var target = anchor && document.getElementById(anchor);

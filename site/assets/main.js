@@ -493,8 +493,36 @@
     };
     fillCarry();
     window.TB_fillCarry = fillCarry;
-    var plan = new URLSearchParams(location.search).get('plan');
-    $$('[name="plan"]', form).forEach(function (r) { if (plan && r.value === plan) r.checked = true; });
+    // "What are you interested in?": bundle, separate services, or not sure
+    var picker = $('[data-picker]', form);
+    var pickMode = function () { var r = $('[name="start"]:checked', form); return r ? r.value : 'bundle'; };
+    var updatePicker = function () {
+      var mode = pickMode();
+      $$('[data-panel]', picker).forEach(function (p) { p.hidden = p.dataset.panel !== mode && !(mode === 'bundle' && p.dataset.panel === 'services'); });
+      $$('[name="plan"]', form).forEach(function (r) { r.disabled = mode !== 'bundle'; });
+      $$('[name="services"]', form).forEach(function (c) { c.disabled = mode === 'unsure'; });
+      var more = $('[data-more]', picker), anyExtra = $$('[name="services"]:checked', form).length > 0;
+      var showList = mode !== 'bundle' || picker._more || anyExtra;
+      more.hidden = mode !== 'bundle' || showList;
+      $('[data-svc-note]', picker).hidden = !showList;
+      $('.svc-picks', picker).hidden = !showList;
+      $('[data-svc-note]', picker).textContent = mode === 'bundle' ? 'Extras on top of your bundle. Tick as many as you like.' : 'Separate services. Tick as many as you like.';
+      var plan = $('[name="plan"]:checked', form), svcs = $$('[name="services"]:checked', form).map(function (c) { return c.value; });
+      var parts = mode === 'unsure' ? [] : (mode === 'bundle' && plan ? [plan.value + ' bundle'] : []).concat(svcs);
+      $('[data-pick-sum]', picker).innerHTML = parts.length ? 'You\u2019ve picked: <b>' + parts.join(' + ') + '</b>' : '';
+    };
+    $('[data-more]', picker).addEventListener('click', function () { picker._more = true; updatePicker(); var first = $('[name="services"]', form); if (first) first.focus(); });
+    $$('[name="start"], [name="plan"], [name="services"]', form).forEach(function (el) { el.addEventListener('change', function () { setError(picker, ''); updatePicker(); }); });
+    var fillBook = function (query) {
+      var q = new URLSearchParams(query || location.search), plan = q.get('plan'), svc = q.get('service'), start = q.get('start');
+      var setStart = function (v) { var r = $('[name="start"][value="' + v + '"]', form); if (r) r.checked = true; };
+      if (plan === 'Not sure') setStart('unsure');
+      else if (plan) { var p = $$('[name="plan"]', form).filter(function (r) { return r.value === plan; })[0]; if (p) { p.checked = true; setStart('bundle'); } }
+      if (svc) { var c = $('[data-svc="' + svc + '"]', form); if (c) { c.checked = true; setStart('services'); } }
+      if (start) setStart(start);
+      updatePicker();
+    };
+    window.TB_fillBook = fillBook;
 
     var setError = function (field, msg) {
       var wrap = field.closest('.field');
@@ -502,9 +530,15 @@
       wrap.classList.toggle('has-error', !!msg);
       if (err) err.textContent = msg || '';
     };
+    fillBook();
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok = true;
+      if (pickMode() === 'services' && !$$('[name="services"]:checked', form).length) {
+        setError(picker, 'Tick at least one service, or choose a bundle.');
+        picker.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+        ok = false;
+      }
       [['name', 'Pop your name in so I know who to ask for.'], ['business', 'What’s the business called?'], ['phone', 'I need a number to call you on.']].forEach(function (pair) {
         var f = form.elements[pair[0]];
         var bad = !f.value.trim() || (pair[0] === 'phone' && f.value.replace(/\D/g, '').length < 8);
