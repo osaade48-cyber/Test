@@ -409,6 +409,46 @@
     }
   }
 
+  /* ---------- Home: start-to-finish journey ---------- */
+  var jr = $('[data-jr]');
+  if (jr) {
+    var jrSteps = $$('.jr__step', jr);
+    var runJr = function () {
+      if (reduceMotion) { jr.classList.add('is-run', 'is-done'); jrSteps.forEach(function (st) { st.classList.add('is-on'); }); return; }
+      jr.classList.add('is-run');
+      jrSteps.forEach(function (st, i) { setTimeout(function () { st.classList.add('is-on'); }, 150 + i * 720); });
+      setTimeout(function () { jr.classList.add('is-done'); }, 150 + jrSteps.length * 720);
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en, ob) { if (en[0].isIntersecting) { ob.disconnect(); runJr(); } }, { threshold: .3 }).observe(jr);
+    else runJr();
+  }
+
+  /* ---------- Home: five suppliers vs one team ---------- */
+  var cx = $('[data-cx]');
+  if (cx) {
+    var cxBtn = $('[data-cx-toggle]', cx), cxTouched = false;
+    var cxCount = function (to) {
+      $$('[data-cx-n]', cx).forEach(function (n, i) {
+        var from = +n.textContent, step = from > to ? -1 : 1;
+        if (from === to) return;
+        if (reduceMotion) { n.textContent = to; return; }
+        var t = setInterval(function () { var v = +n.textContent + step; n.textContent = v; if (v === to) clearInterval(t); }, 110 + i * 25);
+      });
+    };
+    var cxSet = function (on) {
+      cx.classList.toggle('is-with', on);
+      cxBtn.setAttribute('aria-pressed', String(on));
+      $('[data-cx-label]', cx).textContent = on ? 'Back to five suppliers' : 'Switch to one team';
+      $('[data-cx-verdict]', cx).textContent = on ? 'One team in charge of getting you jobs. One bill, one report, one number to call.' : 'Nobody is in charge of getting you jobs.';
+      $$('[data-one]', cx).forEach(function (l) { if (!l.dataset.many) l.dataset.many = l.textContent; setTimeout(function () { l.textContent = on ? l.dataset.one : l.dataset.many; }, on ? 450 : 0); });
+      cxCount(on ? 1 : 5);
+    };
+    cxBtn.addEventListener('click', function () { cxTouched = true; cxSet(!cx.classList.contains('is-with')); });
+    var cxAuto = function () { setTimeout(function () { if (!cxTouched) cxSet(true); }, reduceMotion ? 0 : 2200); };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en, ob) { if (en[0].isIntersecting) { ob.disconnect(); cxAuto(); } }, { threshold: .45 }).observe(cx);
+    else cxAuto();
+  }
+
   /* ---------- Range fill ---------- */
   function paintRange(r) {
     var pct = (r.value - r.min) / (r.max - r.min) * 100;
@@ -635,7 +675,7 @@
     '.flow__step', '.example', '.setup-note', '.svc', '.plan', '.plans-note', '.calc__inputs .range', '.calc__out', '.calc__note',
     '.faq-group', '.story-hero .photo-ph', '.story-hero > div > p', '.prose > *', '.ba__col', '.maker > *', '.demo__copy > *',
     '.form', '.nexts li', '.side-card', '.cta-strip__inner > *', '.sources', '.center-page__inner > *',
-    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row', '.pick', '.bcard', '.hs-band__copy > *', '.addon'];
+    '.srv__copy', '.srv__msg', '.srv-cta', '.journey', '.option', '.lock', '.area', '.minibundle', '.svc-group__head', '.svc-card', '.notsure > *', '.problem__grid > h2', '.problem__pts li', '.svc-get__list', '.svc-get__ex', '.shot', '.logo-card', '.ute-card', '.bizcard-card', '.fbad', '.bundle', '.combo', '.custom', '.bundle-in', '.auto', '.svc-hero__ico', '.pain', '.cost', '.change__col', '.change__arrow', '.result', '.value', '.facts-row li', '.story-top__photo', '.signoff > *', '.story-quote .signature', '.handle__col', '.duty__col', '.price-block > *', '.hiw-jump', '.more__copy > *', '.more__flow', '.lh-card', '.leads-offer > *', '.pipe__text', '.leads-hero .btn-row', '.pick', '.bcard', '.hs-band__copy > *', '.addon', '.src3__card', '.inbox', '.cx-map', '.cx-side', '.sys'];
   var revealEls = [];
   REVEAL.forEach(function (sel) {
     $$(sel).forEach(function (el) {
