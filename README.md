@@ -12,7 +12,7 @@ Or drag and drop the `site` folder onto https://app.netlify.com/drop.
 
 ## Things to update before going live
 Search the HTML files for these placeholders and replace them:
-- Phone `0400 000 000` / `+61400000000`
+- ~~Phone~~ (done: 0411 219 139)
 - Email `info@lotus8group.com.au`
 - Service area `Sydney & surrounds`
 - `ABN 00 000 000 000`
