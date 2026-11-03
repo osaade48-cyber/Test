@@ -11,10 +11,6 @@ A static website (HTML, CSS and a little JavaScript, no build step), in the `sit
 Or drag and drop the `site` folder onto https://app.netlify.com/drop.
 
 ## Things to update before going live
-Search the HTML files for these placeholders and replace them:
-- ~~Phone~~ (done: 0411 219 139)
-- Email `info@lotus8group.com.au`
-- Service area `Sydney & surrounds`
-- `ABN 00 000 000 000`
-- Stats (10+ years, 500+ projects), testimonials, and the Facebook/Instagram links (`href="#"`)
+- Email: currently the placeholder `info@lotus8group.com.au`
+- Facebook page link: search for `href="#"`
 - Photos: see `site/images/README.md`
