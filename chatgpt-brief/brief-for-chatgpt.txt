@@ -1,0 +1,33 @@
+I'm building a website for my business and need you to generate photos for it. I've attached screenshots of the website. The dark boxes with a green lotus logo are where the photos go.
+
+ABOUT THE BUSINESS
+Lotus 8 Group is a family-operated business in the Hills District, Sydney, Australia, with over 40 years' experience. We offer complete landscape solutions: landscaping, synthetic and natural turf, paving, concreting, retaining walls, fencing, timber decking, sports courts, property maintenance, construction and repairs. Clients are residential, strata and commercial.
+
+STYLE (keep it the same for every image so they look like one set)
+- Photorealistic, like a professional real-estate or architectural photo
+- Modern, high-end Sydney homes and gardens; Australian plants and natives
+- Natural daylight, crisp, clean and slightly warm. Rich greens that suit the website's charcoal and lime-green (#5FB621) colours
+- No people, no text, no watermarks, no logos, no signs
+- Landscape (wide) orientation unless stated
+
+Please generate these one at a time. Give each one the file name shown:
+
+1. hero.jpg (16:9). Home page main banner. The text sits on the LEFT, so keep the left third darker and simpler, with the main interest on the right. A modern Australian backyard at golden hour: large pale paving, lush lawn, timber deck, low rendered garden walls, clipped hedges and native plants.
+
+2. service-landscaping.jpg (4:3). A freshly landscaped front garden with neat garden beds, dark mulch, native grasses and bright green synthetic turf.
+
+3. service-paving.jpg (4:3). A new porcelain-paved patio and a smooth exposed-aggregate concrete driveway leading to a modern home.
+
+4. service-walls.jpg (4:3). A sandstone block retaining wall with built-in steps and planting, with a modern horizontal-slat timber fence behind.
+
+5. service-decking.jpg (4:3). A hardwood timber deck with outdoor furniture overlooking a backyard. Optionally a small green synthetic sports court in the background.
+
+6. service-maintenance.jpg (4:3). A perfectly mowed lawn with crisp edges and freshly trimmed hedges at a tidy strata townhouse complex.
+
+7. service-construction.jpg (4:3). A bright, freshly renovated home exterior with new paint, a tiled entry and clean rendered walls.
+
+8. about-team.jpg (4:5, portrait). A white work ute with landscaping tools and materials parked beside a finished garden project in morning light.
+
+9. hero-services.jpg (16:9). Used as a banner behind text on the LEFT. A wide view of a sweeping garden path through layered planting and lawn in soft morning light. Keep the left side simple.
+
+After each image, wait for me to say "next".
