@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://averaearthworx.com.au/sitemap.xml

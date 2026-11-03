@@ -1,0 +1,48 @@
+# Netlify settings for averaearthworx.com.au
+[build]
+  publish = "."
+
+# Keep old Shopify links working (Google results, bookmarks, business listings)
+[[redirects]]
+  from = "/pages/services"
+  to = "/services"
+  status = 301
+[[redirects]]
+  from = "/pages/about"
+  to = "/about"
+  status = 301
+[[redirects]]
+  from = "/pages/contact"
+  to = "/contact"
+  status = 301
+[[redirects]]
+  from = "/pages/projects"
+  to = "/services"
+  status = 301
+[[redirects]]
+  from = "/collections/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/products/*"
+  to = "/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
