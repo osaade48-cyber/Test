@@ -723,3 +723,16 @@ button { font: inherit; }
 .ico { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .ico-sm { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .field.chip-select { flex-direction: row; }
+
+/* Long email address: shrink a little and wrap instead of spilling out of its box */
+a[href^="mailto"] { overflow-wrap: anywhere; }
+.contact-quick > * > span { min-width: 0; }
+@media (max-width: 640px) {
+  .contact-quick > * { padding: 14px 16px 14px 14px; gap: 12px; font-size: 15px; }
+  .contact-quick svg { width: 38px; height: 38px; padding: 9px; }
+  .hero__contact a { font-size: 15px; }
+}
+@media (max-width: 380px) {
+  .contact-quick > * { font-size: 14px; }
+  .hero__contact a { font-size: 14px; }
+}
