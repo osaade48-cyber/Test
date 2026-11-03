@@ -113,7 +113,7 @@ button { font: inherit; }
   box-shadow: 0 1px 0 var(--line-dark);
 }
 .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.logo img { height: 52px; width: auto; }
+.logo img { height: 62px; width: auto; }
 .nav { display: flex; align-items: center; gap: 34px; }
 .nav a:not(.btn) {
   position: relative; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: .02em;
@@ -528,7 +528,7 @@ a.contact-card:hover { border-color: var(--orange); transform: translateX(4px); 
   :root { --header-h: 72px; }
   .wrap { width: calc(100% - 40px); }
   .section { padding: 76px 0; }
-  .logo img { height: 44px; }
+  .logo img { height: 50px; }
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
