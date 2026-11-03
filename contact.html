@@ -36,50 +36,40 @@
 </header>
 
 <main id="main">
-<section class="page-hero">
-  <div class="page-hero__bg"><img src="images/avera-hero-tight-access.webp" alt="Compact mini excavator working in a narrow residential side access"></div>
-  <div class="page-hero__shade"></div>
+<section class="contact-hero">
+  <div class="contact-hero__bg"><img src="images/avera-hero-tight-access.webp" alt="Compact mini excavator working in a narrow residential side access"></div>
+  <div class="contact-hero__shade"></div>
   <div class="wrap">
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Contact</span></nav>
     <p class="eyebrow">Get a quote</p>
-    <h1>Contact</h1>
-    <p>Have a project in mind? Send through the details and we can discuss the excavation, earthmoving or site work required.</p>
+    <h1>Let’s talk about <span class="accent">your site.</span></h1>
+    <p>Send through the details and we can discuss the excavation, earthmoving or site work required. Prefer to talk? Call us.</p>
+    <div class="contact-quick">
+      <a href="tel:0411219139"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><small>Call</small>0411 219 139</span></a>
+      <a href="mailto:info@averaearthworx.com.au"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg><span><small>Email</small>info@averaearthworx.com.au</span></a>
+      <div><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span><small>Service area</small>Sydney, NSW</span></div>
+    </div>
   </div>
 </section>
 
-<section class="section section--paper">
+<section class="contact-main">
   <div class="wrap contact-layout">
-    <div class="contact-copy reveal">
-      <p class="eyebrow">Project enquiry</p>
-      <h2>Tell us about the job.</h2>
-      <p>Send through the basics of the work and we can discuss the scope, access and what is required on site. Prefer to talk? Give us a call.</p>
-      <div class="contact-cards">
-        <a class="contact-card" href="tel:0411219139"><span class="contact-card__icon"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>Phone</small><strong>0411 219 139</strong></span></a>
-        <a class="contact-card" href="mailto:info@averaearthworx.com.au"><span class="contact-card__icon"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span><span><small>Email</small><strong>info@averaearthworx.com.au</strong></span></a>
-        <div class="contact-card"><span class="contact-card__icon"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span><small>Service area</small><strong>Sydney, NSW</strong></span></div>
-      </div>
-      <div class="checklist">
-        <h3>What helps us quote quickly</h3>
-        <ul>
-          <li>The type of excavation or earthworks required</li>
-          <li>Approximate dimensions or area of the work</li>
-          <li>Access width at the narrowest point</li>
-          <li>Whether spoil or demolished material needs removal</li>
-          <li>A few photos of the site</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="form-panel reveal reveal-delay-1" id="quote">
-      <div class="form-panel__head"><h3>Request a quote</h3><span>* Required</span></div>
+    <div class="form-panel" id="quote">
+      <div class="form-panel__head"><h2>Request a quote</h2><span>* Required</span></div>
       <form name="quote" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="company-website" enctype="multipart/form-data">
         <input type="hidden" name="form-name" value="quote">
         <p class="hidden"><label>Leave this empty: <input name="company-website"></label></p>
+
+        <div class="form-step"><span class="form-step__num">1</span><h3>Your details</h3></div>
         <div class="form-grid">
           <div class="field"><label for="name">Name *</label><input id="name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
           <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
           <div class="field"><label for="suburb">Suburb / job location</label><input id="suburb" name="suburb" type="text" autocomplete="address-level2"></div>
+        </div>
+
+        <div class="form-step"><span class="form-step__num">2</span><h3>The job</h3></div>
+        <div class="form-grid">
           <div class="field field--full">
             <label for="service">Service needed</label>
             <select id="service" name="service">
@@ -112,17 +102,39 @@
             <label><input type="radio" name="timeframe" value="Just planning"><span>Just planning</span></label>
           </fieldset>
           <div class="field field--full"><label for="message">Project details *</label><textarea id="message" name="message" placeholder="Briefly describe the work, approximate size, access and anything else we should know." required></textarea></div>
-          <div class="field field--full">
-            <label class="file-drop" for="photos"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span><strong id="photos-label">Add site photos (optional)</strong><small>JPG or PNG, up to 8MB total</small></span>
-              <input id="photos" name="photos" type="file" accept="image/*" multiple></label>
-          </div>
         </div>
+
+        <div class="form-step"><span class="form-step__num">3</span><h3>Photos <em>(optional)</em></h3></div>
+        <label class="file-drop" for="photos"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span><strong id="photos-label">Add site photos</strong><small>JPG or PNG, up to 8MB total. Photos of the access and work area help most.</small></span>
+          <input id="photos" name="photos" type="file" accept="image/*" multiple></label>
+
         <div class="form-foot">
-          <p>The more site detail you include, the easier it is for us to understand the scope.</p>
+          <p>We’ll only use your details to reply to this enquiry.</p>
           <button class="btn btn--solid" type="submit">Send enquiry <svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </form>
     </div>
+
+    <aside class="contact-aside">
+      <div class="next-steps">
+        <p class="eyebrow">What happens next</p>
+        <ol>
+          <li><span>1</span><div><strong>You send the details</strong><p>The form, a call or an email: whatever’s easiest.</p></div></li>
+          <li><span>2</span><div><strong>We get in touch</strong><p>We’ll contact you to talk through the site, access and scope.</p></div></li>
+          <li><span>3</span><div><strong>You get a quote</strong><p>Once we understand the job, we’ll put the quote together.</p></div></li>
+        </ol>
+      </div>
+      <div class="checklist">
+        <h3>What helps us quote quickly</h3>
+        <ul>
+          <li>The type of excavation or earthworks required</li>
+          <li>Approximate dimensions or area of the work</li>
+          <li>Access width at the narrowest point</li>
+          <li>Whether spoil or demolished material needs removal</li>
+          <li>A few photos of the site</li>
+        </ul>
+      </div>
+    </aside>
   </div>
 </section>
 </main>
