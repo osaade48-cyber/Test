@@ -11,6 +11,5 @@ A static website (HTML, CSS and a little JavaScript, no build step), in the `sit
 Or drag and drop the `site` folder onto https://app.netlify.com/drop.
 
 ## Things to update before going live
-- Email: currently the placeholder `info@lotus8group.com.au`
 - Facebook page link: search for `href="#"`
 - Photos: see `site/images/README.md`
