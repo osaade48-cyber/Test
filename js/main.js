@@ -5,7 +5,12 @@
 
   /* Always open a new page at the top (unless the link points to a section, e.g. #quote) */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  function toTop() { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); }
+  function toTop() {
+    if (location.hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    /* Also scroll any outer page the site is shown inside (e.g. a preview frame) */
+    try { document.body.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' }); } catch (e) {}
+  }
   toTop();
   window.addEventListener('pageshow', toTop);
 
