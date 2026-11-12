@@ -736,3 +736,25 @@ a[href^="mailto"] { overflow-wrap: anywhere; }
   .contact-quick > * { font-size: 14px; }
   .hero__contact a { font-size: 14px; }
 }
+
+/* ---------- Readability: deeper orange for text and icons on light backgrounds ---------- */
+:root { --orange-deep: #a94b04; }
+.section--paper .eyebrow, .section--paper-2 .eyebrow, .contact-main .eyebrow,
+.section--paper .accent, .section--paper-2 .accent,
+.section--paper .text-link span, .section--paper-2 .text-link span,
+.why__list svg, .area__list svg, .svc-row__tags svg, .intro-grid__sig svg,
+.section--paper .faq__list summary::after { color: var(--orange-deep); }
+.section--paper .text-link, .section--paper-2 .text-link { border-bottom-color: var(--orange-deep); }
+.why--dark .why__list svg { color: var(--orange); }
+.section--paper .faq__list details[open] summary::after { color: var(--ink); }
+/* Dark text on orange buttons */
+.btn--solid, .btn--solid:hover, .nav .btn--solid { color: var(--ink); }
+
+/* ---------- Free site visit badge ---------- */
+.free-tag {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 8px 14px 8px 10px;
+  border-radius: 999px; background: rgba(242, 122, 26, .16); border: 1px solid rgba(242, 122, 26, .5);
+  color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .02em;
+}
+.free-tag svg { width: 18px; height: 18px; color: var(--orange); }
+.hero .free-tag { animation: fade-up .8s .1s ease both; }
