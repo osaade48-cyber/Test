@@ -758,3 +758,16 @@ a[href^="mailto"] { overflow-wrap: anywhere; }
 }
 .free-tag svg { width: 18px; height: 18px; color: var(--orange); }
 .hero .free-tag { animation: fade-up .8s .1s ease both; }
+
+/* Phone call/quote bar: float it as a rounded dock above the bottom edge,
+   so the "Powered by Netlify" label in the bottom corner never covers it */
+@media (max-width: 900px) {
+  .mobile-bar {
+    left: 12px; right: 12px; bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: 0; border: 1px solid rgba(255, 255, 255, .14); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .35);
+    transform: translateY(calc(100% + 90px));
+  }
+  .mobile-bar a { min-height: 54px; }
+  .site-footer { padding-bottom: 150px; }
+}
