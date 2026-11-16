@@ -72,6 +72,10 @@
       Array.prototype.forEach.call(sel.options, function (o) { if (o.value === svc) sel.value = svc; });
     }
   }
+  /* Pre-fill suburb from ?suburb= (links on the suburb pages) */
+  var sub = params.get('suburb');
+  var subInput = document.querySelector('#suburb');
+  if (sub && subInput && !subInput.value) subInput.value = sub;
 
   /* Footer year */
   var year = document.querySelector('[data-year]');

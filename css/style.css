@@ -805,3 +805,11 @@ a[href^="mailto"] { overflow-wrap: anywhere; }
   .page-hero .hero__actions .btn { flex: 1 1 100%; }
   .svc-row__actions .btn { width: 100%; }
 }
+
+/* ---------- Service areas / suburb pages ---------- */
+.area__list a { color: inherit; text-decoration: none; transition: color .2s; }
+.area__list a:hover { color: var(--orange); }
+.area__list--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.area__list--light li { color: #fff; border-bottom-color: rgba(255, 255, 255, .14); }
+.split-head__side .area__list--light { margin-top: 24px; }
+@media (max-width: 760px) { .area__list--three { grid-template-columns: 1fr 1fr; } }
