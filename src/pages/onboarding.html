@@ -1,0 +1,581 @@
+---
+title: Client onboarding | TradeBooked
+description: Get your TradeBooked services set up. One form for everything you've signed up for.
+cta: no
+robotsMeta: <meta name="robots" content="noindex, nofollow">
+---
+<main id="main">
+  <section class="section section--dark" style="padding-top: clamp(40px, 7vw, 88px)">
+    <div class="container ob">
+      <div class="section-head">
+        <p class="eyebrow">Welcome to TradeBooked</p>
+        <h1 class="h-xl">Let's get you <span class="accent">set up.</span></h1>
+        <p class="lede">One form for everything you've signed up for. It only asks what we need for your services. Not sure about something? Leave it blank and we'll sort it on the call. Your answers save as you go on this device.</p>
+      </div>
+
+      <div class="ob-progress" aria-hidden="true"><i class="ob-progress__track"><span data-ob-bar></span></i><b data-ob-pct>0%</b></div>
+
+      <form class="form ob-form" id="onboard-form" novalidate data-endpoint="{{site.formEndpoint}}" data-email="{{site.email}}">
+        <input type="hidden" name="form" value="Client onboarding">
+        <input type="hidden" name="services_summary" value="">
+
+        <!-- What you signed up for -->
+        <fieldset class="ob-sec" data-ob-pick>
+          <legend class="ob-sec__h"><span></span>What you signed up for</legend>
+          <p class="ob-hint" data-ob-pre hidden>We've ticked what you signed up for. Change it if something's not right.</p>
+          <fieldset class="field">
+            <legend>Bundles <span class="opt">(tick any you're on)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="bundles" value="Growth" data-svcs="meta-ads google-ads ai-lead-caller ai-receptionist crm"><span>Growth</span></label>
+              <label><input type="checkbox" name="bundles" value="Foundation" data-svcs="branding websites ai-chatbot"><span>Foundation</span></label>
+              <label><input type="checkbox" name="bundles" value="Visibility" data-svcs="seo crm care"><span>Visibility</span></label>
+              <label><input type="checkbox" name="bundles" value="Reception" data-svcs="ai-receptionist ai-chatbot crm"><span>Reception</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Separate services <span class="opt">(tick any extras)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="services_picked" value="Website" data-svcs="websites"><span>Website</span></label>
+              <label><input type="checkbox" name="services_picked" value="Branding" data-svcs="branding"><span>Branding</span></label>
+              <label><input type="checkbox" name="services_picked" value="SEO and Google profile" data-svcs="seo"><span>SEO and Google profile</span></label>
+              <label><input type="checkbox" name="services_picked" value="Meta ads" data-svcs="meta-ads"><span>Meta ads</span></label>
+              <label><input type="checkbox" name="services_picked" value="Google Ads" data-svcs="google-ads"><span>Google Ads</span></label>
+              <label><input type="checkbox" name="services_picked" value="AI job finder" data-svcs="ai-job-finder"><span>AI job finder</span></label>
+              <label><input type="checkbox" name="services_picked" value="AI receptionist" data-svcs="ai-receptionist"><span>AI receptionist</span></label>
+              <label><input type="checkbox" name="services_picked" value="AI lead caller" data-svcs="ai-lead-caller"><span>AI lead caller</span></label>
+              <label><input type="checkbox" name="services_picked" value="AI website chatbot" data-svcs="ai-chatbot"><span>AI website chatbot</span></label>
+              <label><input type="checkbox" name="services_picked" value="CRM and follow-ups" data-svcs="crm"><span>CRM and follow-ups</span></label>
+            </div>
+          </fieldset>
+          <p class="ob-sum" data-ob-sum></p>
+          <p class="field__error" aria-live="polite"></p>
+        </fieldset>
+
+        <!-- Business details: everyone -->
+        <fieldset class="ob-sec">
+          <legend class="ob-sec__h"><span></span>Your business details</legend>
+          <p class="ob-hint">Write these <b>exactly</b> how you want them to appear everywhere: your website, Google, ads and listings.</p>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-name">Your name</label>
+              <input id="o-name" name="contact_name" type="text" autocomplete="name" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="o-business">Business name (as customers see it)</label>
+              <input id="o-business" name="business_name" type="text" autocomplete="organization" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-phone">Business phone (the one customers call)</label>
+              <input id="o-phone" name="business_phone" type="tel" inputmode="tel" placeholder="04XX XXX XXX" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="o-email">Business email</label>
+              <input id="o-email" name="business_email" type="email" autocomplete="email" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="o-address">Business address</label>
+            <input id="o-address" name="address" type="text" autocomplete="street-address" placeholder="Street, suburb, state, postcode">
+          </div>
+          <fieldset class="field" data-for="seo google-ads websites">
+            <legend>Should your address show publicly?</legend>
+            <div class="chips">
+              <label><input type="radio" name="address_public" value="No, I go to customers" checked><span>No, I go to customers</span></label>
+              <label><input type="radio" name="address_public" value="Yes, customers visit us"><span>Yes, customers visit us</span></label>
+            </div>
+          </fieldset>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-abn">ABN</label>
+              <input id="o-abn" name="abn" type="text" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="o-licence">Licence number <span class="opt">(if your trade has one)</span></label>
+              <input id="o-licence" name="licence" type="text">
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-since">Year you started</label>
+              <input id="o-since" name="year_started" type="text" inputmode="numeric" placeholder="e.g. 2015">
+            </div>
+            <div class="field">
+              <label for="o-hours">Business hours</label>
+              <input id="o-hours" name="hours" type="text" placeholder="e.g. Mon–Fri 7am–5pm, Sat 8am–12pm">
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Do you do emergency or after-hours work?</legend>
+            <div class="chips">
+              <label><input type="radio" name="after_hours" value="No" checked><span>No</span></label>
+              <label><input type="radio" name="after_hours" value="Yes, 24/7"><span>Yes, 24/7</span></label>
+              <label><input type="radio" name="after_hours" value="Sometimes"><span>Sometimes</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Services and area: everyone -->
+        <fieldset class="ob-sec">
+          <legend class="ob-sec__h"><span></span>Your work and where you do it</legend>
+          <fieldset class="field">
+            <legend>Your trade</legend>
+            <div class="chips">
+              <label><input type="radio" name="trade" value="Excavation"><span>Excavation</span></label>
+              <label><input type="radio" name="trade" value="Plumbing"><span>Plumbing</span></label>
+              <label><input type="radio" name="trade" value="Electrical"><span>Electrical</span></label>
+              <label><input type="radio" name="trade" value="Building"><span>Building</span></label>
+              <label><input type="radio" name="trade" value="Landscaping"><span>Landscaping</span></label>
+              <label><input type="radio" name="trade" value="Concreting"><span>Concreting</span></label>
+              <label><input type="radio" name="trade" value="Roofing"><span>Roofing</span></label>
+              <label><input type="radio" name="trade" value="Painting"><span>Painting</span></label>
+              <label><input type="radio" name="trade" value="Other"><span>Other</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="o-services">Every service you offer <span class="opt">(one per line)</span></label>
+            <textarea id="o-services" name="services" placeholder="e.g.&#10;Retaining walls&#10;Turf laying&#10;Paving" required></textarea>
+            <p class="field__error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="o-top">Your top 3 money-makers <span class="opt">(the jobs you want more of)</span></label>
+            <textarea id="o-top" name="top_services" placeholder="e.g. Retaining walls, full backyard makeovers, paving"></textarea>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-avoid">Jobs you <i>don't</i> want <span class="opt">(optional)</span></label>
+              <input id="o-avoid" name="avoid_jobs" type="text" placeholder="e.g. lawn mowing, tiny repairs">
+            </div>
+            <div class="field">
+              <label for="o-value">Average job value</label>
+              <input id="o-value" name="avg_job_value" type="text" placeholder="e.g. $4,500">
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Who are your customers?</legend>
+            <div class="chips">
+              <label><input type="radio" name="customers" value="Homeowners" checked><span>Homeowners</span></label>
+              <label><input type="radio" name="customers" value="Commercial"><span>Commercial</span></label>
+              <label><input type="radio" name="customers" value="Builders / other trades"><span>Builders / trades</span></label>
+              <label><input type="radio" name="customers" value="A mix"><span>A mix</span></label>
+            </div>
+          </fieldset>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-base">Suburb you're based in</label>
+              <input id="o-base" name="base_suburb" type="text" required>
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="o-travel">How far will you travel?</label>
+              <select id="o-travel" name="travel">
+                <option>Up to 10 km</option>
+                <option selected>Up to 25 km</option>
+                <option>Up to 50 km</option>
+                <option>50 km+</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="o-suburbs">Suburbs you most want work in <span class="opt">(best first, up to 20)</span></label>
+            <textarea id="o-suburbs" name="target_suburbs" placeholder="e.g. Penrith, Glenmore Park, Jordan Springs, St Marys…"></textarea>
+          </div>
+          <div class="field">
+            <label for="o-diff">Why do customers pick you over others?</label>
+            <textarea id="o-diff" name="why_us" placeholder="e.g. Family run, always on time, 10-year warranty, we clean up properly"></textarea>
+          </div>
+          <div class="field">
+            <label for="o-creds">Associations, awards, warranties or insurance worth mentioning <span class="opt">(optional)</span></label>
+            <input id="o-creds" name="credentials" type="text" placeholder="e.g. Master Builders member, $20M public liability">
+          </div>
+          <div class="field" data-for="seo meta-ads google-ads websites branding">
+            <label for="o-comp">Your top 3 local competitors <span class="opt">(names or websites)</span></label>
+            <textarea id="o-comp" name="competitors" placeholder="The businesses you lose jobs to, or see on Google before you"></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Brand and website -->
+        <fieldset class="ob-sec" data-for="branding websites">
+          <legend class="ob-sec__h"><span></span>Your brand and website</legend>
+          <fieldset class="field">
+            <legend>Do you have a logo?</legend>
+            <div class="chips">
+              <label><input type="radio" name="logo" value="Yes, keep it"><span>Yes, keep it</span></label>
+              <label><input type="radio" name="logo" value="Yes, but refresh it"><span>Yes, but refresh it</span></label>
+              <label><input type="radio" name="logo" value="No, need one"><span>No, I need one</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>What feel do you want?</legend>
+            <div class="chips">
+              <label><input type="radio" name="brand_style" value="Bold and tough"><span>Bold and tough</span></label>
+              <label><input type="radio" name="brand_style" value="Clean and modern"><span>Clean and modern</span></label>
+              <label><input type="radio" name="brand_style" value="Classic and trusted"><span>Classic and trusted</span></label>
+              <label><input type="radio" name="brand_style" value="Premium"><span>Premium</span></label>
+              <label><input type="radio" name="brand_style" value="Not sure"><span>Not sure</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="o-colours">Colours you like or already use <span class="opt">(optional)</span></label>
+            <input id="o-colours" name="colours" type="text" placeholder="e.g. navy and orange, or 'whatever looks good'">
+          </div>
+          <fieldset class="field" data-for="branding">
+            <legend>What needs branding? <span class="opt">(tick all)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="brand_items" value="Ute / van"><span>Ute / van</span></label>
+              <label><input type="checkbox" name="brand_items" value="Shirts / uniforms"><span>Shirts / uniforms</span></label>
+              <label><input type="checkbox" name="brand_items" value="Business cards"><span>Business cards</span></label>
+              <label><input type="checkbox" name="brand_items" value="Site signs"><span>Site signs</span></label>
+              <label><input type="checkbox" name="brand_items" value="Quote / invoice template"><span>Quote / invoice template</span></label>
+              <label><input type="checkbox" name="brand_items" value="Social media"><span>Social media</span></label>
+            </div>
+          </fieldset>
+          <div class="field" data-for="websites">
+            <label for="o-likes">Any websites you like the look of? <span class="opt">(optional)</span></label>
+            <textarea id="o-likes" name="sites_you_like" placeholder="Paste links, any industry"></textarea>
+          </div>
+          <fieldset class="field" data-for="websites">
+            <legend>Do you own a domain name?</legend>
+            <div class="chips">
+              <label><input type="radio" name="domain_owned" value="Yes"><span>Yes</span></label>
+              <label><input type="radio" name="domain_owned" value="No, please get one"><span>No, please get one</span></label>
+              <label><input type="radio" name="domain_owned" value="Not sure"><span>Not sure</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Ads -->
+        <fieldset class="ob-sec" data-for="meta-ads google-ads">
+          <legend class="ob-sec__h"><span></span>Your ads</legend>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-budget">Monthly ad budget <span class="opt">(paid to Meta/Google)</span></label>
+              <select id="o-budget" name="ad_budget">
+                <option>Under $500</option>
+                <option selected>$500–$1,000</option>
+                <option>$1,000–$2,000</option>
+                <option>$2,000+</option>
+                <option>Not sure, advise me</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="o-capacity">New jobs you can take a month</label>
+              <input id="o-capacity" name="job_capacity" type="text" placeholder="e.g. 6–8">
+            </div>
+          </div>
+          <div class="field">
+            <label for="o-promote">Which jobs should the ads push?</label>
+            <input id="o-promote" name="ads_promote" type="text" placeholder="e.g. Retaining walls and paving">
+          </div>
+          <div class="field">
+            <label for="o-offer">Any offer or hook? <span class="opt">(optional)</span></label>
+            <input id="o-offer" name="ads_offer" type="text" placeholder="e.g. Free on-site quote, 10% off in winter">
+          </div>
+          <fieldset class="field">
+            <legend>Have you run ads before?</legend>
+            <div class="chips">
+              <label><input type="radio" name="ads_before" value="No"><span>No</span></label>
+              <label><input type="radio" name="ads_before" value="Yes, myself"><span>Yes, myself</span></label>
+              <label><input type="radio" name="ads_before" value="Yes, with an agency"><span>Yes, with an agency</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Calls, chat, follow-ups -->
+        <fieldset class="ob-sec" data-for="ai-receptionist ai-lead-caller ai-chatbot crm">
+          <legend class="ob-sec__h"><span></span>Calls, enquiries and follow-ups</legend>
+          <fieldset class="field" data-for="ai-receptionist ai-lead-caller ai-chatbot">
+            <legend>When a new customer gets in touch, the AI should… <span class="opt">(tick all)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="ai_actions" value="Book a site visit / quote"><span>Book a site visit or quote</span></label>
+              <label><input type="checkbox" name="ai_actions" value="Take details and message me"><span>Take details and text me</span></label>
+              <label><input type="checkbox" name="ai_actions" value="Give rough prices"><span>Give rough prices</span></label>
+              <label><input type="checkbox" name="ai_actions" value="Put urgent calls through to me"><span>Put urgent calls through</span></label>
+            </div>
+          </fieldset>
+          <div class="field" data-for="ai-receptionist ai-lead-caller ai-chatbot">
+            <label for="o-faq">Questions customers always ask, and your answers <span class="opt">(include rough prices if you're happy to)</span></label>
+            <textarea id="o-faq" name="faqs" placeholder="e.g.&#10;How much is a retaining wall? Usually $350–$600 per metre.&#10;Do you do free quotes? Yes, on site.&#10;How soon can you start? Usually 2–3 weeks."></textarea>
+          </div>
+          <div class="form__row" data-for="ai-receptionist">
+            <div class="field">
+              <label for="o-phonetype">Your business number is a…</label>
+              <select id="o-phonetype" name="phone_type">
+                <option>Mobile</option>
+                <option>Landline</option>
+                <option>1300 / 1800 number</option>
+                <option>VoIP</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="o-carrier">Phone provider</label>
+              <input id="o-carrier" name="phone_carrier" type="text" placeholder="e.g. Telstra, Optus, Vodafone">
+            </div>
+          </div>
+          <div class="field" data-for="ai-receptionist">
+            <label for="o-urgent">What counts as urgent, and which number should it go to? <span class="opt">(optional)</span></label>
+            <input id="o-urgent" name="urgent_rules" type="text" placeholder="e.g. Burst pipes and flooding → 0412 345 678">
+          </div>
+          <fieldset class="field" data-for="ai-receptionist ai-lead-caller crm">
+            <legend>What do you use for your calendar or jobs?</legend>
+            <div class="chips">
+              <label><input type="radio" name="calendar" value="Google Calendar"><span>Google Calendar</span></label>
+              <label><input type="radio" name="calendar" value="Outlook / iPhone"><span>Outlook / iPhone</span></label>
+              <label><input type="radio" name="calendar" value="ServiceM8"><span>ServiceM8</span></label>
+              <label><input type="radio" name="calendar" value="Tradify"><span>Tradify</span></label>
+              <label><input type="radio" name="calendar" value="simPRO / AroFlo"><span>simPRO / AroFlo</span></label>
+              <label><input type="radio" name="calendar" value="Paper / my head"><span>Paper / my head</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field" data-for="ai-lead-caller crm">
+            <legend>Where do your enquiries come from? <span class="opt">(tick all)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="lead_sources" value="Website form"><span>Website form</span></label>
+              <label><input type="checkbox" name="lead_sources" value="Phone calls"><span>Phone calls</span></label>
+              <label><input type="checkbox" name="lead_sources" value="hipages"><span>hipages</span></label>
+              <label><input type="checkbox" name="lead_sources" value="Facebook / Instagram"><span>Facebook / Instagram</span></label>
+              <label><input type="checkbox" name="lead_sources" value="Google"><span>Google</span></label>
+              <label><input type="checkbox" name="lead_sources" value="Word of mouth"><span>Word of mouth</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field" data-for="crm">
+            <legend>Can you export a list of past customers? <span class="opt">(name and mobile)</span></legend>
+            <div class="chips">
+              <label><input type="radio" name="customer_list" value="Yes"><span>Yes</span></label>
+              <label><input type="radio" name="customer_list" value="Some, scattered"><span>Some, it's scattered</span></label>
+              <label><input type="radio" name="customer_list" value="No"><span>No</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Job finder -->
+        <fieldset class="ob-sec" data-for="ai-job-finder">
+          <legend class="ob-sec__h"><span></span>AI job finder</legend>
+          <fieldset class="field">
+            <legend>Which new jobs do you want to hear about? <span class="opt">(tick all)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="jf_types" value="New homes"><span>New homes</span></label>
+              <label><input type="checkbox" name="jf_types" value="Extensions"><span>Extensions</span></label>
+              <label><input type="checkbox" name="jf_types" value="Pools"><span>Pools</span></label>
+              <label><input type="checkbox" name="jf_types" value="Demolitions / knockdown rebuilds"><span>Knockdown rebuilds</span></label>
+              <label><input type="checkbox" name="jf_types" value="Subdivisions"><span>Subdivisions</span></label>
+              <label><input type="checkbox" name="jf_types" value="Commercial"><span>Commercial</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="o-jfmin">Smallest job worth chasing <span class="opt">(optional)</span></label>
+            <input id="o-jfmin" name="jf_min" type="text" placeholder="e.g. $5,000+">
+          </div>
+        </fieldset>
+
+        <!-- Listings and reviews -->
+        <fieldset class="ob-sec" data-for="seo crm">
+          <legend class="ob-sec__h"><span></span>Listings and reviews</legend>
+          <fieldset class="field" data-for="seo">
+            <legend>Where are you already listed? <span class="opt">(tick all)</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" name="listings" value="hipages"><span>hipages</span></label>
+              <label><input type="checkbox" name="listings" value="Yellow Pages"><span>Yellow Pages</span></label>
+              <label><input type="checkbox" name="listings" value="True Local"><span>True Local</span></label>
+              <label><input type="checkbox" name="listings" value="Oneflare"><span>Oneflare</span></label>
+              <label><input type="checkbox" name="listings" value="ServiceSeeking"><span>ServiceSeeking</span></label>
+              <label><input type="checkbox" name="listings" value="Word of Mouth"><span>Word of Mouth</span></label>
+              <label><input type="checkbox" name="listings" value="Not sure"><span>Not sure</span></label>
+            </div>
+          </fieldset>
+          <div class="field" data-for="seo">
+            <label for="o-old">Any old business names, phone numbers or addresses? <span class="opt">(we'll clean these up so they don't confuse Google)</span></label>
+            <textarea id="o-old" name="old_details"></textarea>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-revs">Roughly how many Google reviews do you have?</label>
+              <select id="o-revs" name="review_count">
+                <option>None yet</option>
+                <option selected>1–10</option>
+                <option>11–30</option>
+                <option>31–100</option>
+                <option>100+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="o-past">Past customers in the last 2 years <span class="opt">(rough guess)</span></label>
+              <input id="o-past" name="past_customers" type="text" placeholder="e.g. 80">
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Can we text your past customers asking for a review?</legend>
+            <div class="chips">
+              <label><input type="radio" name="review_requests" value="Yes, I'll send a list" checked><span>Yes, I'll send a list</span></label>
+              <label><input type="radio" name="review_requests" value="Only new customers from now"><span>Only new customers from now</span></label>
+              <label><input type="radio" name="review_requests" value="Let's discuss"><span>Let's discuss</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Access: only what their services need -->
+        <fieldset class="ob-sec" data-for="seo google-ads meta-ads ai-chatbot care websites crm ai-receptionist">
+          <legend class="ob-sec__h"><span></span>Access we'll need</legend>
+          <p class="ob-hint">We never need your passwords. These steps give us our own access, and you can remove it any time.</p>
+
+          <div class="ob-acc" data-for="seo google-ads">
+            <fieldset class="field">
+              <legend>Do you have a Google Business Profile? <span class="opt">(your listing on Google Maps)</span></legend>
+              <div class="chips">
+                <label><input type="radio" name="gbp" value="Yes" data-show="gbp-yes"><span>Yes</span></label>
+                <label><input type="radio" name="gbp" value="No"><span>No</span></label>
+                <label><input type="radio" name="gbp" value="Not sure"><span>Not sure</span></label>
+              </div>
+            </fieldset>
+            <div class="ob-steps" data-when="gbp-yes" hidden>
+              <p><b>Add us as a manager on Google:</b></p>
+              <ol>
+                <li>Search your business name on Google while logged in, or go to business.google.com</li>
+                <li>Open <b>Business Profile settings</b> → <b>People and access</b></li>
+                <li>Click <b>Add</b>, enter <b class="selectable">{{site.email}}</b>, choose <b>Manager</b>, then <b>Invite</b></li>
+              </ol>
+              <label class="ob-check"><input type="checkbox" name="gbp_access_added" value="Yes"><span>Done, I've added you</span></label>
+            </div>
+          </div>
+
+          <div class="ob-acc" data-for="seo care ai-chatbot meta-ads google-ads crm ai-receptionist">
+            <div class="field">
+              <label for="o-url">Your current website <span class="opt">(leave blank if you don't have one)</span></label>
+              <input id="o-url" name="website" type="text" inputmode="url" placeholder="e.g. dazzaslandscaping.com.au">
+            </div>
+            <fieldset class="field">
+              <legend>What's it built on?</legend>
+              <div class="chips">
+                <label><input type="radio" name="site_platform" value="Built by TradeBooked"><span>TradeBooked built it</span></label>
+                <label><input type="radio" name="site_platform" value="WordPress" data-show="wp"><span>WordPress</span></label>
+                <label><input type="radio" name="site_platform" value="Wix"><span>Wix</span></label>
+                <label><input type="radio" name="site_platform" value="Squarespace"><span>Squarespace</span></label>
+                <label><input type="radio" name="site_platform" value="GoDaddy"><span>GoDaddy</span></label>
+                <label><input type="radio" name="site_platform" value="Other / not sure"><span>Other / not sure</span></label>
+                <label><input type="radio" name="site_platform" value="No website"><span>No website</span></label>
+              </div>
+            </fieldset>
+            <div class="ob-steps" data-when="wp" hidden>
+              <p><b>Add us to WordPress:</b></p>
+              <ol>
+                <li>Log in to your site, go to <b>Users</b> → <b>Add New</b></li>
+                <li>Email: <b class="selectable">{{site.email}}</b>, Role: <b>Editor</b>, then <b>Add New User</b></li>
+              </ol>
+              <label class="ob-check"><input type="checkbox" name="wp_access_added" value="Yes"><span>Done, I've added you</span></label>
+            </div>
+          </div>
+
+          <div class="ob-acc" data-for="websites seo care">
+            <div class="field">
+              <label for="o-domain">Where's your domain registered? <span class="opt">(optional, check your renewal emails)</span></label>
+              <input id="o-domain" name="domain_registrar" type="text" placeholder="e.g. VentraIP, Crazy Domains, GoDaddy">
+            </div>
+          </div>
+
+          <div class="ob-acc" data-for="meta-ads">
+            <fieldset class="field">
+              <legend>Do you have a Facebook business page?</legend>
+              <div class="chips">
+                <label><input type="radio" name="fb_page" value="Yes" data-show="fb-yes"><span>Yes</span></label>
+                <label><input type="radio" name="fb_page" value="No, please make one"><span>No, please make one</span></label>
+              </div>
+            </fieldset>
+            <div class="ob-steps" data-when="fb-yes" hidden>
+              <p><b>Give us access in Meta Business Suite:</b></p>
+              <ol>
+                <li>Go to business.facebook.com → <b>Settings</b> → <b>Partners</b></li>
+                <li>Click <b>Add partner</b> → <b>Give a partner access to your assets</b></li>
+                <li>Enter our Business ID (we'll text it to you), then tick your <b>Page</b> and <b>Ad account</b></li>
+              </ol>
+              <div class="field">
+                <label for="o-fb">Link to your Facebook page</label>
+                <input id="o-fb" name="facebook_url" type="text" inputmode="url">
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-acc" data-for="google-ads">
+            <fieldset class="field">
+              <legend>Do you have a Google Ads account?</legend>
+              <div class="chips">
+                <label><input type="radio" name="gads_account" value="Yes"><span>Yes, we'll send an access request</span></label>
+                <label><input type="radio" name="gads_account" value="No, set one up"><span>No, set one up for me</span></label>
+                <label><input type="radio" name="gads_account" value="Not sure"><span>Not sure</span></label>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <!-- Photos: everyone -->
+        <fieldset class="ob-sec">
+          <legend class="ob-sec__h"><span></span>Photos</legend>
+          <p class="ob-hint">Real job photos make everything work better: your website, Google and ads. We'll text you a link to upload them. Aim for <b>20+</b>.</p>
+          <fieldset class="field">
+            <legend>What can you send?</legend>
+            <div class="chips">
+              <label><input type="checkbox" name="assets" value="Logo"><span>Logo</span></label>
+              <label><input type="checkbox" name="assets" value="Job photos"><span>Job photos</span></label>
+              <label><input type="checkbox" name="assets" value="Before and afters"><span>Before and afters</span></label>
+              <label><input type="checkbox" name="assets" value="Team / ute photos"><span>Team / ute photos</span></label>
+              <label><input type="checkbox" name="assets" value="Videos"><span>Videos</span></label>
+              <label><input type="checkbox" name="assets" value="Need photos taken"><span>I need photos taken</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <!-- Contact: everyone -->
+        <fieldset class="ob-sec">
+          <legend class="ob-sec__h"><span></span>Staying in touch</legend>
+          <div class="form__row">
+            <div class="field">
+              <label for="o-report">Who gets updates and reports?</label>
+              <input id="o-report" name="report_email" type="email" placeholder="Email address">
+            </div>
+            <div class="field">
+              <label for="o-contact">Best way to reach you</label>
+              <select id="o-contact" name="contact_pref">
+                <option selected>Text</option>
+                <option>Phone call</option>
+                <option>Email</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="o-goal">What would make this a win for you in 6 months? <span class="opt">(optional)</span></label>
+            <textarea id="o-goal" name="goal" placeholder="e.g. 10 more quote requests a month, never miss a call, look more professional"></textarea>
+          </div>
+          <div class="field">
+            <label for="o-else">Anything else we should know? <span class="opt">(optional)</span></label>
+            <textarea id="o-else" name="notes"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="ob-check ob-check--agree"><input type="checkbox" name="agree" value="Yes" required><span>These details are correct, and I'm happy for TradeBooked to set up and manage the accounts and listings needed for my services.</span></label>
+          <p class="field__error" aria-live="polite"></p>
+        </div>
+
+        <button class="btn btn--primary btn--lg" type="submit">Send my details</button>
+        <p class="form__status" aria-live="polite"></p>
+        <p class="form__fine">We only use these details to set up and run your services. <a href="privacy.html">Privacy policy</a>.</p>
+      </form>
+
+      <div class="ob-done" data-ob-done hidden tabindex="-1">
+        <span class="big-tick"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <h2 class="h-lg">Got it, <span data-ob-name>mate</span>. We're on it.</h2>
+        <p class="lede">Here's what happens next:</p>
+        <ol class="nexts">
+          <li><div><b>We text you a photo upload link</b><span>Usually the same day.</span></div></li>
+          <li><div><b>We check your details and access</b><span>If anything's missing, we'll text you. No long calls.</span></div></li>
+          <li><div><b>We start building</b><span>You'll get an update as each service goes live.</span></div></li>
+        </ol>
+        <p class="legal-note" data-ob-unconnected hidden>Site owner: this form isn't connected yet, so these answers weren't sent anywhere. Add a form endpoint in site.config.json (see README).</p>
+      </div>
+    </div>
+  </section>
+</main>

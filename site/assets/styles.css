@@ -2098,4 +2098,13 @@ main { position: relative; }
 .ob-done:focus { outline: none; }
 .ob-done .lede { margin: 0; }
 @media (max-width: 640px) { .ob-progress { top: 64px; } }
-.page-seo-onboarding .thumb-bar { display: none; }
+.page-onboarding .thumb-bar { display: none; }
+.ob [hidden] { display: none !important; }
+.ob-form { counter-reset: obsec; }
+.ob-sec:not([hidden]) { counter-increment: obsec; }
+.ob-sec__h span::before { content: counter(obsec); }
+.ob-sum { margin: 0; padding: 12px 16px; border-radius: 12px; background: rgba(242,106,27,.1); border: 1px solid rgba(242,106,27,.3); font-size: 15px; }
+.ob-sum b { color: #fff; }
+.ob-sec.has-error .ob-sum { border-color: var(--red); }
+.ob-acc { display: grid; gap: 18px; padding-top: 4px; }
+.ob-acc + .ob-acc { padding-top: 18px; border-top: 1px dashed var(--line); }

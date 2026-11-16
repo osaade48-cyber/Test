@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /thanks
-Disallow: /seo-onboarding
+Disallow: /onboarding
 
 Sitemap: {{site.siteUrl}}/sitemap.xml

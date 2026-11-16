@@ -658,15 +658,47 @@
         else el.value = v;
       });
     };
+    // Which services the client is on: bundles + separate services, each with data-svcs keys
+    var picks = $$('[data-ob-pick] input[data-svcs]', ob);
+    var chosen = function () {
+      var set = {};
+      picks.forEach(function (c) { if (c.checked) c.dataset.svcs.split(' ').forEach(function (k) { set[k] = true; }); });
+      return set;
+    };
+    // Show only sections and questions for the chosen services; hidden ones are disabled so they aren't sent
+    var applyServices = function () {
+      var set = chosen(), any = Object.keys(set).length > 0;
+      $$('[data-for]', ob).forEach(function (el) {
+        var on = any && el.dataset.for.split(' ').some(function (k) { return set[k]; });
+        el.hidden = !on;
+      });
+      $$('input, textarea, select', ob).forEach(function (el) {
+        if (el.type === 'hidden' || el.closest('[data-ob-pick]')) return;
+        el.disabled = !!el.closest('[data-for][hidden]');
+      });
+      var names = picks.filter(function (c) { return c.checked; }).map(function (c) { return c.name === 'bundles' ? c.value + ' bundle' : c.value; });
+      $('[data-ob-sum]', ob).innerHTML = names.length ? 'Setting up: <b>' + names.join(' + ') + '</b>' : 'Tick what you signed up for and the form will show only the questions you need.';
+      ob.elements.services_summary.value = names.join(', ');
+    };
+    // Prefill from the link: onboarding.html?plan=Growth,Visibility&services=seo,meta-ads
+    (function () {
+      var q = new URLSearchParams(location.search), plans = (q.get('plan') || '').toLowerCase().split(','), svcs = (q.get('services') || q.get('service') || '').toLowerCase().split(',');
+      var hit = false;
+      picks.forEach(function (c) {
+        if ((c.name === 'bundles' && plans.indexOf(c.value.toLowerCase()) > -1) || (c.name === 'services_picked' && svcs.indexOf(c.dataset.svcs) > -1)) { c.checked = true; hit = true; }
+      });
+      if (hit) { $('[data-ob-pre]', ob).hidden = false; ob._prefilled = true; }
+    })();
     var reveal = function () {
       $$('[data-when]', ob).forEach(function (box) {
         var trigger = $('[data-show="' + box.dataset.when + '"]', ob);
-        box.hidden = !(trigger && trigger.checked);
+        box.hidden = !(trigger && trigger.checked && !trigger.disabled);
       });
     };
     var progress = function () {
-      var filled = textFields.filter(function (el) { return el.value.trim(); }).length;
-      var pct = Math.round(filled / textFields.length * 100);
+      var live = textFields.filter(function (el) { return !el.disabled; });
+      var filled = live.filter(function (el) { return el.value.trim(); }).length;
+      var pct = live.length ? Math.round(filled / live.length * 100) : 0;
       var bar = $('[data-ob-bar]'), num = $('[data-ob-pct]');
       if (bar) bar.style.width = pct + '%';
       if (num) num.textContent = pct + '%';
@@ -678,13 +710,25 @@
       var err = $('.field__error', wrap);
       if (err) err.textContent = msg || '';
     };
-    loadDraft(); reveal(); progress();
+    var prefilled = ob._prefilled ? picks.map(function (c) { return c.checked; }) : null;
+    loadDraft();
+    if (prefilled) picks.forEach(function (c, i) { c.checked = prefilled[i]; }); // the link you sent wins over an old draft
+    applyServices(); reveal(); progress();
     ob.addEventListener('input', function (e) { obError(e.target, ''); progress(); saveDraft(); });
-    ob.addEventListener('change', function (e) { if (e.target.type === 'checkbox') obError(e.target, ''); reveal(); progress(); saveDraft(); });
+    ob.addEventListener('change', function (e) {
+      if (e.target.type === 'checkbox') obError(e.target, '');
+      if (e.target.dataset.svcs) applyServices();
+      reveal(); progress(); saveDraft();
+    });
 
     ob.addEventListener('submit', function (e) {
       e.preventDefault();
       var first = null;
+      var pickBox = $('[data-ob-pick]', ob);
+      var noPick = !picks.some(function (c) { return c.checked; });
+      pickBox.classList.toggle('has-error', noPick);
+      $(':scope > .field__error', pickBox).textContent = noPick ? 'Tick at least one bundle or service.' : '';
+      if (noPick) first = picks[0];
       [
         ['contact_name', 'Pop your name in.'],
         ['business_name', 'What’s the business called?'],
@@ -692,7 +736,6 @@
         ['business_email', 'We need an email for the business.'],
         ['services', 'List at least one service.'],
         ['base_suburb', 'Which suburb are you based in?'],
-        ['target_suburbs', 'List a few suburbs you want work in.'],
         ['agree', 'Tick this so we can manage your listings.']
       ].forEach(function (pair) {
         var el = ob.elements[pair[0]], msg = pair[1];
@@ -719,7 +762,7 @@
       if (!endpoint) { done(); return; }
       btn.disabled = true; btn.textContent = 'Sending…';
       var fd = new FormData(ob);
-      fd.set('_subject', 'SEO onboarding: ' + ob.elements.business_name.value.trim());
+      fd.set('_subject', 'Onboarding: ' + ob.elements.business_name.value.trim() + ' (' + ob.elements.services_summary.value + ')');
       fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
         .catch(function () {
