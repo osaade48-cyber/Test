@@ -631,6 +631,104 @@
     });
   }
 
+  /* ---------- SEO onboarding form ---------- */
+  var ob = $('#onboard-form');
+  if (ob) {
+    var OB_KEY = 'tb_seo_onboarding';
+    var lsGet = function () { try { return JSON.parse(localStorage.getItem(OB_KEY)) || {}; } catch (e) { return {}; } };
+    var lsSet = function (v) { try { localStorage.setItem(OB_KEY, JSON.stringify(v)); } catch (e) { /* storage blocked */ } };
+    var obFields = $$('input, textarea, select', ob).filter(function (el) { return el.name && el.type !== 'hidden'; });
+    var textFields = obFields.filter(function (el) { return el.tagName === 'TEXTAREA' || /^(text|email|tel)$/.test(el.type); });
+    var saveDraft = function () {
+      var d = {};
+      obFields.forEach(function (el) {
+        if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; }
+        else if (el.type === 'checkbox') { if (el.checked) (d[el.name] = d[el.name] || []).push(el.value); }
+        else d[el.name] = el.value;
+      });
+      lsSet(d);
+    };
+    var loadDraft = function () {
+      var d = lsGet();
+      obFields.forEach(function (el) {
+        if (!(el.name in d)) return;
+        var v = d[el.name];
+        if (el.type === 'radio') el.checked = v === el.value;
+        else if (el.type === 'checkbox') el.checked = [].concat(v).indexOf(el.value) > -1;
+        else el.value = v;
+      });
+    };
+    var reveal = function () {
+      $$('[data-when]', ob).forEach(function (box) {
+        var trigger = $('[data-show="' + box.dataset.when + '"]', ob);
+        box.hidden = !(trigger && trigger.checked);
+      });
+    };
+    var progress = function () {
+      var filled = textFields.filter(function (el) { return el.value.trim(); }).length;
+      var pct = Math.round(filled / textFields.length * 100);
+      var bar = $('[data-ob-bar]'), num = $('[data-ob-pct]');
+      if (bar) bar.style.width = pct + '%';
+      if (num) num.textContent = pct + '%';
+    };
+    var obError = function (el, msg) {
+      var wrap = el.closest('.field');
+      if (!wrap) return;
+      wrap.classList.toggle('has-error', !!msg);
+      var err = $('.field__error', wrap);
+      if (err) err.textContent = msg || '';
+    };
+    loadDraft(); reveal(); progress();
+    ob.addEventListener('input', function (e) { obError(e.target, ''); progress(); saveDraft(); });
+    ob.addEventListener('change', function (e) { if (e.target.type === 'checkbox') obError(e.target, ''); reveal(); progress(); saveDraft(); });
+
+    ob.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var first = null;
+      [
+        ['contact_name', 'Pop your name in.'],
+        ['business_name', 'What’s the business called?'],
+        ['business_phone', 'We need the number customers call.'],
+        ['business_email', 'We need an email for the business.'],
+        ['services', 'List at least one service.'],
+        ['base_suburb', 'Which suburb are you based in?'],
+        ['target_suburbs', 'List a few suburbs you want work in.'],
+        ['agree', 'Tick this so we can manage your listings.']
+      ].forEach(function (pair) {
+        var el = ob.elements[pair[0]], msg = pair[1];
+        var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim();
+        if (!bad && pair[0] === 'business_phone' && el.value.replace(/\D/g, '').length < 8) { bad = true; msg = 'That number looks a bit short.'; }
+        if (!bad && pair[0] === 'business_email' && !/^\S+@\S+\.\S+$/.test(el.value.trim())) { bad = true; msg = 'That email doesn’t look right.'; }
+        obError(el, bad ? msg : '');
+        if (bad && !first) first = el;
+      });
+      if (first) { first.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); first.focus({ preventScroll: true }); return; }
+
+      var btn = $('button[type="submit"]', ob), status = $('.form__status', ob), endpoint = ob.dataset.endpoint;
+      var done = function () {
+        var box = $('[data-ob-done]');
+        $('[data-ob-name]', box).textContent = ob.elements.contact_name.value.trim().split(' ')[0] || 'mate';
+        $('[data-ob-unconnected]', box).hidden = !!endpoint;
+        ob.hidden = true;
+        var prog = $('.ob-progress'); if (prog) prog.hidden = true;
+        box.hidden = false;
+        box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        box.focus({ preventScroll: true });
+        if (endpoint) { try { localStorage.removeItem(OB_KEY); } catch (err) { /* ignore */ } }
+      };
+      if (!endpoint) { done(); return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      var fd = new FormData(ob);
+      fd.set('_subject', 'SEO onboarding: ' + ob.elements.business_name.value.trim());
+      fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Send my details';
+          status.textContent = 'That didn’t send. Your answers are saved, so check your connection and try again, or email ' + ob.dataset.email + '.';
+        });
+    });
+  }
+
   /* ---------- Thanks page ---------- */
   function fillThanks() {
     var thanks = $('[data-thanks]');

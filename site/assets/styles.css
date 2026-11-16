@@ -2071,3 +2071,31 @@ main { position: relative; }
 }
 @media (prefers-reduced-motion: reduce) { .lk.is-run .lk-pipe__flow { animation: none; } }
 .lk-hole i { left: 2px; width: 12px; height: 15px; box-shadow: 0 0 8px rgba(229,72,77,.5); }
+
+/* ---------- SEO onboarding form ---------- */
+.ob { max-width: 860px; }
+.ob-progress { position: sticky; top: 76px; z-index: 5; display: flex; align-items: center; gap: 12px; margin: 0 0 18px; padding: 10px 14px; border-radius: 999px; background: rgba(31,33,36,.92); border: 1px solid var(--line); backdrop-filter: blur(8px); }
+.ob-progress[hidden] { display: none; }
+.ob-progress__track { flex: 1; height: 8px; border-radius: 99px; background: var(--char); overflow: hidden; }
+.ob-progress__track span { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--orange); transition: width .35s ease; }
+.ob-progress b { font-family: var(--display); font-size: 14px; min-width: 40px; text-align: right; }
+.ob-form { gap: 28px; }
+.ob-sec { display: grid; gap: 18px; border: 0; margin: 0; padding: 0 0 28px; border-bottom: 1px solid var(--line); min-width: 0; }
+.ob-sec__h { display: flex; align-items: center; gap: 12px; padding: 0; margin-bottom: 4px; font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.4vw, 24px); }
+.ob-sec__h span { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--orange); color: #fff; font-size: 16px; font-weight: 800; }
+.ob-hint { margin: -6px 0 0; color: var(--muted); font-size: 15px; }
+.ob-hint b { color: #fff; }
+.ob-reveal { display: grid; gap: 18px; }
+.ob-steps { border-radius: 16px; padding: 18px 20px; background: var(--char-deep); border: 1px dashed rgba(242,106,27,.5); display: grid; gap: 10px; font-size: 15px; }
+.ob-steps p { margin: 0; }
+.ob-steps ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: #DAD8D5; }
+.ob-check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-weight: 500; }
+.ob-check input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--orange); }
+.ob-check--agree { font-size: 15px; }
+.field.has-error .ob-check span { color: #FF9B9E; }
+.field.has-error textarea { border-color: var(--red); }
+.ob-done { display: grid; gap: 18px; justify-items: start; padding: clamp(22px, 3.5vw, 40px); border-radius: 24px; background: var(--char-2); border: 1px solid var(--line); }
+.ob-done:focus { outline: none; }
+.ob-done .lede { margin: 0; }
+@media (max-width: 640px) { .ob-progress { top: 64px; } }
+.page-seo-onboarding .thumb-bar { display: none; }
