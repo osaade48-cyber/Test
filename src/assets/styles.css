@@ -2108,3 +2108,15 @@ main { position: relative; }
 .ob-sec.has-error .ob-sum { border-color: var(--red); }
 .ob-acc { display: grid; gap: 18px; padding-top: 4px; }
 .ob-acc + .ob-acc { padding-top: 18px; border-top: 1px dashed var(--line); }
+
+/* ---------- Live client sites in the "Our work" gallery ---------- */
+.gallery--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.gallery--4 .shot__view { height: 400px; }
+a.shot__view { display: block; cursor: pointer; }
+a.shot__view:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.shot__who { display: grid; gap: 2px; }
+.shot__who small { font-size: 13.5px; color: var(--muted-ink); }
+.shot__meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.shot__visit { font-weight: 700; font-size: 14px; color: var(--orange); text-decoration: none; white-space: nowrap; }
+.shot__visit:hover { text-decoration: underline; }
+@media (max-width: 860px) { .gallery--4 { grid-template-columns: 1fr; } .gallery--4 .shot__view { height: 340px; } }
