@@ -80,4 +80,16 @@
   /* Footer year */
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
+
+  /* Google Ads: count a tap on any phone number link as a "Calls from Website" conversion */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="tel:"]');
+    if (!link || typeof window.gtag !== 'function') return;
+    window.gtag('event', 'conversion', {
+      send_to: 'AW-18581672505/9TEWCPvMy7odELmkt5xF',
+      value: 1.0,
+      currency: 'AUD',
+      transport_type: 'beacon'
+    });
+  });
 })();
