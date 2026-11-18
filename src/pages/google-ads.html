@@ -80,14 +80,22 @@ nav: services
       <div class="section-head section-head--center">
         <h2 class="h-lg" id="get-title">What it costs</h2>
       </div>
-      <div class="bcards bcards--1">
+      <div class="bcards bcards--2">
         <article class="bcard">
-          <h3 class="bcard__name">Google Ads</h3>
-          <p class="bcard__line">Be at the top when people search for your trade.</p>
-          <p class="bcard__price"><small>from </small>${{site.gadsPrice}}<small> /month</small></p>
+          <h3 class="bcard__name">Starter</h3>
+          <p class="bcard__line">For tradies spending under ${{site.gadsStarterMax}} a month on ads.</p>
+          <p class="bcard__price">${{site.gadsStarter}}<small> /month</small></p>
           <p class="bcard__setup bcard__setup--tier">+ ${{site.gadsSetup}} setup · 3-month minimum<br>+ ad spend paid to Google (min ${{site.minGoogleSpend}}/day)</p>
           <ul class="checks checks--sm"><li>Search ad campaigns set up and managed</li><li>Keyword research for your trade and area</li><li>Ad copy written for you</li><li>Call tracking</li><li>Wasted clicks filtered out</li><li>Monthly report: calls, leads and cost per lead</li></ul>
-          <a class="btn btn--ghost" href="book.html?service=google-ads" aria-label="Book a call about Google Ads">Book a call</a>
+          <a class="btn btn--ghost" href="book.html?service=google-ads" aria-label="Book a call about Google Ads Starter">Book a call</a>
+        </article>
+        <article class="bcard bcard--hot"><span class="bcard__badge">Most popular</span>
+          <h3 class="bcard__name">Standard</h3>
+          <p class="bcard__line">For ad spend of ${{site.gadsStarterMax}} a month or more.</p>
+          <p class="bcard__price">${{site.gadsPrice}}<small> /month</small></p>
+          <p class="bcard__setup bcard__setup--tier">+ ${{site.gadsSetup}} setup · 3-month minimum<br>+ ad spend paid to Google</p>
+          <ul class="checks checks--sm"><li>Everything in Starter</li><li>More campaigns and suburbs covered</li><li>Ongoing ad testing to lower your cost per lead</li><li>Weekly checks on search terms and spend</li></ul>
+          <a class="btn btn--primary" href="book.html?service=google-ads" aria-label="Book a call about Google Ads Standard">Book a call</a>
         </article>
       </div>
       <p class="plans-note">Or get it in <a href="bundles.html#growth">Growth</a> (save {{site.boSavePct}}%). Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span></p>

@@ -35,6 +35,8 @@
   "metaSetup": "999",
   "gadsPrice": "799",
   "gadsSetup": "999",
+  "gadsStarter": "499",
+  "gadsStarterMax": "1,500",
   "recPrice": "349",
   "recSetup": "499",
   "callerPrice": "349",
