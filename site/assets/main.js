@@ -142,7 +142,7 @@
     this.card(s);
     this.fillSms(s);
     this.sms.classList.add('is-in');
-    this.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI called' : 'Answered by AI') + '</span> · call ended';
+    this.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'Our AI called' : 'Answered by our AI') + '</span> · call ended';
   };
   CallPlayer.prototype.play = function (s, loop) {
     var self = this;
@@ -153,7 +153,7 @@
     function tickTimer() {
       secs++;
       var m = Math.floor(secs / 60), r = secs % 60;
-      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI on the call' : 'Answered by AI') + '</span> · ' + (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'Our AI on the call' : 'Answered by our AI') + '</span> · ' + (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
     }
     function stopTimer() { if (timer) clearInterval(timer); timer = null; }
 
@@ -162,7 +162,7 @@
       self.phone.classList.add('is-ringing');
       for (var ring = 1; ring <= 3; ring++) {
         if (!alive()) return;
-        self.status.innerHTML = '<span class="ringing">' + (s.outbound ? 'AI calling · ring ' : 'Incoming call · ring ') + ring + '</span>';
+        self.status.innerHTML = '<span class="ringing">' + (s.outbound ? 'Our AI calling · ring ' : 'Incoming call · ring ') + ring + '</span>';
         await wait(750);
       }
       self.phone.classList.remove('is-ringing');
@@ -189,7 +189,7 @@
       await wait(1300);
       stopTimer();
       if (!alive()) return;
-      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'AI called' : 'Answered by AI') + '</span> · call ended';
+      self.status.innerHTML = '<span class="live">● ' + (s.outbound ? 'Our AI called' : 'Answered by our AI') + '</span> · call ended';
       self.fillSms(s);
       self.sms.classList.add('is-in');
       if (!loop) return;
@@ -267,7 +267,7 @@
       if (canDial && !placeholder) return;
       e.preventDefault();
       if (placeholder) {
-        showTip('<b>The demo line isn\u2019t live yet.</b> Tap a sample call to watch the AI in action.');
+        showTip('<b>The demo line isn\u2019t live yet.</b> Tap a sample call to watch our AI in action.');
         var chips = $('.call-chips') || $('.scenario-list');
         if (chips) {
           chips.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
@@ -852,7 +852,7 @@
         how: 'Your best jobs shown to homeowners in your area as they scroll, so you’re the first ' + tradeWord() + ' they think of when they need one.',
         inc: ['Video and photo ads made from your jobs', 'Shown only to people in your suburbs', 'Enquiry forms that come straight to your phone', 'Monthly report'] }; },
       receptionist: function () { return { name: 'AI receptionist', mo: num(P.rec), svc: 'ai-receptionist',
-        how: 'When you can’t pick up, the AI answers in a natural voice, works out what the customer needs, books the job or quote visit, and texts you the details.',
+        how: 'When you can’t pick up, our AI answers in a natural voice, works out what the customer needs, books the job or quote visit, and texts you the details.',
         inc: ['Answers 24/7, including after hours', 'Books jobs and quote visits into your calendar', 'Texts you a summary of every call', 'Knows your services, areas and prices'] }; },
       seo: function () { return { name: 'SEO and Google profile', mo: num(P.seo), svc: 'seo',
         how: 'We get your Google profile and website showing when people in your suburbs search for a ' + tradeWord() + ', so enquiries come in without paying per click.',
@@ -912,7 +912,7 @@
       if (have.indexOf('site-old') > -1 && needs.indexOf('website') < 0) also.push('Your website might be holding you back too. A new one starts from ' + fmt(num(P.website)) + ' to build, plus ' + fmt(num(P.webCare)) + '/month care.');
       if (have.indexOf('gbp') < 0 && needs.indexOf('seo') < 0) also.push('No Google Business Profile yet? That’s the quickest free win on Google. It’s included in SEO and the Visibility bundle.');
       if (have.indexOf('software') > -1 && needs.indexOf('crm') > -1) also.push('Already using job software? We’ll connect follow-ups to it rather than replace it.');
-      if ((needs.indexOf('gads') > -1 || needs.indexOf('meta') > -1) && a.budget === 'low') also.push('Ads need at least $' + num(P.gMin) + ' a day (about ' + fmt(adMo(P.gMin)) + ' a month) in ad spend on top of our fee. On a tight budget, starting with SEO or the AI receptionist can be a better first step.');
+      if ((needs.indexOf('gads') > -1 || needs.indexOf('meta') > -1) && a.budget === 'low') also.push('Ads need at least $' + num(P.gMin) + ' a day in ad spend on top of our fee. On a tight budget, starting with SEO or the AI receptionist can be a better first step.');
       if (!needs.length) add(a.budget === 'low' ? 'reviews' : 'seo', 'A good first step for any trade business.');
 
       var left = needs.slice(), rows = [], chosen = [];
@@ -945,7 +945,7 @@
       var parts = [];
       if (r.once) parts.push(fmt(r.once) + ' to build');
       if (r.mo) parts.push(fmt(r.mo) + '/month' + (r.moLabel ? ' ' + r.moLabel : ''));
-      if (r.ad) parts.push('about ' + fmt(r.ad) + '/month ad spend (paid to ' + r.adWho + ')');
+      if (r.ad) parts.push('ad spend paid to ' + r.adWho + ' (min $' + num(P.gMin) + '/day' + (r.adWho.indexOf(' and ') > -1 ? ' each' : '') + ')');
       return parts.join(' + ') + (r.note ? ' ' + r.note : '');
     };
     var finish = function () {
@@ -966,11 +966,11 @@
       }).join('');
       var bandMax = p.bandMax;
       var totalHtml = '<p><b>' + (single ? 'Our fee:' : 'Our fees:') + '</b> ' + [once ? fmt(once) + ' to build' : '', mo ? fmt(mo) + '/month' : ''].filter(Boolean).join(' + ') + '</p>';
-      if (ad) totalHtml += '<p class="qz-total__allup"><b>All up, including ad spend:</b> about ' + fmt(mo + ad) + '/month' + (once ? ' + ' + fmt(once) + ' to build' : '') + '</p>';
+      if (ad) totalHtml += '<p class="qz-total__allup">Plus ad spend, paid straight to Google or Meta. Minimum $' + num(P.gMin) + ' a day, and you choose how much.</p>';
       if (p.bundles.length > 1) totalHtml += '<p class="qz-total__save">Two bundles? You get 10% off the second one.</p>';
       var hasWeb = rows.some(function (r) { return r.svc === 'websites' || r.plan === 'Foundation'; });
       if (mo + ad > bandMax) totalHtml += '<p class="qz-total__tip">That\u2019s a bit more than you said you\u2019d spend each month. Text us and we\u2019ll work out the best way to start within your budget.</p>';
-      totalHtml += '<p class="qz-total__fine">Setup fees are extra where they apply. Ad spend is paid straight to Google or Meta, from $' + num(P.gMin) + ' a day, and you can raise it any time.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
+      totalHtml += '<p class="qz-total__fine">Setup fees are extra where they apply.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
       $('[data-r-total]', result).innerHTML = totalHtml;
       var laterBox = $('[data-r-later]', result);
       $('[data-r-later-list]', result).innerHTML = p.later.map(function (r) {
