@@ -54,6 +54,7 @@ This is the master setup every TradeBooked client gets. Build it once in a sub-a
 | Trade | landscaping |
 | Business Hours | Mon–Sat 7am–5pm |
 | Booking Link | (leave blank for now, add the calendar link after Part 5) |
+| Booking Mode | book (or "callback" for clients who don't want automatic bookings; the AI receptionist, lead caller and chatbot read this) |
 
 In messages these are inserted as `{{custom_values.business_name}}`, `{{custom_values.owner_first_name}}` and so on. If GoHighLevel shows a different key, use the custom value picker in the message editor instead of typing.
 
@@ -277,7 +278,10 @@ Use your own mobile as a test contact in **Tradie Template**:
 ## Per-client setup checklist (after the snapshot)
 - [ ] Create sub-account from the latest snapshot (`TradeBooked Tradie Setup v2`), time zone Australia/Sydney
 - [ ] Add the owner (and you) as users; reassign the **Free site visit** calendar to the client's user
-- [ ] Fill in every Custom Value (name, owner, **owner mobile**, phone, email, website, review link, area, trade, hours, booking link)
+- [ ] Fill in every Custom Value (name, owner, **owner mobile**, phone, email, website, review link, area, trade, hours, **booking mode**)
+- [ ] **Booking Link:** copy the client's own "Free site visit" calendar link into the Booking Link custom value (each account gets a new link)
+- [ ] Check Business Profile and user time zones are the client's city (e.g. Australia/Sydney, not Brisbane)
+- [ ] Workflow 1 trigger: limit to the client's website quote form (never the booking form)
 - [ ] Phone number: register and buy an AU mobile number (business verification), or set up call forwarding from their existing number
 - [ ] Connect their calendar (Google/Outlook) to the user
 - [ ] Connect website quote form to GoHighLevel

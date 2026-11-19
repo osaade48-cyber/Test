@@ -321,6 +321,14 @@ robotsMeta: <meta name="robots" content="noindex, nofollow">
             <label for="o-urgent">What counts as urgent, and which number should it go to? <span class="opt">(optional)</span></label>
             <input id="o-urgent" name="urgent_rules" type="text" placeholder="e.g. Burst pipes and flooding → 0412 345 678">
           </div>
+          <fieldset class="field" data-for="ai-receptionist ai-lead-caller ai-chatbot">
+            <legend>When our AI talks to a new customer, how should bookings work?</legend>
+            <div class="chips">
+              <label><input type="radio" name="booking_mode" value="Book straight into my calendar" checked><span>Book them straight into my calendar</span></label>
+              <label><input type="radio" name="booking_mode" value="Take details, I'll call back"><span>Take their details and I'll call back</span></label>
+              <label><input type="radio" name="booking_mode" value="Not sure"><span>Not sure, let's discuss</span></label>
+            </div>
+          </fieldset>
           <fieldset class="field" data-for="ai-receptionist ai-lead-caller crm">
             <legend>What do you use for your calendar or jobs?</legend>
             <div class="chips">
