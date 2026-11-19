@@ -1,4 +1,6 @@
-# TradeBooked: GoHighLevel "Tradie Template" build plan (v1)
+# TradeBooked: GoHighLevel "Tradie Template" build plan (v2)
+
+> **v2 changes (from the first build):** add yourself as a user before building (calendars need a team member); owner alerts go to an **Owner Mobile** custom value instead of "assigned owner"; notes on GoHighLevel menus that differ from the plan.
 
 This is the master setup every TradeBooked client gets. Build it once in a sub-account called **Tradie Template**, test it, then save it as a **snapshot** and load it into each client (starting with Avera Earthworx).
 
@@ -29,7 +31,9 @@ This is the master setup every TradeBooked client gets. Build it once in a sub-a
    - Your email, mobile and address (it's a test account)
    - Time zone: **Australia/Sydney**
 2. In the new sub-account: set the **AI spending limit** to **$20/month** for now.
-3. Don't buy a phone number for the template. Clients get their own.
+3. **Settings → My Staff / Users → Add user:** add yourself (user type Account, role Admin). Calendars can't be created without a team member.
+4. Don't buy a phone number for the template. Clients get their own.
+5. When creating the sub-account: turn **off** "Include sample data" and choose **"This is my client's account"**. Check the business name is `Tradie Template` (GoHighLevel can fill it in from the address search).
 
 ---
 
@@ -41,6 +45,7 @@ This is the master setup every TradeBooked client gets. Build it once in a sub-a
 |---|---|
 | Business Name | Dazza's Landscaping |
 | Owner First Name | Dazza |
+| Owner Mobile | 0400 000 000 (where owner alerts are sent) |
 | Business Phone | 0400 000 000 |
 | Business Email | hello@example.com.au |
 | Website URL | https://example.com.au |
@@ -68,7 +73,7 @@ In messages these are inserted as `{{custom_values.business_name}}`, `{{custom_v
 | Access Notes | Single line text | |
 | Preferred Contact | Dropdown (single) | Text, Call |
 | Quote Amount | Monetary | |
-| Quote Sent Date | Date | |
+| Quote Sent Date | Date (or "Date & time" set to date only) | |
 
 ### Tags
 **Settings → Tags** (or create them as you go): `new-lead`, `missed-call`, `site-visit-booked`, `quote-sent`, `won`, `job-completed`, `lost`, `review-requested`, `review-left`, `no-marketing`
@@ -151,7 +156,7 @@ If the setting isn't available, build it as **Workflow 2** below instead (don't 
 **T9 – Review reminder**
 > Hi {{contact.first_name}}, just a gentle nudge on that review if you get a sec: {{custom_values.review_link}} No worries if not, appreciate it either way! Reply STOP to opt out.
 
-**T10 – Owner alert: new lead** (sent to the business owner, not the customer)
+**T10 – Owner alert: new lead** (sent to {{custom_values.owner_mobile}}, not the customer)
 > New lead: {{contact.name}}, {{contact.phone}}. Suburb: {{contact.suburb}}. Job: {{contact.job_details}}. Source: {{contact.lead_source}}
 
 ---
@@ -161,6 +166,8 @@ If the setting isn't available, build it as **Workflow 2** below instead (don't 
 **Automations → Workflows → Create workflow → Start from scratch.** Build each one, then leave it as **Draft**.
 
 General settings on every workflow:
+- **Owner alerts:** every "internal notification" is an SMS sent to the number `{{custom_values.owner_mobile}}`, not to "Assigned owners". This works in every client account without user setup.
+- **Opportunity name:** set `{{contact.name}} – {{contact.job_type}}` inside the create-opportunity steps (there's no account-wide setting).
 - **Allow re-entry:** off (unless stated).
 - **Time window / quiet hours:** customer texts only send **Mon–Sat 7am–7pm** (Australia/Sydney). If a text would send outside that, wait until the window opens.
 
@@ -175,7 +182,8 @@ General settings on every workflow:
   3. Send SMS to contact → template **T1**.
   4. Send internal notification SMS to the **owner/assigned user** → template **T10**.
   5. Wait **10 minutes**.
-  6. If/else: opportunity still in **New lead** → send owner an internal notification: `Reminder: call {{contact.name}} ({{contact.phone}}) back, they enquired 10 mins ago.`
+  6. Find opportunity (GoHighLevel needs this step before checking the stage).
+  7. If/else: opportunity still in **New lead** → send owner an internal notification: `Reminder: call {{contact.name}} ({{contact.phone}}) back, they enquired 10 mins ago.`
 
 ### Workflow 2 – Missed call text-back (only if Part 6 setting isn't available)
 - **Trigger:** Call status → inbound call **missed / no answer**.
@@ -190,7 +198,7 @@ General settings on every workflow:
 - **Actions:**
   1. Move opportunity → **Site visit booked**. Add tag `site-visit-booked`.
   2. Send SMS → **T3**.
-  3. Wait until **1 day before** the appointment (event start date, minus 1 day, at 5pm).
+  3. Wait until **24 hours before** the appointment.
   4. Send SMS → **T4**.
   5. Internal notification to owner on booking: `Site visit booked: {{contact.name}}, {{appointment.start_time}}, {{contact.suburb}}.`
 
@@ -248,7 +256,7 @@ General settings on every workflow:
 
 ## Part 11: Save the snapshot
 
-Agency view → **Account Snapshots → Create new snapshot** → source: **Tradie Template** → name: `TradeBooked Tradie Setup v1`.
+Agency view → **Account Snapshots → Create new snapshot** → source: **Tradie Template** → name: `TradeBooked Tradie Setup v2` (bump the number each time you re-save).
 
 To load into a client: create their sub-account **from this snapshot**, then update all **Custom Values**, connect their number, calendar, Google profile and website form, and turn on the workflows.
 
@@ -267,8 +275,9 @@ Use your own mobile as a test contact in **Tradie Template**:
 ---
 
 ## Per-client setup checklist (after the snapshot)
-- [ ] Create sub-account from snapshot `TradeBooked Tradie Setup v1` (time zone Australia/Sydney)
-- [ ] Fill in every Custom Value (name, owner, phone, email, website, review link, area, trade, hours, booking link)
+- [ ] Create sub-account from the latest snapshot (`TradeBooked Tradie Setup v2`), time zone Australia/Sydney
+- [ ] Add the owner (and you) as users; reassign the **Free site visit** calendar to the client's user
+- [ ] Fill in every Custom Value (name, owner, **owner mobile**, phone, email, website, review link, area, trade, hours, booking link)
 - [ ] Phone number: register and buy an AU mobile number (business verification), or set up call forwarding from their existing number
 - [ ] Connect their calendar (Google/Outlook) to the user
 - [ ] Connect website quote form to GoHighLevel
