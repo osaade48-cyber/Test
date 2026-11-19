@@ -924,11 +924,21 @@
         chosen.push(b);
         var reasons = [];
         hit.forEach(function (n) { (why[n] || []).forEach(function (r) { if (reasons.indexOf(r) < 0) reasons.push(r); }); });
-        rows.push({ name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, ad: b.ad ? b.ad() : 0, adWho: b.adWho, moLabel: b.moLabel, note: b.note, how: b.how, inc: b.inc, why: reasons, plan: b.name.replace(' bundle', '') });
+        rows.push({ key: b.k, name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, ad: b.ad ? b.ad() : 0, adWho: b.adWho, moLabel: b.moLabel, note: b.note, how: b.how, inc: b.inc, why: reasons, plan: b.name.replace(' bundle', '') });
         left = left.filter(function (n) { return hit.indexOf(n) < 0; });
       });
-      left.forEach(function (n) { var it = INFO[n](a); it.why = why[n] || []; rows.push(it); });
-      return { rows: rows, bundles: chosen, also: also };
+      left.forEach(function (n) { var it = INFO[n](a); it.key = n; it.why = why[n] || []; rows.push(it); });
+      // Fit the plan to their all-up monthly budget, biggest wins first; the rest goes to "add later"
+      var metaFirst = a.adsWhere === 'meta' || (a.adsWhere !== 'google' && a.adsWhere !== 'both' && VISUAL.indexOf(a.trade) > -1);
+      var PRI = { growth: 0, foundation: 1, website: 1, reception: 2, receptionist: 2, gads: metaFirst ? 6 : 3, meta: metaFirst ? 3 : 6, visibility: 4, seo: 4, crm: 5, reviews: 5, branding: 7 };
+      rows.sort(function (x, y) { return (PRI[x.key] === undefined ? 9 : PRI[x.key]) - (PRI[y.key] === undefined ? 9 : PRI[y.key]); });
+      var bandMax = { low: 500, mid: 1500, high: 3000, top: Infinity }[a.budget] || Infinity;
+      var start = [], later = [], run = 0;
+      rows.forEach(function (r) {
+        var cost = (r.mo || 0) + (r.ad || 0);
+        if (!start.length || run + cost <= bandMax) { start.push(r); run += cost; } else later.push(r);
+      });
+      return { rows: start, later: later, bundles: chosen.filter(function (b) { return start.some(function (r) { return r.key === b.k; }); }), also: also, bandMax: bandMax };
     };
 
     var priceOf = function (r) {
@@ -945,27 +955,28 @@
       var ad = rows.reduce(function (s, r) { return s + (r.ad || 0); }, 0);
       var single = rows.length === 1;
       var short = function (n) { return n.replace(' bundle', '').replace(/ \((Starter|Standard)\)/, '').replace(' (Facebook and Instagram)', '').replace(' and Google profile', '').replace(' and follow-ups', ''); };
-      $('[data-r-eyebrow]', result).textContent = single ? 'We’d recommend' : 'Your custom plan';
+      $('[data-r-eyebrow]', result).textContent = p.later.length ? 'Start with' : single ? 'We’d recommend' : 'Your custom plan';
       $('[data-r-name]', result).textContent = single ? rows[0].name : rows.length <= 3 ? rows.map(function (r) { return short(r.name); }).join(' + ') : short(rows[0].name) + ' + ' + (rows.length - 1) + ' more';
-      $('[data-r-why]', result).textContent = single ? 'Here’s why it suits you, how it helps, and what you get:' : 'Based on everything you ticked, here’s what we’d put together for your business, and why:';
+      $('[data-r-why]', result).textContent = (p.later.length ? 'Here’s where we’d start, within your budget. ' : '') + (single ? 'Why it suits you, how it helps, and what you get:' : 'What we’d put together for your business, and why:');
       $('[data-r-items]', result).innerHTML = rows.map(function (r) {
         return '<li class="qz-item"><div class="qz-item__head"><b>' + esc(r.name) + '</b><em>' + esc(priceOf(r)) + '</em></div>' +
           (r.why && r.why.length ? '<p class="qz-item__why"><span>Why you need it:</span> ' + esc(r.why.join(' ')) + '</p>' : '') +
           '<p class="qz-item__how"><span>How it helps:</span> ' + esc(r.how) + '</p>' +
           '<p class="qz-item__inc-h">What’s included:</p><ul class="checks checks--sm qz-item__inc">' + r.inc.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></li>';
       }).join('');
-      var bandMax = { low: 500, mid: 1500, high: 3000, top: Infinity }[answers.budget] || Infinity;
+      var bandMax = p.bandMax;
       var totalHtml = '<p><b>' + (single ? 'Our fee:' : 'Our fees:') + '</b> ' + [once ? fmt(once) + ' to build' : '', mo ? fmt(mo) + '/month' : ''].filter(Boolean).join(' + ') + '</p>';
       if (ad) totalHtml += '<p class="qz-total__allup"><b>All up, including ad spend:</b> about ' + fmt(mo + ad) + '/month' + (once ? ' + ' + fmt(once) + ' to build' : '') + '</p>';
       if (p.bundles.length > 1) totalHtml += '<p class="qz-total__save">Two bundles? You get 10% off the second one.</p>';
       var hasWeb = rows.some(function (r) { return r.svc === 'websites' || r.plan === 'Foundation'; });
-      if (mo + ad > bandMax && rows.length === 1) totalHtml += '<p class="qz-total__tip">That\u2019s a bit more than you said you\u2019d spend each month. Text us and we\u2019ll work out the best way to start within your budget.</p>';
+      if (mo + ad > bandMax) totalHtml += '<p class="qz-total__tip">That\u2019s a bit more than you said you\u2019d spend each month. Text us and we\u2019ll work out the best way to start within your budget.</p>';
       totalHtml += '<p class="qz-total__fine">Setup fees are extra where they apply. Ad spend is paid straight to Google or Meta, from $' + num(P.gMin) + ' a day, and you can raise it any time.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
-      if (mo + ad > bandMax && rows.length > 1) {
-        var first = rows.filter(function (r) { return r.mo; }).sort(function (x, y) { return (x.mo + (x.ad || 0)) - (y.mo + (y.ad || 0)); })[0];
-        if (first) totalHtml += '<p class="qz-total__tip">That’s more than you said you’d spend each month, so start with <b>' + esc(first.name) + '</b> and add the rest as the work comes in.</p>';
-      }
       $('[data-r-total]', result).innerHTML = totalHtml;
+      var laterBox = $('[data-r-later]', result);
+      $('[data-r-later-list]', result).innerHTML = p.later.map(function (r) {
+        return '<li><div><b>' + esc(r.name) + '</b><span>' + esc((r.why && r.why[0]) || r.how) + '</span></div><em>' + esc(priceOf(r)) + '</em></li>';
+      }).join('');
+      laterBox.hidden = !p.later.length;
       var alsoEl = $('[data-r-also]', result);
       alsoEl.textContent = p.also.slice(0, 2).join(' ');
       alsoEl.hidden = !p.also.length;
@@ -986,7 +997,7 @@
         var names = [].concat(v || []).map(function (x) { var b = $$('.qz-opts button', s).filter(function (bt) { return bt.dataset.v === x; })[0]; return b ? ($('b', b) || b).textContent.trim() : x; });
         return names.join(', ') || 'none';
       };
-      var planText = rows.map(function (r) { return r.name; }).join(' + ');
+      var planText = rows.map(function (r) { return r.name; }).join(' + ') + (p.later.length ? ' (later: ' + p.later.map(function (r) { return r.name; }).join(', ') + ')' : '');
       store.set('tb_quiz', { trade: answers.trade, rec: planText, summary: 'Quiz plan: ' + planText + '. Trade: ' + label('trade') + '. Problems: ' + label('problems') + '. Ads from: ' + label('adsWhere') + '. Has: ' + label('have') + '. Wants: ' + label('jobs') + '. Budget: ' + label('budget') + '.' });
 
       steps.forEach(function (s) { s.hidden = true; });
