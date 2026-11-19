@@ -2203,3 +2203,4 @@ a, button, .btn, summary, label, input[type="checkbox"], input[type="radio"] { t
 .qz-item__inc-h { font-weight: 700; color: #fff !important; margin-top: 2px !important; }
 .qz-item__inc { margin: 0; }
 @media (max-width: 560px) { .qz-item__head { flex-direction: column; gap: 4px; } .qz-item__head em { text-align: left; } }
+.qz-total__allup { font-size: 16px; }

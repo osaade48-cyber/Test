@@ -795,6 +795,7 @@
     try { P = JSON.parse(($('#qz-prices') || {}).textContent || '{}'); } catch (e) { P = {}; }
     var num = function (v) { return parseFloat(String(v || '0').replace(/,/g, '')) || 0; };
     var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-AU'); };
+    var adMo = function (perDay) { return Math.round(num(perDay) * 30.4 / 10) * 10; };
     var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
     var steps = $$('.qz-step', qz), answers = {}, idx = 0;
     var bar = $('[data-qz-bar]', qz), count = $('[data-qz-count]', qz), back = $('[data-qz-back]', qz), result = $('[data-qz-result]', qz);
@@ -844,10 +845,10 @@
 
     // Everything we might recommend: price, how it helps, what's included
     var INFO = {
-      gads: function (a) { var big = a.budget === 'high' || a.budget === 'top'; return { name: 'Google Ads (' + (big ? 'Standard' : 'Starter') + ')', mo: num(big ? P.gads : P.gadsStarter), note: '+ ad spend paid to Google', svc: 'google-ads',
+      gads: function (a) { var big = a.budget === 'top'; return { name: 'Google Ads (' + (big ? 'Standard' : 'Starter') + ')', mo: num(big ? P.gads : P.gadsStarter), ad: adMo(P.gMin), adWho: 'Google', svc: 'google-ads',
         how: 'Your ad shows at the top of Google when locals search for things like "' + tradeWord() + ' near me". These people need the job done now, and you only pay when someone clicks or calls.',
         inc: ['Campaign built around your services and suburbs', 'Ads written for you', 'Junk searches blocked so you don’t pay for them', 'Call and quote tracking, so you see what each job cost', 'Monthly report'] }; },
-      meta: function () { return { name: 'Meta ads (Facebook and Instagram)', mo: num(P.meta), note: '+ ad spend paid to Meta', svc: 'meta-ads',
+      meta: function () { return { name: 'Meta ads (Facebook and Instagram)', mo: num(P.meta), ad: adMo(P.adMin), adWho: 'Meta', svc: 'meta-ads',
         how: 'Your best jobs shown to homeowners in your area as they scroll, so you’re the first ' + tradeWord() + ' they think of when they need one.',
         inc: ['Video and photo ads made from your jobs', 'Shown only to people in your suburbs', 'Enquiry forms that come straight to your phone', 'Monthly report'] }; },
       receptionist: function () { return { name: 'AI receptionist', mo: num(P.rec), svc: 'ai-receptionist',
@@ -870,8 +871,8 @@
         inc: ['Automatic review text after every job', 'Direct link to your Google review page', 'A gentle reminder if they forget'] }; }
     };
     var BUNDLES = [
-      { k: 'growth', name: 'Growth bundle', covers: ['gads', 'meta', 'receptionist', 'crm', 'reviews'], anyOf: ['gads', 'meta'], min: 2, budget: ['high', 'top'],
-        mo: function () { return num(P.growth); }, note: '+ ad spend paid to Google and Meta',
+      { k: 'growth', name: 'Growth bundle', covers: ['gads', 'meta', 'receptionist', 'crm', 'reviews'], anyOf: ['gads', 'meta'], min: 2, budget: ['top'],
+        mo: function () { return num(P.growth); }, ad: function () { return adMo(P.gMin) + adMo(P.adMin); }, adWho: 'Google and Meta',
         how: 'Brings in new enquiries from Google and Facebook, then makes sure none slip through: every lead answered, called back within a minute and followed up.',
         inc: ['Google Ads and Meta ads, managed for you', 'AI lead caller rings new leads within a minute', 'AI receptionist answers every call', 'CRM with quote follow-ups and review requests'] },
       { k: 'foundation', name: 'Foundation bundle', covers: ['website', 'branding'], min: 2,
@@ -892,9 +893,9 @@
       var probs = a.problems || [], have = a.have || [], needs = [], why = {}, also = [];
       var add = function (n, reason) { if (needs.indexOf(n) < 0) needs.push(n); (why[n] = why[n] || []).push(reason); };
       if (probs.indexOf('leads') > -1) {
-        var ch = a.adsWhere || 'unsure', visual = VISUAL.indexOf(a.trade) > -1, big = a.budget === 'high' || a.budget === 'top';
-        var g = ch === 'google' || ch === 'both' || (ch === 'unsure' && (!visual || big));
-        var m = ch === 'meta' || ch === 'both' || (ch === 'unsure' && (visual || a.budget === 'top'));
+        var ch = a.adsWhere || 'unsure', visual = VISUAL.indexOf(a.trade) > -1, top = a.budget === 'top';
+        var g = ch === 'google' || ch === 'both' || (ch === 'unsure' && (!visual || top));
+        var m = ch === 'meta' || ch === 'both' || (ch === 'unsure' && (visual || top));
         if (g) add('gads', ch === 'google' || ch === 'both' ? 'You want more enquiries from Google.' : 'You want more enquiries, and Google puts you in front of people searching for a ' + tradeWord() + ' right now.');
         if (m) add('meta', ch === 'meta' || ch === 'both' ? 'You want more enquiries from Facebook and Instagram.' : 'You want more enquiries, and ' + workWord() + ' looks great in photos and video, so Facebook and Instagram suit you.');
       }
@@ -911,7 +912,7 @@
       if (have.indexOf('site-old') > -1 && needs.indexOf('website') < 0) also.push('Your website might be holding you back too. A new one starts from ' + fmt(num(P.website)) + ' to build, plus ' + fmt(num(P.webCare)) + '/month care.');
       if (have.indexOf('gbp') < 0 && needs.indexOf('seo') < 0) also.push('No Google Business Profile yet? That’s the quickest free win on Google. It’s included in SEO and the Visibility bundle.');
       if (have.indexOf('software') > -1 && needs.indexOf('crm') > -1) also.push('Already using job software? We’ll connect follow-ups to it rather than replace it.');
-      if ((needs.indexOf('gads') > -1 || needs.indexOf('meta') > -1) && a.budget === 'low') also.push('Ads work best with at least $30 to $50 a day in ad spend on top of our fee. On a tight budget, starting with SEO or the AI receptionist can be a better first step.');
+      if ((needs.indexOf('gads') > -1 || needs.indexOf('meta') > -1) && a.budget === 'low') also.push('Ads need at least $' + num(P.gMin) + ' a day (about ' + fmt(adMo(P.gMin)) + ' a month) in ad spend on top of our fee. On a tight budget, starting with SEO or the AI receptionist can be a better first step.');
       if (!needs.length) add(a.budget === 'low' ? 'reviews' : 'seo', 'A good first step for any trade business.');
 
       var left = needs.slice(), rows = [], chosen = [];
@@ -923,7 +924,7 @@
         chosen.push(b);
         var reasons = [];
         hit.forEach(function (n) { (why[n] || []).forEach(function (r) { if (reasons.indexOf(r) < 0) reasons.push(r); }); });
-        rows.push({ name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, moLabel: b.moLabel, note: b.note, how: b.how, inc: b.inc, why: reasons, plan: b.name.replace(' bundle', '') });
+        rows.push({ name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, ad: b.ad ? b.ad() : 0, adWho: b.adWho, moLabel: b.moLabel, note: b.note, how: b.how, inc: b.inc, why: reasons, plan: b.name.replace(' bundle', '') });
         left = left.filter(function (n) { return hit.indexOf(n) < 0; });
       });
       left.forEach(function (n) { var it = INFO[n](a); it.why = why[n] || []; rows.push(it); });
@@ -934,12 +935,14 @@
       var parts = [];
       if (r.once) parts.push(fmt(r.once) + ' to build');
       if (r.mo) parts.push(fmt(r.mo) + '/month' + (r.moLabel ? ' ' + r.moLabel : ''));
+      if (r.ad) parts.push('about ' + fmt(r.ad) + '/month ad spend (paid to ' + r.adWho + ')');
       return parts.join(' + ') + (r.note ? ' ' + r.note : '');
     };
     var finish = function () {
       var p = plan(answers), rows = p.rows;
       var mo = rows.reduce(function (s, r) { return s + (r.mo || 0); }, 0);
       var once = rows.reduce(function (s, r) { return s + (r.once || 0); }, 0);
+      var ad = rows.reduce(function (s, r) { return s + (r.ad || 0); }, 0);
       var single = rows.length === 1;
       var short = function (n) { return n.replace(' bundle', '').replace(/ \((Starter|Standard)\)/, '').replace(' (Facebook and Instagram)', '').replace(' and Google profile', '').replace(' and follow-ups', ''); };
       $('[data-r-eyebrow]', result).textContent = single ? 'We’d recommend' : 'Your custom plan';
@@ -952,12 +955,14 @@
           '<p class="qz-item__inc-h">What’s included:</p><ul class="checks checks--sm qz-item__inc">' + r.inc.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></li>';
       }).join('');
       var bandMax = { low: 500, mid: 1500, high: 3000, top: Infinity }[answers.budget] || Infinity;
-      var totalHtml = '<p><b>' + (single ? 'Price:' : 'Total:') + '</b> ' + [once ? fmt(once) + ' to build' : '', mo ? fmt(mo) + '/month' : ''].filter(Boolean).join(' + ') + '</p>';
+      var totalHtml = '<p><b>' + (single ? 'Our fee:' : 'Our fees:') + '</b> ' + [once ? fmt(once) + ' to build' : '', mo ? fmt(mo) + '/month' : ''].filter(Boolean).join(' + ') + '</p>';
+      if (ad) totalHtml += '<p class="qz-total__allup"><b>All up, including ad spend:</b> about ' + fmt(mo + ad) + '/month' + (once ? ' + ' + fmt(once) + ' to build' : '') + '</p>';
       if (p.bundles.length > 1) totalHtml += '<p class="qz-total__save">Two bundles? You get 10% off the second one.</p>';
       var hasWeb = rows.some(function (r) { return r.svc === 'websites' || r.plan === 'Foundation'; });
-      totalHtml += '<p class="qz-total__fine">Setup fees and ad spend are extra where they apply.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
-      if (mo > bandMax && rows.length > 1) {
-        var first = rows.filter(function (r) { return r.mo; }).sort(function (x, y) { return x.mo - y.mo; })[0];
+      if (mo + ad > bandMax && rows.length === 1) totalHtml += '<p class="qz-total__tip">That\u2019s a bit more than you said you\u2019d spend each month. Text us and we\u2019ll work out the best way to start within your budget.</p>';
+      totalHtml += '<p class="qz-total__fine">Setup fees are extra where they apply. Ad spend is paid straight to Google or Meta, from $' + num(P.gMin) + ' a day, and you can raise it any time.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
+      if (mo + ad > bandMax && rows.length > 1) {
+        var first = rows.filter(function (r) { return r.mo; }).sort(function (x, y) { return (x.mo + (x.ad || 0)) - (y.mo + (y.ad || 0)); })[0];
         if (first) totalHtml += '<p class="qz-total__tip">That’s more than you said you’d spend each month, so start with <b>' + esc(first.name) + '</b> and add the rest as the work comes in.</p>';
       }
       $('[data-r-total]', result).innerHTML = totalHtml;
