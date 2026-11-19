@@ -159,6 +159,7 @@ button { font: inherit; }
     transform: translateY(-8px); opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s;
   }
   .nav.is-open { transform: none; opacity: 1; visibility: visible; }
+  .nav:not(.is-open) { pointer-events: none; }
   .nav a:not(.btn) { padding: 14px 10px; font-size: 18px; font-family: var(--display); font-weight: 600; border-bottom: 1px solid var(--line); border-radius: 0; }
   .nav a[aria-current="page"]:not(.btn) { box-shadow: none; color: var(--orange-hot); }
   .nav__cta { margin: 14px 0 0; min-height: 54px; }
@@ -946,7 +947,7 @@ main { position: relative; }
   .nav { max-height: calc(100vh - var(--header-h) - env(safe-area-inset-top, 0px)); overflow-y: auto; }
   .nav__drop { display: grid; }
   .nav__droplink svg { display: none; }
-  .nav__panel { position: static; transform: none; opacity: 1; visibility: visible; display: grid; grid-template-columns: 1fr; gap: 10px; padding: 6px 0 12px 14px; background: none; border: 0; box-shadow: none; }
+  .nav__panel { position: static; transform: none; opacity: 1; visibility: inherit; display: grid; grid-template-columns: 1fr; gap: 10px; padding: 6px 0 12px 14px; background: none; border: 0; box-shadow: none; }
   .nav__col a { font-family: var(--body) !important; font-weight: 500 !important; font-size: 16px !important; border-bottom: 0 !important; padding: 6px 0 !important; }
 }
 
@@ -2164,3 +2165,4 @@ a.shot__view:focus-visible { outline: 3px solid var(--orange); outline-offset: 3
 .quiz-note[hidden] { display: none; }
 .cta-strip__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .cta-strip__quiz { color: inherit; text-decoration: underline; text-underline-offset: 3px; font-size: 15px; }
+.page-quiz .thumb-bar { display: none; }
