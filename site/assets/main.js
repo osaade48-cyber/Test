@@ -795,9 +795,13 @@
     try { P = JSON.parse(($('#qz-prices') || {}).textContent || '{}'); } catch (e) { P = {}; }
     var num = function (v) { return parseFloat(String(v || '0').replace(/,/g, '')) || 0; };
     var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-AU'); };
+    var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
     var steps = $$('.qz-step', qz), answers = {}, idx = 0;
     var bar = $('[data-qz-bar]', qz), count = $('[data-qz-count]', qz), back = $('[data-qz-back]', qz), result = $('[data-qz-result]', qz);
 
+    // Steps with data-if only show when that problem was ticked
+    var active = function (s) { var c = s.getAttribute('data-if'); return !c || (answers.problems || []).indexOf(c) > -1; };
+    var activeList = function () { return steps.filter(active); };
     var refreshNext = function (s) {
       var next = $('[data-qz-next]', s);
       if (next && !s.hasAttribute('data-optional')) next.disabled = !(answers[s.dataset.step] || []).length;
@@ -813,83 +817,148 @@
     };
     var show = function (i) {
       idx = i;
+      var list = activeList(), pos = list.indexOf(steps[i]);
       steps.forEach(function (s, k) { s.hidden = k !== i; });
       result.hidden = true;
-      bar.style.width = (i / steps.length * 100) + '%';
-      count.textContent = 'Question ' + (i + 1) + ' of ' + steps.length;
+      bar.style.width = (pos / list.length * 100) + '%';
+      count.textContent = 'Question ' + (pos + 1) + ' of ' + list.length;
       count.hidden = false;
-      back.hidden = i === 0;
+      back.hidden = pos === 0;
       paint(steps[i]);
       var head = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'), 10) || 64;
       if (qz.getBoundingClientRect().top < head) qz.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     };
-    var advance = function (i) { if (i < steps.length - 1) show(i + 1); else finish(); };
+    var advance = function (i) {
+      for (var k = i + 1; k < steps.length; k++) if (active(steps[k])) return show(k);
+      finish();
+    };
+    var goBack = function () {
+      if (!result.hidden) { for (var k = steps.length - 1; k >= 0; k--) if (active(steps[k])) return show(k); }
+      for (var j = idx - 1; j >= 0; j--) if (active(steps[j])) return show(j);
+    };
 
-    // What each need costs and fixes
-    var ITEMS = {
-      ads: function (a) { var big = a.budget === 'high' || a.budget === 'top'; return { name: 'Google Ads (' + (big ? 'Standard' : 'Starter') + ')', mo: num(big ? P.gads : P.gadsStarter), note: '+ ad spend', why: 'Puts you at the top of Google when locals search for your trade.', svc: 'google-ads' }; },
-      receptionist: function () { return { name: 'AI receptionist', mo: num(P.rec), why: 'Answers every call you miss, so jobs stop going to competitors.', svc: 'ai-receptionist' }; },
-      seo: function () { return { name: 'SEO and Google profile', mo: num(P.seo), why: 'Gets you found on Google for free, month after month.', svc: 'seo' }; },
-      website: function () { return { name: 'New website', once: num(P.website), why: 'Looks as good as your work and turns visitors into quote requests.', svc: 'websites' }; },
-      branding: function () { return { name: 'Branding', once: num(P.brand), why: 'A logo, ute and uniform look that makes you instantly look established.', svc: 'branding' }; },
-      crm: function () { return { name: 'CRM and follow-ups', mo: num(P.follow), why: 'Chases quotes and asks for reviews automatically.', svc: 'crm' }; },
-      reviews: function () { return { name: 'Review requests', mo: num(P.reviews), why: 'Texts happy customers for a 5-star review after every job.', svc: 'crm' }; }
+    var VISUAL = ['Landscaping', 'Building', 'Concreting', 'Painting', 'Roofing'];
+    var PERSON = { Excavation: 'excavation contractor', Plumbing: 'plumber', Electrical: 'electrician', Building: 'builder', Landscaping: 'landscaper', Concreting: 'concreter', Roofing: 'roofer', Painting: 'painter' };
+    var tradeWord = function () { return PERSON[answers.trade] || 'tradie'; };
+    var workWord = function () { return answers.trade && answers.trade !== 'Other' ? answers.trade.toLowerCase() + ' work' : 'your work'; };
+
+    // Everything we might recommend: price, how it helps, what's included
+    var INFO = {
+      gads: function (a) { var big = a.budget === 'high' || a.budget === 'top'; return { name: 'Google Ads (' + (big ? 'Standard' : 'Starter') + ')', mo: num(big ? P.gads : P.gadsStarter), note: '+ ad spend paid to Google', svc: 'google-ads',
+        how: 'Your ad shows at the top of Google when locals search for things like "' + tradeWord() + ' near me". These people need the job done now, and you only pay when someone clicks or calls.',
+        inc: ['Campaign built around your services and suburbs', 'Ads written for you', 'Junk searches blocked so you don’t pay for them', 'Call and quote tracking, so you see what each job cost', 'Monthly report'] }; },
+      meta: function () { return { name: 'Meta ads (Facebook and Instagram)', mo: num(P.meta), note: '+ ad spend paid to Meta', svc: 'meta-ads',
+        how: 'Your best jobs shown to homeowners in your area as they scroll, so you’re the first ' + tradeWord() + ' they think of when they need one.',
+        inc: ['Video and photo ads made from your jobs', 'Shown only to people in your suburbs', 'Enquiry forms that come straight to your phone', 'Monthly report'] }; },
+      receptionist: function () { return { name: 'AI receptionist', mo: num(P.rec), svc: 'ai-receptionist',
+        how: 'When you can’t pick up, the AI answers in a natural voice, works out what the customer needs, books the job or quote visit, and texts you the details.',
+        inc: ['Answers 24/7, including after hours', 'Books jobs and quote visits into your calendar', 'Texts you a summary of every call', 'Knows your services, areas and prices'] }; },
+      seo: function () { return { name: 'SEO and Google profile', mo: num(P.seo), svc: 'seo',
+        how: 'We get your Google profile and website showing when people in your suburbs search for a ' + tradeWord() + ', so enquiries come in without paying per click.',
+        inc: ['Google Business Profile set up and managed', 'A page for each service and suburb', 'Listings on the main directories', 'Weekly Google posts', 'Monthly report: rankings, calls and enquiries'] }; },
+      website: function () { return { name: 'New website', once: num(P.website), mo: num(P.webCare), moLabel: 'website care', svc: 'websites',
+        how: 'A fast, mobile-friendly site that shows off your best work and makes it dead easy to call you or ask for a quote. Ongoing care keeps it running and up to date.',
+        inc: ['Mobile-first and fast', 'Quote form and click-to-call', 'Photo gallery and reviews', 'Set up for Google from day one', 'Ongoing care: hosting, security, updates, chatbot and small edits'] }; },
+      branding: function () { return { name: 'Branding', once: num(P.brand), svc: 'branding',
+        how: 'A logo and look that makes you look established everywhere customers see you: your ute, uniforms, quotes and online.',
+        inc: ['Logo and brand kit (colours, fonts)', 'Ute signage design', 'Uniform design', 'Business card design'] }; },
+      crm: function () { return { name: 'CRM and follow-ups', mo: num(P.follow), svc: 'crm',
+        how: 'Every enquiry in one place. Quotes get followed up automatically and happy customers are asked for a review after every job.',
+        inc: ['All your leads in one simple pipeline', 'Automatic quote follow-up texts', 'Review requests after each job', 'Appointment reminders'] }; },
+      reviews: function () { return { name: 'Review requests', mo: num(P.reviews), svc: 'crm',
+        how: 'After each job, your customer gets a friendly text asking for a Google review, with a direct link. More reviews means more trust and better rankings.',
+        inc: ['Automatic review text after every job', 'Direct link to your Google review page', 'A gentle reminder if they forget'] }; }
     };
     var BUNDLES = [
-      { k: 'growth', name: 'Growth bundle', covers: ['ads', 'receptionist', 'crm', 'reviews'], min: 2, need: ['ads'], budget: ['high', 'top'], mo: function () { return num(P.growth); }, note: '+ ad spend', why: 'Leads from Google and Facebook, then every one answered, called back and followed up.' },
-      { k: 'foundation', name: 'Foundation bundle', covers: ['website', 'branding'], min: 2, once: function () { return num(P.foundation); }, why: 'Your brand, website and AI chatbot built together, for less than buying them separately.' },
-      { k: 'reception', name: 'Reception bundle', covers: ['receptionist', 'crm', 'reviews'], min: 2, need: ['receptionist'], mo: function () { return num(P.reception); }, why: 'Every call and enquiry answered, and quotes followed up automatically.' },
-      { k: 'visibility', name: 'Visibility bundle', covers: ['seo', 'reviews', 'crm'], min: 2, need: ['seo'], mo: function () { return num(P.visibility); }, why: 'Google profile, suburb pages, review requests and website care.' }
+      { k: 'growth', name: 'Growth bundle', covers: ['gads', 'meta', 'receptionist', 'crm', 'reviews'], anyOf: ['gads', 'meta'], min: 2, budget: ['high', 'top'],
+        mo: function () { return num(P.growth); }, note: '+ ad spend paid to Google and Meta',
+        how: 'Brings in new enquiries from Google and Facebook, then makes sure none slip through: every lead answered, called back within a minute and followed up.',
+        inc: ['Google Ads and Meta ads, managed for you', 'AI lead caller rings new leads within a minute', 'AI receptionist answers every call', 'CRM with quote follow-ups and review requests'] },
+      { k: 'foundation', name: 'Foundation bundle', covers: ['website', 'branding'], min: 2,
+        once: function () { return num(P.foundation); }, mo: function () { return num(P.webCare); }, moLabel: 'website care (first 3 months free)',
+        how: 'Your brand and website designed together, so you look as good as your work everywhere, for less than buying them separately.',
+        inc: ['Logo, brand kit, ute and uniform designs', 'A website built to win work (upgradeable)', 'AI chatbot on your site, answering 24/7', 'Ongoing website care: hosting, security, updates and small edits'] },
+      { k: 'reception', name: 'Reception bundle', covers: ['receptionist', 'crm', 'reviews'], anyOf: ['receptionist'], min: 2,
+        mo: function () { return num(P.reception); },
+        how: 'Every call and website enquiry answered, even when you’re on the tools, and every quote followed up automatically.',
+        inc: ['AI receptionist answers and books calls 24/7', 'AI chatbot answers website visitors', 'CRM with quote follow-ups and review requests'] },
+      { k: 'visibility', name: 'Visibility bundle', covers: ['seo', 'reviews', 'crm'], anyOf: ['seo'], min: 2,
+        mo: function () { return num(P.visibility); },
+        how: 'Gets you ranking on Google with your profile, suburb pages and a steady flow of new reviews, with your website looked after.',
+        inc: ['SEO and Google profile, managed for you', 'Automatic review requests', 'Website care and updates'] }
     ];
 
     var plan = function (a) {
-      var probs = a.problems || [], have = a.have || [], needs = [], also = [];
-      var add = function (n) { if (needs.indexOf(n) < 0) needs.push(n); };
-      probs.forEach(function (p) {
-        add({ leads: 'ads', missed: 'receptionist', google: 'seo', website: 'website', look: 'branding', followup: 'crm', reviews: 'reviews' }[p]);
-      });
+      var probs = a.problems || [], have = a.have || [], needs = [], why = {}, also = [];
+      var add = function (n, reason) { if (needs.indexOf(n) < 0) needs.push(n); (why[n] = why[n] || []).push(reason); };
+      if (probs.indexOf('leads') > -1) {
+        var ch = a.adsWhere || 'unsure', visual = VISUAL.indexOf(a.trade) > -1, big = a.budget === 'high' || a.budget === 'top';
+        var g = ch === 'google' || ch === 'both' || (ch === 'unsure' && (!visual || big));
+        var m = ch === 'meta' || ch === 'both' || (ch === 'unsure' && (visual || a.budget === 'top'));
+        if (g) add('gads', ch === 'google' || ch === 'both' ? 'You want more enquiries from Google.' : 'You want more enquiries, and Google puts you in front of people searching for a ' + tradeWord() + ' right now.');
+        if (m) add('meta', ch === 'meta' || ch === 'both' ? 'You want more enquiries from Facebook and Instagram.' : 'You want more enquiries, and ' + workWord() + ' looks great in photos and video, so Facebook and Instagram suit you.');
+      }
+      if (probs.indexOf('missed') > -1) add('receptionist', 'You’re missing calls while you’re working, and every missed call is a job going to someone else.');
+      if (probs.indexOf('google') > -1) add('seo', 'People can’t find you on Google.');
+      if (probs.indexOf('website') > -1) add('website', 'You said your website is missing or holding you back.');
+      if (probs.indexOf('look') > -1) add('branding', 'You want your business to look more professional.');
+      if (probs.indexOf('followup') > -1) add('crm', 'Your quotes are going cold.');
+      if (probs.indexOf('reviews') > -1) add('reviews', 'You need more Google reviews.');
       var hasSite = have.indexOf('site-good') > -1 || have.indexOf('site-old') > -1;
-      if (!hasSite) add('website');
-      if (needs.indexOf('website') > -1 && have.indexOf('logo') < 0) add('branding');
-      if (needs.indexOf('crm') > -1 && needs.indexOf('reviews') > -1) needs.splice(needs.indexOf('reviews'), 1);
-      if (have.indexOf('site-old') > -1 && needs.indexOf('website') < 0) also.push('Your website might be holding you back too. A new one starts from ' + fmt(num(P.website)) + '.');
-      if (have.indexOf('gbp') < 0 && needs.indexOf('seo') < 0) also.push('No Google Business Profile yet? That’s the quickest win on Google. It’s included in SEO and the Visibility bundle.');
-      if (have.indexOf('software') > -1 && (needs.indexOf('crm') > -1)) also.push('Already using job software? We’ll connect follow-ups to it rather than replace it.');
-      if (!needs.length) needs.push(a.budget === 'low' ? 'reviews' : 'seo');
+      if (!hasSite) add('website', 'You don’t have a website yet, and customers check one before they call.');
+      if (needs.indexOf('website') > -1 && have.indexOf('logo') < 0) add('branding', 'You don’t have a logo yet, and your new website should match your brand.');
+      if (needs.indexOf('crm') > -1 && needs.indexOf('reviews') > -1) { why.crm = why.crm.concat(why.reviews); needs.splice(needs.indexOf('reviews'), 1); }
+      if (have.indexOf('site-old') > -1 && needs.indexOf('website') < 0) also.push('Your website might be holding you back too. A new one starts from ' + fmt(num(P.website)) + ' to build, plus ' + fmt(num(P.webCare)) + '/month care.');
+      if (have.indexOf('gbp') < 0 && needs.indexOf('seo') < 0) also.push('No Google Business Profile yet? That’s the quickest free win on Google. It’s included in SEO and the Visibility bundle.');
+      if (have.indexOf('software') > -1 && needs.indexOf('crm') > -1) also.push('Already using job software? We’ll connect follow-ups to it rather than replace it.');
+      if ((needs.indexOf('gads') > -1 || needs.indexOf('meta') > -1) && a.budget === 'low') also.push('Ads work best with at least $30 to $50 a day in ad spend on top of our fee. On a tight budget, starting with SEO or the AI receptionist can be a better first step.');
+      if (!needs.length) add(a.budget === 'low' ? 'reviews' : 'seo', 'A good first step for any trade business.');
 
-      var left = needs.slice(), chosen = [];
+      var left = needs.slice(), rows = [], chosen = [];
       BUNDLES.forEach(function (b) {
         if (b.budget && b.budget.indexOf(a.budget) < 0) return;
-        if (b.need && b.need.some(function (n) { return left.indexOf(n) < 0; })) return;
+        if (b.anyOf && !b.anyOf.some(function (n) { return left.indexOf(n) > -1; })) return;
         var hit = b.covers.filter(function (n) { return left.indexOf(n) > -1; });
-        if (hit.length >= b.min) { chosen.push(b); left = left.filter(function (n) { return hit.indexOf(n) < 0; }); }
+        if (hit.length < b.min) return;
+        chosen.push(b);
+        var reasons = [];
+        hit.forEach(function (n) { (why[n] || []).forEach(function (r) { if (reasons.indexOf(r) < 0) reasons.push(r); }); });
+        rows.push({ name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, moLabel: b.moLabel, note: b.note, how: b.how, inc: b.inc, why: reasons, plan: b.name.replace(' bundle', '') });
+        left = left.filter(function (n) { return hit.indexOf(n) < 0; });
       });
-      var rows = chosen.map(function (b) { return { name: b.name, mo: b.mo ? b.mo() : 0, once: b.once ? b.once() : 0, note: b.note, why: b.why, plan: b.name.replace(' bundle', '') }; })
-        .concat(left.map(function (n) { return ITEMS[n](a); }));
-      return { rows: rows, bundles: chosen, also: also, needs: needs };
+      left.forEach(function (n) { var it = INFO[n](a); it.why = why[n] || []; rows.push(it); });
+      return { rows: rows, bundles: chosen, also: also };
     };
 
+    var priceOf = function (r) {
+      var parts = [];
+      if (r.once) parts.push(fmt(r.once) + ' to build');
+      if (r.mo) parts.push(fmt(r.mo) + '/month' + (r.moLabel ? ' ' + r.moLabel : ''));
+      return parts.join(' + ') + (r.note ? ' ' + r.note : '');
+    };
     var finish = function () {
       var p = plan(answers), rows = p.rows;
       var mo = rows.reduce(function (s, r) { return s + (r.mo || 0); }, 0);
       var once = rows.reduce(function (s, r) { return s + (r.once || 0); }, 0);
       var single = rows.length === 1;
+      var short = function (n) { return n.replace(' bundle', '').replace(/ \((Starter|Standard)\)/, '').replace(' (Facebook and Instagram)', '').replace(' and Google profile', '').replace(' and follow-ups', ''); };
       $('[data-r-eyebrow]', result).textContent = single ? 'We’d recommend' : 'Your custom plan';
-      var short = function (n) { return n.replace(' bundle', '').replace(/ \((Starter|Standard)\)/, '').replace(' and Google profile', '').replace(' and follow-ups', ''); };
       $('[data-r-name]', result).textContent = single ? rows[0].name : rows.length <= 3 ? rows.map(function (r) { return short(r.name); }).join(' + ') : short(rows[0].name) + ' + ' + (rows.length - 1) + ' more';
-      $('[data-r-why]', result).textContent = single ? rows[0].why : 'Based on everything you ticked, here’s what we’d put together for your business:';
+      $('[data-r-why]', result).textContent = single ? 'Here’s why it suits you, how it helps, and what you get:' : 'Based on everything you ticked, here’s what we’d put together for your business, and why:';
       $('[data-r-items]', result).innerHTML = rows.map(function (r) {
-        var price = (r.mo ? fmt(r.mo) + '/month' : '') + (r.mo && r.once ? ' + ' : '') + (r.once ? fmt(r.once) + ' one-off' : '') + (r.note ? ' ' + r.note : '');
-        return '<li><div><b>' + r.name + '</b><span>' + r.why + '</span></div><em>' + price + '</em></li>';
+        return '<li class="qz-item"><div class="qz-item__head"><b>' + esc(r.name) + '</b><em>' + esc(priceOf(r)) + '</em></div>' +
+          (r.why && r.why.length ? '<p class="qz-item__why"><span>Why you need it:</span> ' + esc(r.why.join(' ')) + '</p>' : '') +
+          '<p class="qz-item__how"><span>How it helps:</span> ' + esc(r.how) + '</p>' +
+          '<p class="qz-item__inc-h">What’s included:</p><ul class="checks checks--sm qz-item__inc">' + r.inc.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></li>';
       }).join('');
       var bandMax = { low: 500, mid: 1500, high: 3000, top: Infinity }[answers.budget] || Infinity;
-      var totalHtml = '';
-      if (rows.length > 1) totalHtml = '<p><b>Total:</b> ' + (mo ? fmt(mo) + '/month' : '') + (mo && once ? ' + ' : '') + (once ? fmt(once) + ' one-off' : '') + '</p>';
+      var totalHtml = '<p><b>' + (single ? 'Price:' : 'Total:') + '</b> ' + [once ? fmt(once) + ' to build' : '', mo ? fmt(mo) + '/month' : ''].filter(Boolean).join(' + ') + '</p>';
       if (p.bundles.length > 1) totalHtml += '<p class="qz-total__save">Two bundles? You get 10% off the second one.</p>';
-      totalHtml += '<p class="qz-total__fine">Setup fees and ad spend are extra where they apply. We’ll confirm exact pricing by text.</p>';
+      var hasWeb = rows.some(function (r) { return r.svc === 'websites' || r.plan === 'Foundation'; });
+      totalHtml += '<p class="qz-total__fine">Setup fees and ad spend are extra where they apply.' + (hasWeb ? ' Websites always include ongoing care at ' + fmt(num(P.webCare)) + '/month.' : '') + ' We’ll confirm exact pricing by text.</p>';
       if (mo > bandMax && rows.length > 1) {
         var first = rows.filter(function (r) { return r.mo; }).sort(function (x, y) { return x.mo - y.mo; })[0];
-        if (first) totalHtml += '<p class="qz-total__tip">That’s more than you said you’d spend each month, so start with <b>' + first.name + '</b> and add the rest as the work comes in.</p>';
+        if (first) totalHtml += '<p class="qz-total__tip">That’s more than you said you’d spend each month, so start with <b>' + esc(first.name) + '</b> and add the rest as the work comes in.</p>';
       }
       $('[data-r-total]', result).innerHTML = totalHtml;
       var alsoEl = $('[data-r-also]', result);
@@ -903,15 +972,17 @@
       if (planName) q.push('plan=' + encodeURIComponent(planName));
       if (svcs.length) q.push('services=' + svcs.join(','));
       $('[data-r-go]', result).setAttribute('href', 'book.html' + (q.length ? '?' + q.join('&') : ''));
-      $('[data-r-more]', result).setAttribute('href', single && !p.bundles.length ? 'services.html' : 'bundles.html');
+      $('[data-r-more]', result).setAttribute('href', p.bundles.length ? 'bundles.html' : 'services.html');
+      $('[data-r-more]', result).textContent = p.bundles.length ? 'Compare bundles' : 'See all services';
 
       var label = function (key) {
         var s = $('[data-step="' + key + '"]', qz), v = answers[key];
+        if (!s || !active(s)) return 'n/a';
         var names = [].concat(v || []).map(function (x) { var b = $$('.qz-opts button', s).filter(function (bt) { return bt.dataset.v === x; })[0]; return b ? ($('b', b) || b).textContent.trim() : x; });
         return names.join(', ') || 'none';
       };
       var planText = rows.map(function (r) { return r.name; }).join(' + ');
-      store.set('tb_quiz', { trade: answers.trade, rec: planText, summary: 'Quiz plan: ' + planText + '. Trade: ' + label('trade') + '. Problems: ' + label('problems') + '. Has: ' + label('have') + '. Wants: ' + label('jobs') + '. Budget: ' + label('budget') + '.' });
+      store.set('tb_quiz', { trade: answers.trade, rec: planText, summary: 'Quiz plan: ' + planText + '. Trade: ' + label('trade') + '. Problems: ' + label('problems') + '. Ads from: ' + label('adsWhere') + '. Has: ' + label('have') + '. Wants: ' + label('jobs') + '. Budget: ' + label('budget') + '.' });
 
       steps.forEach(function (s) { s.hidden = true; });
       bar.style.width = '100%';
@@ -945,7 +1016,7 @@
       var next = $('[data-qz-next]', s);
       if (next) next.addEventListener('click', function () { if (!next.disabled) advance(i); });
     });
-    back.addEventListener('click', function () { show(result.hidden ? Math.max(0, idx - 1) : steps.length - 1); });
+    back.addEventListener('click', goBack);
     $('[data-qz-restart]', qz).addEventListener('click', function () { answers = {}; show(0); });
     show(0);
   }

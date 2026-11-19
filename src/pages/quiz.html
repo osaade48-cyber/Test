@@ -1,6 +1,6 @@
 ---
 title: What do I need? 1-minute quiz | TradeBooked
-description: Not sure if you need a website, SEO, ads or an AI receptionist? Answer 5 quick questions and we'll build the right plan for your trade business.
+description: Not sure if you need a website, SEO, ads or an AI receptionist? Answer a few quick questions and we'll build the right plan for your trade business.
 cta: no
 ---
 <main id="main">
@@ -9,13 +9,13 @@ cta: no
       <div class="section-head section-head--center">
         <p class="eyebrow">1-minute quiz</p>
         <h1 class="h-xl">Not sure what you need? <span class="accent">We'll work it out.</span></h1>
-        <p class="lede">Five quick questions. Tick everything that applies and we'll build a plan that fixes all of it, with prices. No sign-up needed.</p>
+        <p class="lede">A few quick questions. Tick everything that applies and we'll build a plan that fixes all of it, with prices. No sign-up needed.</p>
       </div>
 
       <div class="qz-card" id="quiz" data-quiz>
         <div class="qz-top">
           <button class="qz-back" type="button" data-qz-back hidden>← Back</button>
-          <span class="qz-count" data-qz-count>Question 1 of 5</span>
+          <span class="qz-count" data-qz-count>Question 1</span>
         </div>
         <div class="qz-bar" aria-hidden="true"><span data-qz-bar></span></div>
 
@@ -47,6 +47,16 @@ cta: no
             <button type="button" data-v="reviews" aria-pressed="false"><b>Not enough Google reviews</b><small>Happy customers never leave one</small></button>
           </div>
           <button class="btn btn--primary qz-next" type="button" data-qz-next disabled>Next</button>
+        </div>
+
+        <div class="qz-step" data-step="adsWhere" data-if="leads" hidden>
+          <h2 class="qz-q">Where do you want new enquiries to come from?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="google"><b>Google search</b><small>People searching for a tradie right now. Great for urgent and everyday jobs.</small></button>
+            <button type="button" data-v="meta"><b>Facebook and Instagram</b><small>Show off your work to locals. Great for visual jobs like landscaping, renos and concreting.</small></button>
+            <button type="button" data-v="both"><b>Both</b><small>The most enquiries, from both places</small></button>
+            <button type="button" data-v="unsure"><b>Not sure, you pick</b><small>We'll choose what suits your trade and budget</small></button>
+          </div>
         </div>
 
         <div class="qz-step" data-step="have" data-multi data-optional hidden>
@@ -99,4 +109,4 @@ cta: no
     </div>
   </section>
 </main>
-<script type="application/json" id="qz-prices">{"growth":"{{site.boPrice}}","growthSetup":"{{site.boSetup}}","foundation":"{{site.bwPrice}}","visibility":"{{site.gfPrice}}","reception":"{{site.nmjPrice}}","website":"{{site.webSimple}}","seo":"{{site.seoPrice}}","gadsStarter":"{{site.gadsStarter}}","gads":"{{site.gadsPrice}}","rec":"{{site.recPrice}}","follow":"{{site.followPrice}}","reviews":"{{site.reviewsPrice}}","finder":"{{site.hsPrice}}","brand":"{{site.brandKit}}"}</script>
+<script type="application/json" id="qz-prices">{"growth":"{{site.boPrice}}","growthSetup":"{{site.boSetup}}","foundation":"{{site.bwPrice}}","visibility":"{{site.gfPrice}}","reception":"{{site.nmjPrice}}","website":"{{site.webSimple}}","seo":"{{site.seoPrice}}","gadsStarter":"{{site.gadsStarter}}","gads":"{{site.gadsPrice}}","rec":"{{site.recPrice}}","follow":"{{site.followPrice}}","reviews":"{{site.reviewsPrice}}","meta":"{{site.metaPrice}}","webCare":"{{site.webCare}}","finder":"{{site.hsPrice}}","brand":"{{site.brandKit}}"}</script>

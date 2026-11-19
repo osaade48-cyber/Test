@@ -944,7 +944,10 @@ main { position: relative; }
 .nav__col a { padding: 7px 0 !important; font-size: 14.5px !important; background: none !important; white-space: nowrap; }
 .nav__col a:hover { color: var(--orange-hot) !important; }
 @media (max-width: 1040px) {
-  .nav { max-height: calc(100vh - var(--header-h) - env(safe-area-inset-top, 0px)); overflow-y: auto; }
+  .nav { max-height: calc(100vh - var(--header-h) - env(safe-area-inset-top, 0px)); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+  /* Touch 'hover' on Services must not apply the desktop dropdown's centring transform */
+  .nav__drop:hover .nav__panel, .nav__drop:focus-within .nav__panel { transform: none; }
+  .nav__panel::before { display: none; }
   .nav__drop { display: grid; }
   .nav__droplink svg { display: none; }
   .nav__panel { position: static; transform: none; opacity: 1; visibility: inherit; display: grid; grid-template-columns: 1fr; gap: 10px; padding: 6px 0 12px 14px; background: none; border: 0; box-shadow: none; }
@@ -2174,19 +2177,29 @@ a.shot__view:focus-visible { outline: 3px solid var(--orange); outline-offset: 3
 .qz-next { margin-top: 18px; min-width: 160px; }
 .qz-next:disabled { opacity: .45; cursor: not-allowed; }
 .qz-items { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; }
-.qz-items li { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 16px; border-radius: 14px; background: var(--char); border: 1px solid var(--line); }
-.qz-items li div { display: grid; gap: 3px; }
-.qz-items li b { font-family: var(--display); font-size: 17px; }
-.qz-items li span { font-size: 14px; color: #CFCDCA; }
-.qz-items li em { font-style: normal; font-weight: 700; font-size: 14.5px; color: var(--orange-hot, var(--orange)); text-align: right; white-space: nowrap; }
+.qz-items > li { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 16px; border-radius: 14px; background: var(--char); border: 1px solid var(--line); }
+.qz-items > li > div { display: grid; gap: 3px; }
+.qz-items > li > div > b { font-family: var(--display); font-size: 17px; }
+.qz-items > li > div > span { font-size: 14px; color: #CFCDCA; }
+.qz-items > li > em { font-style: normal; font-weight: 700; font-size: 14.5px; color: var(--orange-hot, var(--orange)); text-align: right; white-space: nowrap; }
 .qz-total { display: grid; gap: 6px; }
 .qz-total p { margin: 0; }
 .qz-total p:first-child b { font-family: var(--display); }
 .qz-total__save { color: #6FE0A4; font-weight: 600; font-size: 15px; }
 .qz-total__fine { font-size: 13.5px; color: var(--muted); }
 .qz-total__tip { font-size: 15px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid var(--line); }
-@media (max-width: 560px) { .qz-items li { flex-direction: column; gap: 6px; } .qz-items li em { text-align: left; white-space: normal; } }
 /* Stop double-tap zoom and text selection swallowing quick taps on phones */
 a, button, .btn, summary, label, input[type="checkbox"], input[type="radio"] { touch-action: manipulation; }
 .qz-opts button, .chips span, .opt-card__box, .svc-pick span { -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; }
 .qz-card { scroll-margin-top: calc(var(--header-h, 64px) + 16px); }
+/* quiz result: detailed item cards */
+.qz-items { gap: 14px; }
+.qz-items > li.qz-item { display: grid; gap: 8px; padding: 18px; }
+.qz-item__head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+.qz-item__head b { font-family: var(--display); font-size: 19px; }
+.qz-item__head em { font-style: normal; font-weight: 700; font-size: 14.5px; color: var(--orange-hot, var(--orange)); text-align: right; }
+.qz-item p { margin: 0; font-size: 15px; color: #DAD8D5; }
+.qz-item p span { font-weight: 700; color: #fff; }
+.qz-item__inc-h { font-weight: 700; color: #fff !important; margin-top: 2px !important; }
+.qz-item__inc { margin: 0; }
+@media (max-width: 560px) { .qz-item__head { flex-direction: column; gap: 4px; } .qz-item__head em { text-align: left; } }
