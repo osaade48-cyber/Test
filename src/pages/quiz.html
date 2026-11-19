@@ -1,0 +1,102 @@
+---
+title: What do I need? 1-minute quiz | TradeBooked
+description: Not sure if you need a website, SEO, ads or an AI receptionist? Answer 6 quick questions and we'll recommend the right fit for your trade business.
+cta: no
+---
+<main id="main">
+  <section class="section section--dark" style="padding-top: clamp(40px, 7vw, 88px)">
+    <div class="container qz">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">1-minute quiz</p>
+        <h1 class="h-xl">Not sure what you need? <span class="accent">We'll work it out.</span></h1>
+        <p class="lede">Six quick taps. We'll recommend what fits your business and tell you why. No sign-up needed.</p>
+      </div>
+
+      <div class="qz-card" id="quiz" data-quiz>
+        <div class="qz-top">
+          <button class="qz-back" type="button" data-qz-back hidden>← Back</button>
+          <span class="qz-count" data-qz-count>Question 1 of 6</span>
+        </div>
+        <div class="qz-bar" aria-hidden="true"><span data-qz-bar></span></div>
+
+        <div class="qz-step" data-step="trade">
+          <h2 class="qz-q">What's your trade?</h2>
+          <div class="qz-opts">
+            <button type="button" data-v="Excavation">Excavation</button>
+            <button type="button" data-v="Plumbing">Plumbing</button>
+            <button type="button" data-v="Electrical">Electrical</button>
+            <button type="button" data-v="Building">Building</button>
+            <button type="button" data-v="Landscaping">Landscaping</button>
+            <button type="button" data-v="Concreting">Concreting</button>
+            <button type="button" data-v="Roofing">Roofing</button>
+            <button type="button" data-v="Painting">Painting</button>
+            <button type="button" data-v="Other">Something else</button>
+          </div>
+        </div>
+
+        <div class="qz-step" data-step="problem" hidden>
+          <h2 class="qz-q">What's your biggest headache right now?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="leads"><b>Not enough enquiries</b><small>The phone's too quiet</small></button>
+            <button type="button" data-v="missed"><b>Missing calls while I'm working</b><small>I can't pick up on the tools</small></button>
+            <button type="button" data-v="google"><b>People can't find me on Google</b><small>Competitors show up, I don't</small></button>
+            <button type="button" data-v="website"><b>No website, or it's embarrassing</b><small>I don't look as good as my work</small></button>
+            <button type="button" data-v="followup"><b>Leads go cold</b><small>No time to chase quotes or ask for reviews</small></button>
+          </div>
+        </div>
+
+        <div class="qz-step" data-step="site" hidden>
+          <h2 class="qz-q">Do you have a website?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="good"><b>Yes, and I'm happy with it</b></button>
+            <button type="button" data-v="old"><b>Yes, but it's old or doesn't bring work</b></button>
+            <button type="button" data-v="none"><b>No website</b></button>
+          </div>
+        </div>
+
+        <div class="qz-step" data-step="brand" hidden>
+          <h2 class="qz-q">Do you have a logo and branding you're proud of?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="yes"><b>Yes</b><small>Logo, colours, ute signage sorted</small></button>
+            <button type="button" data-v="some"><b>Sort of</b><small>A logo, but it could be better</small></button>
+            <button type="button" data-v="no"><b>No</b><small>Nothing yet</small></button>
+          </div>
+        </div>
+
+        <div class="qz-step" data-step="jobs" hidden>
+          <h2 class="qz-q">How much more work do you want?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="few"><b>A few more jobs a month</b></button>
+            <button type="button" data-v="more"><b>5 to 10 more jobs a month</b></button>
+            <button type="button" data-v="max"><b>As many as I can handle</b><small>I'm ready to grow</small></button>
+          </div>
+        </div>
+
+        <div class="qz-step" data-step="budget" hidden>
+          <h2 class="qz-q">Roughly what could you put towards marketing each month?</h2>
+          <div class="qz-opts qz-opts--list">
+            <button type="button" data-v="low"><b>Under $500</b></button>
+            <button type="button" data-v="mid"><b>$500 to $1,500</b></button>
+            <button type="button" data-v="high"><b>$1,500 to $3,000</b></button>
+            <button type="button" data-v="top"><b>$3,000+</b></button>
+          </div>
+        </div>
+
+        <div class="qz-result" data-qz-result hidden tabindex="-1">
+          <p class="eyebrow">We'd recommend</p>
+          <h2 class="qz-r-name" data-r-name></h2>
+          <p class="qz-r-price" data-r-price></p>
+          <p class="qz-r-why" data-r-why></p>
+          <ul class="checks checks--sm" data-r-inc></ul>
+          <p class="qz-r-also" data-r-also hidden></p>
+          <div class="btn-row">
+            <a class="btn btn--primary btn--lg" href="book.html" data-r-go>Get started by text</a>
+            <a class="btn btn--ghost" href="services.html" data-r-more>See how it works</a>
+          </div>
+          <p class="qz-r-fine">No obligation. We'll text you to check it's the right fit before anything is set up. <button type="button" class="qz-restart" data-qz-restart>Start the quiz again</button></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="application/json" id="qz-prices">{"growth":"{{site.boPrice}}","foundation":"{{site.bwPrice}}","visibility":"{{site.gfPrice}}","reception":"{{site.nmjPrice}}","website":"{{site.webSimple}}","seo":"{{site.seoPrice}}","gadsStarter":"{{site.gadsStarter}}","gads":"{{site.gadsPrice}}","rec":"{{site.recPrice}}","follow":"{{site.followPrice}}","reviews":"{{site.reviewsPrice}}","finder":"{{site.hsPrice}}","brand":"{{site.brandKit}}"}</script>

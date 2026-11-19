@@ -2120,3 +2120,47 @@ a.shot__view:focus-visible { outline: 3px solid var(--orange); outline-offset: 3
 .shot__visit { font-weight: 700; font-size: 14px; color: var(--orange); text-decoration: none; white-space: nowrap; }
 .shot__visit:hover { text-decoration: underline; }
 @media (max-width: 860px) { .gallery--4 { grid-template-columns: 1fr; } .gallery--4 .shot__view { height: 340px; } }
+
+/* ---------- "What do I need?" quiz ---------- */
+.qz { max-width: 760px; }
+.qz-card { margin-top: 8px; padding: clamp(22px, 4vw, 40px); border-radius: 24px; background: var(--char-2); border: 1px solid var(--line); }
+.qz-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 28px; }
+.qz-count { margin-left: auto; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.qz-back { background: none; border: 0; padding: 4px 0; color: var(--muted); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+.qz-back:hover { color: #fff; }
+.qz-back[hidden], .qz-count[hidden] { display: none; }
+.qz-bar { height: 6px; margin: 12px 0 26px; border-radius: 99px; background: var(--char); overflow: hidden; }
+.qz-bar span { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--orange); transition: width .35s ease; }
+.qz-q { font-family: var(--display); font-size: clamp(22px, 3vw, 30px); line-height: 1.2; margin: 0 0 20px; }
+.qz-opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.qz-opts button { font: inherit; font-size: 16px; font-weight: 600; color: #fff; background: var(--char); border: 1.5px solid var(--line); border-radius: 999px; padding: 12px 20px; min-height: 48px; cursor: pointer; transition: border-color .2s, background-color .2s, transform .15s; }
+.qz-opts button:hover { border-color: var(--orange); }
+.qz-opts button:active { transform: scale(.98); }
+.qz-opts button.is-picked { background: var(--orange); border-color: var(--orange); }
+.qz-opts button:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.qz-opts--list { display: grid; gap: 10px; }
+.qz-opts--list button { display: grid; gap: 2px; text-align: left; border-radius: 16px; padding: 16px 20px; }
+.qz-opts--list button b { font-size: 17px; }
+.qz-opts--list button small { font-weight: 400; font-size: 14px; color: #CFCDCA; }
+.qz-opts--list button.is-picked small { color: #fff; }
+.qz-step[hidden], .qz-result[hidden] { display: none; }
+.qz-step { animation: qzIn .3s ease both; }
+@keyframes qzIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .qz-step { animation: none; } }
+.qz-result { display: grid; gap: 14px; animation: qzIn .35s ease both; }
+.qz-result:focus { outline: none; }
+.qz-result .eyebrow { margin: 0; }
+.qz-r-name { font-family: var(--display); font-size: clamp(30px, 4.4vw, 44px); line-height: 1.05; margin: 0; }
+.qz-r-price { margin: 0; font-weight: 700; font-size: 18px; color: var(--orange-hot, var(--orange)); }
+.qz-r-why { margin: 0; font-size: 17px; color: #E6E4E1; }
+.qz-r-also { margin: 0; padding: 12px 16px; border-radius: 12px; background: rgba(242,106,27,.1); border: 1px solid rgba(242,106,27,.3); font-size: 15px; }
+.qz-r-also[hidden] { display: none; }
+.qz-result .btn-row { margin-top: 6px; }
+.qz-r-fine { margin: 0; font-size: 14px; color: var(--muted); }
+.qz-restart { background: none; border: 0; padding: 0; font: inherit; color: var(--orange); text-decoration: underline; cursor: pointer; }
+.book-quiz { margin: 14px 0 0; font-size: 16px; }
+.book-quiz a, .cta-strip__quiz { font-weight: 700; color: var(--orange); }
+.quiz-note { margin: 0; padding: 12px 16px; border-radius: 12px; background: rgba(242,106,27,.1); border: 1px solid rgba(242,106,27,.35); font-size: 15px; }
+.quiz-note[hidden] { display: none; }
+.cta-strip__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.cta-strip__quiz { color: inherit; text-decoration: underline; text-underline-offset: 3px; font-size: 15px; }

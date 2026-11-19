@@ -1,15 +1,16 @@
 ---
-title: Book a call | TradeBooked
-description: Book a free 15-minute chat about getting more jobs for your trade business. No hard sell.
+title: Get started | TradeBooked
+description: Leave your mobile and we'll text you. Ask anything, find out what fits your trade business, and decide from there. No hard sell, no long calls.
 cta: no
 ---
 <main id="main">
   <section class="section section--dark" style="padding-top: clamp(40px, 7vw, 88px)">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Book a call</p>
-        <h1 class="h-xl">15 minutes. <span class="accent">No hard sell.</span></h1>
-        <p class="lede">Tell me a bit about your business and when suits. I'll give you a call, show you how it would work for you, and you can decide from there.</p>
+        <p class="eyebrow">Get started</p>
+        <h1 class="h-xl">Let's chat by text. <span class="accent">No hard sell.</span></h1>
+        <p class="lede">Leave your mobile and we'll text you. Ask anything, we'll work out what fits your business, and you decide from there. No long calls.</p>
+        <p class="book-quiz">Not sure what you need? <a href="quiz.html">Take the 1-minute quiz →</a></p>
       </div>
 
       <div class="book">
@@ -19,6 +20,8 @@ cta: no
             <span>You worked out missed calls could be costing you <b>$0</b> a year. I'll bring that to our chat.</span>
           </div>
           <input type="hidden" name="calculator_estimate" value="">
+          <input type="hidden" name="quiz_summary" value="">
+          <p class="quiz-note" data-quiz-note hidden>From your quiz, we'd suggest <b>your quiz answers</b>. We'll check it's the right fit when we text you.</p>
           
 
           <div class="form__row">
@@ -90,13 +93,11 @@ cta: no
               <p class="field__error" aria-live="polite"></p>
             </div>
             <div class="field">
-              <label for="f-time">Best time to call</label>
-              <select id="f-time" name="time">
-                <option>Early morning (6–8am)</option>
-                <option>Smoko (9–11am)</option>
-                <option>Lunch (12–1pm)</option>
-                <option selected>Arvo (3–5pm)</option>
-                <option>Evening (5–7pm)</option>
+              <label for="f-pref">How should we reach you?</label>
+              <select id="f-pref" name="contact_pref">
+                <option selected>Text me</option>
+                <option>Call me</option>
+                <option>Either is fine</option>
               </select>
             </div>
           </div>
@@ -108,10 +109,10 @@ cta: no
 
           <div class="field">
             <label for="f-msg">Anything else? <span class="opt">(optional)</span></label>
-            <textarea id="f-msg" name="message" placeholder="e.g. I miss heaps of calls when I'm on site"></textarea>
+            <textarea id="f-msg" name="message" placeholder="e.g. I miss heaps of calls when I'm on site, or what's the difference between SEO and Google Ads?"></textarea>
           </div>
 
-          <button class="btn btn--primary btn--lg" type="submit">Book my call</button>
+          <button class="btn btn--primary btn--lg" type="submit">Text me</button>
           <p class="form__status" aria-live="polite"></p>
           <p class="form__fine">I'll only use your details to get in touch about TradeBooked. <a href="privacy.html">Privacy policy</a>.</p>
         </form>
@@ -120,9 +121,9 @@ cta: no
           <div>
             <p class="calc__label" style="margin-bottom:16px">What happens next</p>
             <ol class="nexts">
-              <li><div><b>I give you a call</b><span>At the time you picked. 15 minutes, tops.</span></div></li>
-              <li><div><b>We set it up for your business</b><span>Your services, your area, your calendar.</span></div></li>
-              <li><div><b>You stop missing jobs</b><span>Usually live within <span class="ph">X days</span>.</span></div></li>
+              <li><div><b>We text you</b><span>Usually within the hour, Mon to Sat.</span></div></li>
+              <li><div><b>We work out what you need</b><span>Ask anything. We'll recommend what fits, with prices.</span></div></li>
+              <li><div><b>You decide</b><span>No pressure. If it's a yes, we set everything up for you.</span></div></li>
             </ol>
           </div>
           <div class="side-card">

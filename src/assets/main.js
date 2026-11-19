@@ -350,7 +350,7 @@
         if (!name) { botSay('Sorry, what was your first name?'); return; }
         flow.name = name.charAt(0).toUpperCase() + name.slice(1);
         flow.step = 'phone';
-        botSay('Nice to meet you, ' + flow.name + '. What’s the best number to call you on?');
+        botSay('Nice to meet you, ' + flow.name + '. What’s your mobile? We’ll text you.');
       } else if (flow.step === 'phone') {
         if (text.replace(/\D/g, '').length < 8) { botSay('That number looks a bit short. Can you check it for me?'); return; }
         flow.phone = text.trim();
@@ -362,7 +362,7 @@
         flow = null;
         sendLead(lead);
         var q = KB.plans.indexOf(lead.plan) > -1 && lead.plan !== 'Not sure yet' ? lead.plan : 'Not sure';
-        botSay('Legend, ' + lead.name + '. We’ll call you on ' + lead.phone.replace(/</g, '') + ' within one business day. Want to lock in a time now? <a href="book.html?plan=' + encodeURIComponent(q) + '">Pick a time</a>', ['What do you offer?', 'How much does it cost?']);
+        botSay('Legend, ' + lead.name + '. We’ll text you on ' + lead.phone.replace(/</g, '') + ' shortly, usually within the hour (Mon to Sat). Not sure what you need? <a href="quiz.html">Take the 1-minute quiz</a>', ['What do you offer?', 'How much does it cost?']);
       }
     };
     var send = function (text) {
@@ -373,7 +373,7 @@
       var it = KB.intents.filter(function (x) { return x.id === KB.chipMap[text]; })[0] || match(text);
       if (!it) { botSay(KB.fallback, KB.fallbackChips); return; }
       if (it.flow === 'lead') {
-        if (saved.lead) { botSay('You’re already on the list, ' + saved.lead.name + '. We’ll call you on ' + saved.lead.phone.replace(/</g, '') + ' soon. Anything else I can help with?', ['What do you offer?', 'How much does it cost?']); return; }
+        if (saved.lead) { botSay('You’re already on the list, ' + saved.lead.name + '. We’ll text you on ' + saved.lead.phone.replace(/</g, '') + ' soon. Anything else I can help with?', ['What do you offer?', 'How much does it cost?']); return; }
         flow = { step: 'name' };
         botSay(it.answer + ' What’s your first name?');
         return;
@@ -554,6 +554,17 @@
         $('b', carry).textContent = aud(saved.year);
         $('[name="calculator_estimate"]', form).value = aud(saved.year) + ' a year (' + saved.calls + ' missed calls/wk, ' + saved.rate + ' in 10 book, ' + aud(saved.job) + ' job)';
       }
+      // Answers from the "What do I need?" quiz travel with the enquiry
+      var quiz = store.get('tb_quiz');
+      var qField = $('[name="quiz_summary"]', form);
+      if (quiz && qField) {
+        qField.value = quiz.summary || '';
+        var t = $$('[name="trade"]', form).filter(function (r) { return r.value === quiz.trade; })[0]
+          || $('[name="trade"][value="Other"]', form);
+        if (t) t.checked = true;
+        var note = $('[data-quiz-note]', form);
+        if (note) { note.hidden = false; $('b', note).textContent = quiz.rec || 'your quiz answers'; }
+      }
     };
     fillCarry();
     window.TB_fillCarry = fillCarry;
@@ -603,7 +614,7 @@
         picker.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
         ok = false;
       }
-      [['name', 'Pop your name in so I know who to ask for.'], ['business', 'What’s the business called?'], ['phone', 'I need a number to call you on.']].forEach(function (pair) {
+      [['name', 'Pop your name in so I know who to ask for.'], ['business', 'What’s the business called?'], ['phone', 'I need your mobile so we can text you.']].forEach(function (pair) {
         var f = form.elements[pair[0]];
         var bad = !f.value.trim() || (pair[0] === 'phone' && f.value.replace(/\D/g, '').length < 8);
         setError(f, bad ? (pair[0] === 'phone' && f.value.trim() ? 'That number looks a bit short. Check it and try again.' : pair[1]) : '');
@@ -615,7 +626,8 @@
       var status = $('.form__status', form);
       var endpoint = form.dataset.endpoint;
       var done = function () {
-        store.set('tb_lead', { name: form.elements.name.value.trim().split(' ')[0], time: form.elements.time.value });
+        var pref = form.elements.contact_pref ? form.elements.contact_pref.value : 'Text me';
+        store.set('tb_lead', { name: form.elements.name.value.trim().split(' ')[0], pref: pref });
         if (window.TB_go) window.TB_go('thanks.html'); else location.href = 'thanks.html';
       };
       if (!endpoint) { done(); return; }
@@ -625,7 +637,7 @@
         .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
         .catch(function () {
           btn.disabled = false;
-          btn.textContent = 'Book my call';
+          btn.textContent = 'Text me';
           status.textContent = 'That didn’t send. Check your connection and try again, or email ' + form.dataset.email + '.';
         });
     });
@@ -772,13 +784,119 @@
     });
   }
 
+  /* ---------- "What do I need?" quiz ---------- */
+  function initQuiz() {
+    var qz = $('[data-quiz]');
+    if (!qz || qz._ready) return;
+    qz._ready = true;
+    var P = {};
+    try { P = JSON.parse(($('#qz-prices') || {}).textContent || '{}'); } catch (e) { P = {}; }
+    var steps = $$('.qz-step', qz), answers = {}, idx = 0;
+    var bar = $('[data-qz-bar]', qz), count = $('[data-qz-count]', qz), back = $('[data-qz-back]', qz), result = $('[data-qz-result]', qz);
+    var show = function (i) {
+      idx = i;
+      steps.forEach(function (s, k) { s.hidden = k !== i; });
+      result.hidden = true;
+      bar.style.width = (i / steps.length * 100) + '%';
+      count.textContent = 'Question ' + (i + 1) + ' of ' + steps.length;
+      count.hidden = false;
+      back.hidden = i === 0;
+      $$('button', steps[i]).forEach(function (b) { b.classList.toggle('is-picked', answers[steps[i].dataset.step] === b.dataset.v); });
+    };
+    var money = function (v) { return '$' + v; };
+    var REC = {
+      growth: { name: 'Growth bundle', price: function () { return 'From ' + money(P.growth) + '/month + ad spend'; }, href: 'bundles.html#growth', go: 'book.html?plan=Growth',
+        inc: ['Meta and Google ads that bring in enquiries', 'AI lead caller rings new leads within a minute', 'AI receptionist answers every call', 'CRM with quote follow-ups and review requests'] },
+      foundation: { name: 'Foundation bundle', price: function () { return 'From ' + money(P.foundation) + ' one-off'; }, href: 'bundles.html#foundation', go: 'book.html?plan=Foundation',
+        inc: ['Logo and brand kit (ute and uniforms too)', 'A website built to win you work', 'AI chatbot on your site, answering 24/7'] },
+      website: { name: 'A new website', price: function () { return 'From ' + money(P.website) + ' one-off'; }, href: 'websites.html', go: 'book.html?service=websites',
+        inc: ['Mobile-first and fast', 'Quote form and click-to-call', 'Photo gallery of your work and reviews', 'Set up for Google from day one'] },
+      reception: { name: 'Reception bundle', price: function () { return 'From ' + money(P.reception) + '/month'; }, href: 'bundles.html#reception', go: 'book.html?plan=Reception',
+        inc: ['AI receptionist answers and books calls 24/7', 'AI chatbot answers website visitors', 'Automatic quote follow-ups and review requests'] },
+      receptionist: { name: 'AI receptionist', price: function () { return 'From ' + money(P.rec) + '/month'; }, href: 'ai-receptionist.html', go: 'book.html?service=ai-receptionist',
+        inc: ['Answers every call you miss', 'Books jobs into your calendar', 'Texts you the details straight away'] },
+      crm: { name: 'CRM and follow-ups', price: function () { return 'From ' + money(P.follow) + '/month'; }, href: 'crm.html', go: 'book.html?service=crm',
+        inc: ['Automatic quote follow-ups', 'Review requests after every job', 'Every lead tracked in one place'] },
+      visibility: { name: 'Visibility bundle', price: function () { return 'From ' + money(P.visibility) + '/month'; }, href: 'bundles.html#visibility', go: 'book.html?plan=Visibility',
+        inc: ['Google profile set up and managed', 'Service and suburb pages that rank', 'Automatic review requests', 'Website care and updates'] },
+      seo: { name: 'SEO and Google profile', price: function () { return 'From ' + money(P.seo) + '/month'; }, href: 'seo.html', go: 'book.html?service=seo',
+        inc: ['Google profile set up and managed', 'Service and suburb pages', 'Directory listings', 'Monthly report on calls from Google'] },
+      gadsStarter: { name: 'Google Ads (Starter)', price: function () { return money(P.gadsStarter) + '/month + ad spend'; }, href: 'google-ads.html', go: 'book.html?service=google-ads',
+        inc: ['At the top of Google when locals search for your trade', 'Keywords and ads written for you', 'Wasted clicks filtered out', 'Call and quote tracking'] },
+      gads: { name: 'Google Ads (Standard)', price: function () { return money(P.gads) + '/month + ad spend'; }, href: 'google-ads.html', go: 'book.html?service=google-ads',
+        inc: ['At the top of Google when locals search for your trade', 'More campaigns and suburbs covered', 'Ongoing testing to lower your cost per lead', 'Weekly checks on search terms'] },
+      finder: { name: 'AI job finder', price: function () { return 'From ' + money(P.finder) + '/month'; }, href: 'ai-job-finder.html', go: 'book.html?service=ai-job-finder',
+        inc: ['Finds approved new builds and renos near you', 'Gets your name in front of owners first', 'Low cost way to find new work'] }
+    };
+    var pick = function (a) {
+      var trade = a.trade && a.trade !== 'Other' ? a.trade.toLowerCase() : 'trade';
+      if (a.problem === 'website' || a.site === 'none') {
+        if (a.brand !== 'yes' && a.budget !== 'low') return { k: 'foundation', why: 'You need to look as good as your work. A proper brand and website makes every other bit of marketing work harder, and it’s a one-off cost.' };
+        return { k: 'website', why: 'Your branding is sorted, so a website that shows off your ' + trade + ' work and makes it easy to call or ask for a quote is the next step.' };
+      }
+      if (a.problem === 'missed' || a.problem === 'followup') {
+        if (a.budget === 'low') return a.problem === 'missed'
+          ? { k: 'receptionist', why: 'Every missed call is a job going to someone else. An AI receptionist answers while you’re on the tools, for less than one job a month.' }
+          : { k: 'crm', why: 'You’re already getting leads. Automatic follow-ups and review requests turn more of them into jobs without you lifting a finger.' };
+        return { k: 'reception', why: 'You’ve got the enquiries, you’re just losing them. Reception answers every call and message and follows up quotes automatically, so nothing slips through.' };
+      }
+      if (a.problem === 'google') {
+        if (a.budget === 'low') return { k: 'seo', why: 'Locals search Google for a ' + trade + ' first. Getting your Google profile and website ranking brings in free enquiries month after month.', also: 'Tight budget? Start with review requests from $' + P.reviews + '/month. More reviews help you climb Google too.' };
+        return { k: 'visibility', why: 'Locals search Google for a ' + trade + ' first. Visibility gets you ranking with your Google profile, suburb pages and a steady flow of new reviews.' };
+      }
+      if (a.budget === 'top') return { k: 'growth', why: 'You want as much work as you can handle and you’re ready to invest. Growth brings in leads from Google and Facebook, then makes sure every one is answered, called back and followed up.' };
+      if (a.budget === 'high') return { k: 'gads', why: 'People searching Google for a ' + trade + ' right now are ready to book. Ads put you at the top of those searches from day one.' };
+      if (a.budget === 'mid') return { k: 'gadsStarter', why: 'People searching Google for a ' + trade + ' right now are ready to book. Starter gets you at the top of those searches on a smaller budget.' };
+      return { k: 'finder', why: 'On a tight budget, the AI job finder spots approved jobs near you so you can get in first, without paying for ads.', also: 'Want leads coming to you over time? SEO builds free enquiries from Google.' };
+    };
+    var finish = function () {
+      var r = pick(answers), rec = REC[r.k];
+      $('[data-r-name]', result).textContent = rec.name;
+      $('[data-r-price]', result).textContent = rec.price();
+      $('[data-r-why]', result).textContent = r.why;
+      $('[data-r-inc]', result).innerHTML = rec.inc.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+      var also = r.also || '';
+      if (!also && answers.site === 'old' && r.k !== 'website' && r.k !== 'foundation') also = 'Your website might be holding you back too. A new one starts from $' + P.website + '.';
+      else if (!also && answers.brand === 'no' && r.k !== 'foundation') also = 'No logo yet? A brand kit from $' + P.brand + ' makes you look established.';
+      var alsoEl = $('[data-r-also]', result);
+      alsoEl.textContent = also; alsoEl.hidden = !also;
+      $('[data-r-go]', result).setAttribute('href', rec.go);
+      $('[data-r-more]', result).setAttribute('href', rec.href);
+      var labels = {};
+      steps.forEach(function (s) { var b = $('button.is-picked', s) || $$('button', s).filter(function (x) { return x.dataset.v === answers[s.dataset.step]; })[0]; labels[s.dataset.step] = b ? ($('b', b) || b).textContent.trim() : ''; });
+      store.set('tb_quiz', { trade: answers.trade, rec: rec.name, summary: 'Quiz: ' + rec.name + ' recommended. Trade: ' + labels.trade + '. Problem: ' + labels.problem + '. Website: ' + labels.site + '. Branding: ' + labels.brand + '. Wants: ' + labels.jobs + '. Budget: ' + labels.budget + '.' });
+      steps.forEach(function (s) { s.hidden = true; });
+      bar.style.width = '100%';
+      count.hidden = true;
+      back.hidden = false;
+      result.hidden = false;
+      result.focus({ preventScroll: true });
+      qz.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    };
+    steps.forEach(function (s, i) {
+      $$('button', s).forEach(function (b) {
+        b.addEventListener('click', function () {
+          answers[s.dataset.step] = b.dataset.v;
+          $$('button', s).forEach(function (x) { x.classList.toggle('is-picked', x === b); });
+          setTimeout(function () { if (i < steps.length - 1) show(i + 1); else finish(); }, reduceMotion ? 0 : 160);
+        });
+      });
+    });
+    back.addEventListener('click', function () { show(result.hidden ? Math.max(0, idx - 1) : steps.length - 1); });
+    $('[data-qz-restart]', qz).addEventListener('click', function () { answers = {}; show(0); });
+    show(0);
+  }
+  initQuiz();
+  window.TB_initQuiz = initQuiz;
+
   /* ---------- Thanks page ---------- */
   function fillThanks() {
     var thanks = $('[data-thanks]');
     if (!thanks) return;
     var lead = store.get('tb_lead');
     if (lead && lead.name) $('[data-thanks-name]').textContent = lead.name;
-    if (lead && lead.time) $('[data-thanks-time]').textContent = lead.time.toLowerCase();
+    var how = $('[data-thanks-how]');
+    if (how && lead && lead.pref === 'Call me') how.textContent = 'give you a call';
     var unconnected = $('[data-unconnected]');
     if (unconnected && !thanks.dataset.endpoint) unconnected.hidden = false;
   }
