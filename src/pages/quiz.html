@@ -1,6 +1,6 @@
 ---
 title: What do I need? 1-minute quiz | TradeBooked
-description: Not sure if you need a website, SEO, ads or an AI receptionist? Answer 6 quick questions and we'll recommend the right fit for your trade business.
+description: Not sure if you need a website, SEO, ads or an AI receptionist? Answer 5 quick questions and we'll build the right plan for your trade business.
 cta: no
 ---
 <main id="main">
@@ -9,13 +9,13 @@ cta: no
       <div class="section-head section-head--center">
         <p class="eyebrow">1-minute quiz</p>
         <h1 class="h-xl">Not sure what you need? <span class="accent">We'll work it out.</span></h1>
-        <p class="lede">Six quick taps. We'll recommend what fits your business and tell you why. No sign-up needed.</p>
+        <p class="lede">Five quick questions. Tick everything that applies and we'll build a plan that fixes all of it, with prices. No sign-up needed.</p>
       </div>
 
       <div class="qz-card" id="quiz" data-quiz>
         <div class="qz-top">
           <button class="qz-back" type="button" data-qz-back hidden>← Back</button>
-          <span class="qz-count" data-qz-count>Question 1 of 6</span>
+          <span class="qz-count" data-qz-count>Question 1 of 5</span>
         </div>
         <div class="qz-bar" aria-hidden="true"><span data-qz-bar></span></div>
 
@@ -34,33 +34,33 @@ cta: no
           </div>
         </div>
 
-        <div class="qz-step" data-step="problem" hidden>
-          <h2 class="qz-q">What's your biggest headache right now?</h2>
+        <div class="qz-step" data-step="problems" data-multi hidden>
+          <h2 class="qz-q">What's holding you back?</h2>
+          <p class="qz-hint">Tick all that apply.</p>
           <div class="qz-opts qz-opts--list">
-            <button type="button" data-v="leads"><b>Not enough enquiries</b><small>The phone's too quiet</small></button>
-            <button type="button" data-v="missed"><b>Missing calls while I'm working</b><small>I can't pick up on the tools</small></button>
-            <button type="button" data-v="google"><b>People can't find me on Google</b><small>Competitors show up, I don't</small></button>
-            <button type="button" data-v="website"><b>No website, or it's embarrassing</b><small>I don't look as good as my work</small></button>
-            <button type="button" data-v="followup"><b>Leads go cold</b><small>No time to chase quotes or ask for reviews</small></button>
+            <button type="button" data-v="leads" aria-pressed="false"><b>Not enough enquiries</b><small>The phone's too quiet</small></button>
+            <button type="button" data-v="missed" aria-pressed="false"><b>Missing calls while I'm working</b><small>I can't pick up on the tools</small></button>
+            <button type="button" data-v="google" aria-pressed="false"><b>People can't find me on Google</b><small>Competitors show up, I don't</small></button>
+            <button type="button" data-v="website" aria-pressed="false"><b>No website, or it's embarrassing</b><small>I don't look as good as my work</small></button>
+            <button type="button" data-v="look" aria-pressed="false"><b>My business doesn't look professional</b><small>No proper logo, ute signage or uniforms</small></button>
+            <button type="button" data-v="followup" aria-pressed="false"><b>Quotes go cold</b><small>No time to chase people up</small></button>
+            <button type="button" data-v="reviews" aria-pressed="false"><b>Not enough Google reviews</b><small>Happy customers never leave one</small></button>
           </div>
+          <button class="btn btn--primary qz-next" type="button" data-qz-next disabled>Next</button>
         </div>
 
-        <div class="qz-step" data-step="site" hidden>
-          <h2 class="qz-q">Do you have a website?</h2>
+        <div class="qz-step" data-step="have" data-multi data-optional hidden>
+          <h2 class="qz-q">What have you already got?</h2>
+          <p class="qz-hint">Tick all that apply, or none.</p>
           <div class="qz-opts qz-opts--list">
-            <button type="button" data-v="good"><b>Yes, and I'm happy with it</b></button>
-            <button type="button" data-v="old"><b>Yes, but it's old or doesn't bring work</b></button>
-            <button type="button" data-v="none"><b>No website</b></button>
+            <button type="button" data-v="site-good" aria-pressed="false"><b>A website I'm happy with</b></button>
+            <button type="button" data-v="site-old" aria-pressed="false"><b>A website, but it's old or brings no work</b></button>
+            <button type="button" data-v="logo" aria-pressed="false"><b>A logo and branding I like</b></button>
+            <button type="button" data-v="gbp" aria-pressed="false"><b>A Google Business Profile</b><small>Your listing on Google Maps</small></button>
+            <button type="button" data-v="reviews" aria-pressed="false"><b>10+ Google reviews</b></button>
+            <button type="button" data-v="software" aria-pressed="false"><b>Job software</b><small>ServiceM8, Tradify, simPRO or similar</small></button>
           </div>
-        </div>
-
-        <div class="qz-step" data-step="brand" hidden>
-          <h2 class="qz-q">Do you have a logo and branding you're proud of?</h2>
-          <div class="qz-opts qz-opts--list">
-            <button type="button" data-v="yes"><b>Yes</b><small>Logo, colours, ute signage sorted</small></button>
-            <button type="button" data-v="some"><b>Sort of</b><small>A logo, but it could be better</small></button>
-            <button type="button" data-v="no"><b>No</b><small>Nothing yet</small></button>
-          </div>
+          <button class="btn btn--primary qz-next" type="button" data-qz-next>Next</button>
         </div>
 
         <div class="qz-step" data-step="jobs" hidden>
@@ -83,20 +83,20 @@ cta: no
         </div>
 
         <div class="qz-result" data-qz-result hidden tabindex="-1">
-          <p class="eyebrow">We'd recommend</p>
+          <p class="eyebrow" data-r-eyebrow>Your plan</p>
           <h2 class="qz-r-name" data-r-name></h2>
-          <p class="qz-r-price" data-r-price></p>
           <p class="qz-r-why" data-r-why></p>
-          <ul class="checks checks--sm" data-r-inc></ul>
+          <ul class="qz-items" data-r-items></ul>
+          <div class="qz-total" data-r-total></div>
           <p class="qz-r-also" data-r-also hidden></p>
           <div class="btn-row">
             <a class="btn btn--primary btn--lg" href="book.html" data-r-go>Get started by text</a>
-            <a class="btn btn--ghost" href="services.html" data-r-more>See how it works</a>
+            <a class="btn btn--ghost" href="bundles.html" data-r-more>Compare bundles</a>
           </div>
-          <p class="qz-r-fine">No obligation. We'll text you to check it's the right fit before anything is set up. <button type="button" class="qz-restart" data-qz-restart>Start the quiz again</button></p>
+          <p class="qz-r-fine">No obligation. We'll text you to check it's the right fit and can tweak anything before it's set up. <button type="button" class="qz-restart" data-qz-restart>Start the quiz again</button></p>
         </div>
       </div>
     </div>
   </section>
 </main>
-<script type="application/json" id="qz-prices">{"growth":"{{site.boPrice}}","foundation":"{{site.bwPrice}}","visibility":"{{site.gfPrice}}","reception":"{{site.nmjPrice}}","website":"{{site.webSimple}}","seo":"{{site.seoPrice}}","gadsStarter":"{{site.gadsStarter}}","gads":"{{site.gadsPrice}}","rec":"{{site.recPrice}}","follow":"{{site.followPrice}}","reviews":"{{site.reviewsPrice}}","finder":"{{site.hsPrice}}","brand":"{{site.brandKit}}"}</script>
+<script type="application/json" id="qz-prices">{"growth":"{{site.boPrice}}","growthSetup":"{{site.boSetup}}","foundation":"{{site.bwPrice}}","visibility":"{{site.gfPrice}}","reception":"{{site.nmjPrice}}","website":"{{site.webSimple}}","seo":"{{site.seoPrice}}","gadsStarter":"{{site.gadsStarter}}","gads":"{{site.gadsPrice}}","rec":"{{site.recPrice}}","follow":"{{site.followPrice}}","reviews":"{{site.reviewsPrice}}","finder":"{{site.hsPrice}}","brand":"{{site.brandKit}}"}</script>
