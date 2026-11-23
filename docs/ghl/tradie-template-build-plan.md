@@ -278,6 +278,9 @@ Use your own mobile as a test contact in **Tradie Template**:
 ## Per-client setup checklist (after the snapshot)
 - [ ] Create sub-account from the latest snapshot (`TradeBooked Tradie Setup v2`), time zone Australia/Sydney
 - [ ] Add the owner (and you) as users; reassign the **Free site visit** calendar to the client's user
+- [ ] **Activate the Free site visit calendar** (snapshots bring calendars across as Inactive, so the booking link shows "Page Not Found") and re-set its hours to Mon–Sat 7am–4pm (they reset to weekdays 8–5)
+- [ ] Custom values come across **blank** from the snapshot: fill in every one
+- [ ] Check Workflow 3's calendar filter, the chatbot's booking calendar and Workflow 1's form trigger all point to **this account's** calendar and form, not the template's
 - [ ] Fill in every Custom Value (name, owner, **owner mobile**, phone, email, website, review link, area, trade, hours, **booking mode**)
 - [ ] **Booking Link:** copy the client's own "Free site visit" calendar link into the Booking Link custom value (each account gets a new link)
 - [ ] Check Business Profile and user time zones are the client's city (e.g. Australia/Sydney, not Brisbane)
