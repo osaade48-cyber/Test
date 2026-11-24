@@ -1375,6 +1375,38 @@
     shots.forEach(function (sh) { so2.observe(sh); });
   }
 
+  /* ---------- Tabs (How it works) ---------- */
+  $$('[data-tabs]').forEach(function (box) {
+    var tabs = $$('[role="tab"]', box);
+    var show = function (tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tab.focus();
+      window.dispatchEvent(new Event('scroll'));
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { show(t); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (k) { e.preventDefault(); show(tabs[(i + k + tabs.length) % tabs.length], true); }
+      });
+    });
+    $$('[data-tab-go]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var t = document.getElementById('tab-' + b.dataset.tabGo);
+        if (!t) return;
+        show(t);
+        box.closest('section').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+    });
+    var m = location.hash.match(/^#tab-(\w+)/);
+    if (m && document.getElementById('tab-' + m[1])) show(document.getElementById('tab-' + m[1]));
+  });
+
   /* ---------- Pipeline (Get more jobs) ---------- */
   var pipes = $$('[data-pipe]');
   function drawPipes() {
