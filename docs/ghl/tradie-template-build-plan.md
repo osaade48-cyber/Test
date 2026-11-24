@@ -315,7 +315,7 @@ Use your own mobile as a test contact in **Tradie Template**:
 ---
 
 ## Per-client setup checklist (after the snapshot)
-- [ ] Create sub-account from the latest snapshot (latest version, currently `TradeBooked Tradie Setup v4`), time zone Australia/Sydney
+- [ ] Create sub-account from the latest snapshot (latest version, currently `TradeBooked Tradie Setup v7`), time zone Australia/Sydney
 - [ ] Add the owner (and you) as users; reassign the **Free site visit** calendar to the client's user
 - [ ] **Activate the Free site visit calendar** (snapshots bring calendars across as Inactive, so the booking link shows "Page Not Found") and re-set its hours to Mon–Sat 7am–4pm (they reset to weekdays 8–5)
 - [ ] Custom values come across **blank** from the snapshot: fill in every one
@@ -352,6 +352,9 @@ LeadConnector is GoHighLevel's free mobile app: the inbox, pipeline, contacts, c
 5. Set a temporary password, or send GoHighLevel's login invite.
 6. Reassign the **Free site visit** calendar to them if it isn't already.
 
+### 1b. Save the GHL number
+Have the client save their GHL number in their phone as "<Business> Leads". Owner alerts (new lead, reminders, bookings) come from it, so they're instantly recognisable and never mistaken for spam. Customer replies arrive as LeadConnector app notifications, not normal texts.
+
 ### 2. Text the client the setup steps
 Saved as the snippet **"TB – App setup"** in TradeBooked's own sub-account (create it once that account exists; until then copy from here).
 
@@ -373,4 +376,17 @@ Saved as the snippet **"TB – App setup"** in TradeBooked's own sub-account (cr
 Submit a test lead on their website during the call, so they see the notification arrive. Then delete the test contact.
 
 Notes: the app is free and shows LeadConnector branding (a white-label app with TradeBooked branding costs extra, so it's only worth it later). Password resets are on the app's login screen.
+
+---
+
+## v7 changes (current)
+
+- **Field keys** (Website Quote Form): Suburb = built-in City field `{{contact.city}}`; job details = custom field "What do you need done?" `{{contact.what_do_you_need_done}}`. There's no job type question yet.
+- **Opportunity name:** `{{contact.name}} – {{contact.city}}` (Workflows 1 and 3).
+- **Time window:** off in Workflows 1 and 3, so instant replies, booking confirmations and alerts send at any hour. Workflow 3 has a "Wait for Mon–Sat 7am–7pm window" step before the day-before reminder (T4). If a booking is less than a day away, T4 is skipped. Workflows 4 and 5 keep the workflow-wide Mon–Sat 7am–7pm window.
+- **Workflow 8 – Customer replied → Contacted:** trigger Customer Replied (any channel). Finds the contact's most recent Jobs opportunity and moves it from New lead to Contacted (no change if it's in a later stage). Re-entry off. Draft in the template; publish per client.
+- **Snippet "Book a site visit":** `Hi {{contact.first_name}}, here's a link to pick a time that suits you for a free site visit: {{custom_values.booking_link}} Cheers, {{custom_values.owner_first_name}}`
+- **Email senders:** customer emails use From = business name + business email; owner alerts use the account default sender. There's no Reply-to field in GoHighLevel.
+- **Reviews AI:** Suggestive (drafts replies for approval), not Auto.
+- **Before the client's own number is live**, owner alerts come from a shared GHL number. Never text real customers until the client's own number is bought.
 
