@@ -710,7 +710,7 @@
       });
     };
     var progress = function () {
-      var live = textFields.filter(function (el) { return !el.disabled; });
+      var live = textFields.filter(function (el) { return !el.disabled && !el.closest('[data-when][hidden]'); });
       var filled = live.filter(function (el) { return el.value.trim(); }).length;
       var pct = live.length ? Math.round(filled / live.length * 100) : 0;
       var bar = $('[data-ob-bar]'), num = $('[data-ob-pct]');
