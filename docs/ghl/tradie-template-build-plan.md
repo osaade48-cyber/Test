@@ -162,12 +162,51 @@ If the setting isn't available, build it as **Workflow 2** below instead (don't 
 
 ---
 
+## Part 7b: Email templates (added v5)
+
+Emails run alongside the texts. **Owner email alerts are permanent.** Customer emails cover the gap before a client's number is approved, and they back up the texts afterwards. Every email: From name `{{custom_values.business_name}}`, reply-to `{{custom_values.business_email}}`. GoHighLevel skips customer emails when the contact has no email address.
+
+**E1 – New lead reply (customer)**. Subject: `Thanks for getting in touch, {{contact.first_name}}`
+> Hi {{contact.first_name}},
+> Thanks for contacting {{custom_values.business_name}}. We've got your enquiry and {{custom_values.owner_first_name}} will call you back shortly (usually within a few hours during business hours).
+> If it's easier, you can book a free site visit here: {{custom_values.booking_link}}
+> Cheers, {{custom_values.owner_first_name}}
+> {{custom_values.business_name}} · {{custom_values.business_phone}} · {{custom_values.website_url}}
+
+**E3 – Site visit confirmed (customer)**. Subject: `Your free site visit is booked`
+> Hi {{contact.first_name}}, you're booked in for a free site visit with {{custom_values.business_name}} on {{appointment.start_time}}. If anything changes, reply to this email or call {{custom_values.business_phone}}. See you then!
+
+**E5 – Quote follow-up (customer, day 2)**. Subject: `Your quote from {{custom_values.business_name}}`
+> Hi {{contact.first_name}}, just checking you received your quote OK. Happy to answer any questions or walk through it on the phone: {{custom_values.business_phone}}. If you'd like to go ahead, just reply to this email and we'll lock in a start date. Cheers, {{custom_values.owner_first_name}}
+
+**E8 – Review request (customer)**. Subject: `Thanks for choosing {{custom_values.business_name}}`
+> Hi {{contact.first_name}}, thanks again for choosing {{custom_values.business_name}}. If you're happy with the job, a quick Google review would really help our small business. It takes 30 seconds: {{custom_values.review_link}} Cheers, {{custom_values.owner_first_name}}
+
+**EA – Owner alert: new lead** (to `{{custom_values.business_email}}`). Subject: `New enquiry: {{contact.name}}`
+> New enquiry from {{contact.name}}
+> Phone: {{contact.phone}}
+> Email: {{contact.email}}
+> Suburb: {{contact.suburb}}
+> Job: {{contact.job_details}}
+> Source: {{contact.lead_source}}
+> Call them back as soon as you can. Photos and full details are in GoHighLevel.
+
+**EB – Owner alert: site visit booked**. Subject: `Site visit booked: {{contact.name}}`
+> {{contact.name}} ({{contact.phone}}) booked a free site visit for {{appointment.start_time}} in {{contact.suburb}}.
+
+**EC – Owner alert: missed call**. Subject: `Missed call from {{contact.phone}}`
+> You missed a call from {{contact.phone}}. A text-back was sent automatically. Call them back when you can.
+
+**Where they go:** Workflow 1 → EA right after the trigger (before any SMS), and E1 after T1. Workflow 2 → EC. Workflow 3 → E3 after T3, EB with the owner text. Workflow 4 → E5 alongside T5. Workflow 5 → E8 alongside T8.
+
+---
+
 ## Part 8: Workflows (Automations)
 
 **Automations → Workflows → Create workflow → Start from scratch.** Build each one, then leave it as **Draft**.
 
 General settings on every workflow:
-- **Owner alerts:** every "internal notification" is an SMS sent to the number `{{custom_values.owner_mobile}}`, not to "Assigned owners". This works in every client account without user setup.
+- **Owner alerts:** every "internal notification" goes out twice: an SMS to `{{custom_values.owner_mobile}}` **and** an email to `{{custom_values.business_email}}` (Part 7b). Don't use "Assigned owners". This works in every client account without user setup, and the email works before the client's number is approved.
 - **Opportunity name:** set `{{contact.name}} – {{contact.job_type}}` inside the create-opportunity steps (there's no account-wide setting).
 - **Allow re-entry:** off (unless stated).
 - **Time window / quiet hours:** customer texts only send **Mon–Sat 7am–7pm** (Australia/Sydney). If a text would send outside that, wait until the window opens.
