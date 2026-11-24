@@ -276,7 +276,7 @@ Use your own mobile as a test contact in **Tradie Template**:
 ---
 
 ## Per-client setup checklist (after the snapshot)
-- [ ] Create sub-account from the latest snapshot (`TradeBooked Tradie Setup v2`), time zone Australia/Sydney
+- [ ] Create sub-account from the latest snapshot (latest version, currently `TradeBooked Tradie Setup v4`), time zone Australia/Sydney
 - [ ] Add the owner (and you) as users; reassign the **Free site visit** calendar to the client's user
 - [ ] **Activate the Free site visit calendar** (snapshots bring calendars across as Inactive, so the booking link shows "Page Not Found") and re-set its hours to Mon–Sat 7am–4pm (they reset to weekdays 8–5)
 - [ ] Custom values come across **blank** from the snapshot: fill in every one
@@ -285,9 +285,15 @@ Use your own mobile as a test contact in **Tradie Template**:
 - [ ] **Booking Link:** copy the client's own "Free site visit" calendar link into the Booking Link custom value (each account gets a new link)
 - [ ] Check Business Profile and user time zones are the client's city (e.g. Australia/Sydney, not Brisbane)
 - [ ] Workflow 1 trigger: limit to the client's website quote form (never the booking form)
-- [ ] Phone number: register and buy an AU mobile number (business verification), or set up call forwarding from their existing number
+- [ ] Phone number (start on day 1, approval takes 1–3 business days): Settings → Phone System → Regulatory Bundles
+  - First create an **Address Bundle** (business address), then a **Regulatory Bundle** (Australia → Business or Individual → **Mobile**) and select that address
+  - Documents: proof of name (ABN Lookup PDF, or driver's licence for Individual) and proof of address dated in the last 3 months (utility or phone bill, ATO notice, council rates, lease). The name and address must match exactly
+  - Once approved: Add Number → Australia → Mobile, friendly name "<Business> Main", forward to the owner's mobile
+  - Owner sets their mobile to forward **unanswered** calls to the GHL number (missed-call text-back)
+- [ ] Email: Settings → Email Services → **Dedicated domain** `mail.<clientdomain>`; add its DNS records in Cloudflare so follow-ups don't land in spam
 - [ ] Connect their calendar (Google/Outlook) to the user
-- [ ] Connect website quote form to GoHighLevel
+- [ ] Website Quote Form: check the file upload field (site photos) is there, set **On submit → Redirect to URL** `https://<clientdomain>/thanks` (Google Ads counts the lead on that page), then Integrate → embed on the client's contact page
+- [ ] Website is hosted on **Cloudflare Pages** (see `docs/hosting.md`), with a `/thanks` page set to noindex
 - [ ] Connect Google Business Profile (reviews) and Facebook page (leads/messages)
 - [ ] Add the client as a user (limited role) and get them on the mobile app
 - [ ] Turn on workflows 1–7 (publish), then send one test lead
