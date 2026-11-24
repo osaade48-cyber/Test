@@ -335,5 +335,42 @@ Use your own mobile as a test contact in **Tradie Template**:
 - [ ] Website Quote Form: check the file upload field (site photos) is there, set **On submit → Redirect to URL** `https://<clientdomain>/thanks` (Google Ads counts the lead on that page), then Integrate → embed on the client's contact page
 - [ ] Website is hosted on **Cloudflare Pages** (see `docs/hosting.md`), with a `/thanks` page set to noindex
 - [ ] Connect Google Business Profile (reviews) and Facebook page (leads/messages)
-- [ ] Add the client as a user (limited role) and get them on the mobile app
+- [ ] **Client app handover** (see "Client app setup" below): add them as a user, text them the app steps, do the 5-minute run-through, send a test lead together
 - [ ] Turn on workflows 1–7 (publish), then send one test lead
+
+---
+
+## Client app setup (LeadConnector)
+
+LeadConnector is GoHighLevel's free mobile app: the inbox, pipeline, contacts, calendar, notifications and reviews on the client's phone.
+
+### 1. Add the client as a user
+1. In the client's sub-account: **Settings → Team / Users → Add user**. Enter their name, email and mobile.
+2. **Role: User** (not Admin).
+3. Permissions **on**: Conversations, Contacts, Opportunities, Calendars. **Off**: Automations, Settings, Sites, Marketing.
+4. Turn on their notifications for new leads, new messages and new bookings.
+5. Set a temporary password, or send GoHighLevel's login invite.
+6. Reassign the **Free site visit** calendar to them if it isn't already.
+
+### 2. Text the client the setup steps
+Saved as the snippet **"TB – App setup"** in TradeBooked's own sub-account (create it once that account exists; until then copy from here).
+
+> G'day [Name], your new lead system is ready! Set up the app on your phone (2 mins):
+> 1. Download "LeadConnector" from the App Store or Google Play
+> 2. Log in with: [their email]
+>    Password: check the email from us, or use [temp password] and change it once you're in
+> 3. Allow notifications when it asks, so you're alerted to every new lead
+>
+> Let me know once you're in and I'll give you a quick 5-min run-through.
+
+### 3. Five-minute run-through (phone or screen share)
+1. **Conversations**: where customer replies land, and how to reply.
+2. **Opportunities**: drag a lead to **Site visit booked** after calling, **Quote sent** after quoting, **Job completed** when done (that sends the review request).
+3. **Calendar**: booked site visits.
+4. **Contact page**: job details and photos from the quote form.
+
+### 4. Test together
+Submit a test lead on their website during the call, so they see the notification arrive. Then delete the test contact.
+
+Notes: the app is free and shows LeadConnector branding (a white-label app with TradeBooked branding costs extra, so it's only worth it later). Password resets are on the app's login screen.
+
