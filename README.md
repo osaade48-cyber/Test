@@ -84,9 +84,8 @@ The often-quoted "85% never call back" and "80% won't leave a voicemail" figures
 
 ## Hosting
 
-Any static host works. Point it at the `site/` folder.
+TradeBooked hosts every site on **Cloudflare Pages** (free, unlimited traffic, auto-deploys from GitHub, DNS and email forwarding in one place). No Netlify.
 
-- **Netlify:** connect the repo. `netlify.toml` already sets the build command and folder. Pretty URLs (`/pricing` instead of `/pricing.html`) work automatically.
-- **Vercel / Cloudflare Pages:** build command `node build.js`, output directory `site`.
+- **Cloudflare Pages:** connect the repo, build command `node build.js`, output directory `site`. Pretty URLs and `404.html` work automatically.
 
-Then point tradebooked.com.au at the host in your domain registrar's DNS settings.
+Then add tradebooked.com.au to Cloudflare and switch the nameservers at the registrar, so Cloudflare runs DNS and email forwarding too.
