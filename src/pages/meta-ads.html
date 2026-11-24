@@ -82,14 +82,22 @@ nav: services
       <div class="section-head section-head--center">
         <h2 class="h-lg" id="get-title">What it costs</h2>
       </div>
-      <div class="bcards bcards--1">
+      <div class="bcards bcards--2">
         <article class="bcard">
-          <h3 class="bcard__name">Meta ads</h3>
-          <p class="bcard__line">Facebook and Instagram ads that bring in leads.</p>
-          <p class="bcard__price"><small>from </small>${{site.metaPrice}}<small> /month</small></p>
+          <h3 class="bcard__name">Starter</h3>
+          <p class="bcard__line">For tradies spending under ${{site.metaStarterMax}} a month on ads.</p>
+          <p class="bcard__price">${{site.metaStarter}}<small> /month</small></p>
           <p class="bcard__setup bcard__setup--tier">+ ${{site.metaSetup}} setup · 3-month minimum<br>+ ad spend paid to Meta (min ${{site.minAdSpend}}/day)</p>
-          <ul class="checks checks--sm"><li>Ad campaigns set up and managed</li><li>Ads written and designed from your job photos</li><li>Targeted to the suburbs you service</li><li>Lead forms built into Facebook and Instagram</li><li>Fresh ads every month</li><li>Weekly checks and a monthly report</li></ul>
-          <a class="btn btn--ghost" href="book.html?service=meta-ads" aria-label="Get started with Meta ads">Get started</a>
+          <ul class="checks checks--sm"><li>One campaign set up and managed</li><li>Ads written and designed from your job photos</li><li>Targeted to the suburbs you service</li><li>Lead forms built into Facebook and Instagram</li><li>Monthly report</li></ul>
+          <a class="btn btn--ghost" href="book.html?service=meta-ads" aria-label="Get started with Meta ads Starter">Get started</a>
+        </article>
+        <article class="bcard bcard--hot"><span class="bcard__badge">Most popular</span>
+          <h3 class="bcard__name">Standard</h3>
+          <p class="bcard__line">For ad spend of ${{site.metaStarterMax}} a month or more.</p>
+          <p class="bcard__price">${{site.metaPrice}}<small> /month</small></p>
+          <p class="bcard__setup bcard__setup--tier">+ ${{site.metaSetup}} setup · 3-month minimum<br>+ ad spend paid to Meta</p>
+          <ul class="checks checks--sm"><li>Everything in Starter</li><li>More campaigns and suburbs covered</li><li>Fresh ads every month</li><li>Weekly checks to lower your cost per lead</li></ul>
+          <a class="btn btn--primary" href="book.html?service=meta-ads" aria-label="Get started with Meta ads Standard">Get started</a>
         </article>
       </div>
       <p class="plans-note">Or get it in <a href="bundles.html#growth">Growth</a> (save {{site.boSavePct}}%). Prices in AUD. <span class="ph">GST inc. or ex.? Confirm</span></p>

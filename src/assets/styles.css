@@ -2252,3 +2252,5 @@ a, button, .btn, summary, label, input[type="checkbox"], input[type="radio"] { t
 .hiw-proof__shot img { display: block; width: 100%; height: 460px; object-fit: cover; object-position: top; }
 @media (max-width: 600px) { .hiw-proof__shot, .hiw-proof__shot img { max-height: 320px; height: 320px; } }
 @media (max-width: 900px) { .hiw-proof { grid-template-columns: minmax(0, 1fr); } }
+.bcard__alt { margin: -2px 0 6px; padding: 8px 12px; border-radius: 10px; background: var(--orange-soft); color: var(--orange-deep); font-size: 13.5px; line-height: 1.4; }
+.bcard__alt b { color: var(--orange-deep); }
