@@ -67,64 +67,30 @@
 <section class="contact-main">
   <div class="wrap contact-layout">
     <div class="form-panel" id="quote">
-      <div class="form-panel__head"><h2>Request a free quote</h2><span>* Required</span></div>
-      <form name="quote" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="company-website" enctype="multipart/form-data">
-        <input type="hidden" name="form-name" value="quote">
-        <p class="hidden"><label>Leave this empty: <input name="company-website"></label></p>
-
-        <div class="form-step"><span class="form-step__num">1</span><h3>Your details</h3></div>
-        <div class="form-grid">
-          <div class="field"><label for="name">Name *</label><input id="name" name="name" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
-          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label for="suburb">Suburb / job location</label><input id="suburb" name="suburb" type="text" autocomplete="address-level2"></div>
-        </div>
-
-        <div class="form-step"><span class="form-step__num">2</span><h3>The job</h3></div>
-        <div class="form-grid">
-          <div class="field field--full">
-            <label for="service">Service needed</label>
-            <select id="service" name="service">
-              <option value="">Select a service</option>
-              <option value="Excavation">Excavation</option>
-              <option value="Earthmoving">Earthmoving</option>
-              <option value="Trenching">Trenching</option>
-              <option value="Drainage">Drainage</option>
-              <option value="Site Preparation">Site Preparation</option>
-              <option value="Demolition &amp; Removal">Demolition &amp; Removal</option>
-              <option value="Footings &amp; Foundations">Footings &amp; Foundations</option>
-              <option value="Landscaping Prep">Landscaping Prep</option>
-              <option value="Clean-Up &amp; Material Removal">Clean-Up &amp; Material Removal</option>
-              <option value="Other / Not sure">Other / Not sure</option>
-            </select>
-          </div>
-          <fieldset class="field field--full chip-select">
-            <legend>Narrowest access width</legend>
-            <label><input type="radio" name="access" value="Under 1m"><span>Under 1m</span></label>
-            <label><input type="radio" name="access" value="1–1.5m"><span>1–1.5m</span></label>
-            <label><input type="radio" name="access" value="1.5–2.5m"><span>1.5–2.5m</span></label>
-            <label><input type="radio" name="access" value="Over 2.5m / open site"><span>Over 2.5m / open</span></label>
-            <label><input type="radio" name="access" value="Not sure"><span>Not sure</span></label>
-          </fieldset>
-          <fieldset class="field field--full chip-select">
-            <legend>When do you need it done?</legend>
-            <label><input type="radio" name="timeframe" value="ASAP"><span>ASAP</span></label>
-            <label><input type="radio" name="timeframe" value="Within a month"><span>Within a month</span></label>
-            <label><input type="radio" name="timeframe" value="1–3 months"><span>1–3 months</span></label>
-            <label><input type="radio" name="timeframe" value="Just planning"><span>Just planning</span></label>
-          </fieldset>
-          <div class="field field--full"><label for="message">Project details *</label><textarea id="message" name="message" placeholder="Briefly describe the work, approximate size, access and anything else we should know." required></textarea></div>
-        </div>
-
-        <div class="form-step"><span class="form-step__num">3</span><h3>Photos <em>(optional)</em></h3></div>
-        <label class="file-drop" for="photos"><svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span><strong id="photos-label">Add site photos</strong><small>JPG or PNG, up to 8MB total. Photos of the access and work area help most.</small></span>
-          <input id="photos" name="photos" type="file" accept="image/*" multiple></label>
-
-        <div class="form-foot">
-          <p>We’ll only use your details to reply to this enquiry.</p>
-          <button class="btn btn--solid" type="submit">Send enquiry <svg class="ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
-      </form>
+      <div class="form-panel__head"><h2>Request a free quote</h2><span>Takes 1 minute</span></div>
+      <div class="ghl-form">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/GQYzi3znjjjFELW0YJLu"
+          style="width:100%;height:1101px;border:none;border-radius:8px"
+          id="inline-GQYzi3znjjjFELW0YJLu"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Website Quote Form"
+          data-height="1101"
+          data-layout-iframe-id="inline-GQYzi3znjjjFELW0YJLu"
+          data-form-id="GQYzi3znjjjFELW0YJLu"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Website Quote Form"
+        ></iframe>
+        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        <noscript><p>Our quote form needs JavaScript. Please call <a href="tel:0417117744">0417 117 744</a> or email <a href="mailto:info@averaearthworx.com.au">info@averaearthworx.com.au</a>.</p></noscript>
+      </div>
     </div>
 
     <aside class="contact-aside">
