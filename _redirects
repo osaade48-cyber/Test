@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects: keep old Shopify links working
+/pages/services  /services  301
+/pages/about     /about     301
+/pages/contact   /contact   301
+/pages/projects  /services  301
+/collections/*   /          301
+/products/*      /          301
