@@ -329,6 +329,20 @@ robotsMeta: <meta name="robots" content="noindex, nofollow">
               <label><input type="radio" name="booking_mode" value="Not sure"><span>Not sure, let's discuss</span></label>
             </div>
           </fieldset>
+          <fieldset class="field" data-for="ai-receptionist ai-lead-caller ai-chatbot crm">
+            <legend>When can customers book a free site visit or quote? <span class="opt">(tick all that suit)</span></legend>
+            <p class="ob-hint">Customers only see these times in your booking link. Most tradies quote after work, so we start with weekday afternoons. You can change it any time.</p>
+            <div class="chips">
+              <label><input type="checkbox" name="visit_times" value="Weekday afternoons 3:30-5pm" checked><span>Weekday afternoons, 3:30–5pm</span></label>
+              <label><input type="checkbox" name="visit_times" value="Saturday mornings 7am-12pm"><span>Saturday mornings, 7am–12pm</span></label>
+              <label><input type="checkbox" name="visit_times" value="Weekday mornings before work"><span>Weekday mornings, before work</span></label>
+              <label><input type="checkbox" name="visit_times" value="Lunchtime"><span>Lunchtime</span></label>
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label for="o-visit-notes">Anything else about timing? <span class="opt">(optional)</span></label>
+              <input id="o-visit-notes" name="visit_notes" type="text" placeholder="e.g. max 2 visits a day, no Fridays, later in summer">
+            </div>
+          </fieldset>
           <fieldset class="field" data-for="ai-receptionist ai-lead-caller crm">
             <legend>What do you use for your calendar or jobs?</legend>
             <div class="chips">
