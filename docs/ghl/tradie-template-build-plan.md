@@ -332,6 +332,7 @@ Use your own mobile as a test contact in **Tradie Template**:
   - Owner sets their mobile to forward **unanswered** calls to the GHL number (missed-call text-back)
 - [ ] Email: Settings → Email Services → **Dedicated domain** `mail.<clientdomain>`; add its DNS records in Cloudflare so follow-ups don't land in spam
 - [ ] Connect their calendar (Google/Outlook) to the user
+- [ ] **Trade-specific question** on the client's Website Quote Form, saved to a custom field and added to the "New enquiry" alert (e.g. access width for excavation, roof height or storeys for roofers, square metres for concreters, number of rooms for painters). Don't ask it again on the booking form
 - [ ] Website Quote Form: check the file upload field (site photos) is there, set **On submit → Redirect to URL** `https://<clientdomain>/thanks` (Google Ads counts the lead on that page), then Integrate → embed on the client's contact page
 - [ ] Website is hosted on **Cloudflare Pages** (see `docs/hosting.md`), with a `/thanks` page set to noindex
 - [ ] Connect Google Business Profile (reviews) and Facebook page (leads/messages)
