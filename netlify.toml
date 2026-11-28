@@ -28,6 +28,13 @@
   to = "/"
   status = 301
 
+# Short booking link (used in texts) -> GoHighLevel "Free site visit" calendar
+[[redirects]]
+  from = "/book"
+  to = "https://api.leadconnectorhq.com/widget/booking/ZTe5bE2GV9krDfT3Qnct"
+  status = 302
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
